@@ -3,6 +3,7 @@ package json;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
+import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.pipelines.Pipeline;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
@@ -25,6 +26,7 @@ public class GsonFactory{
 			gbuilder.setPrettyPrinting();
 		}
 		
+		gbuilder.registerTypeAdapter(Query.class, new QueryAdapter());
 		gbuilder.registerTypeAdapter(PipelineSet.class, new PipelineSetAdapter());
 		gbuilder.registerTypeAdapter(Pipeline.class, new PipelineAdapter());
 		

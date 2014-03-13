@@ -43,6 +43,12 @@ public class Tester {
 		PipelineSet pset = gson.fromJson(setjson, PipelineSet.class);
 		System.out.println(pset.size());
 		
+		String jquery = gson.toJson(query);
+		System.out.println(jquery); 
+		
+		Query q2 = gson.fromJson(jquery, Query.class);
+		
+		System.out.println(q2.getViewerSetURI());
 		
 	}
 	
