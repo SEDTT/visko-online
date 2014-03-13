@@ -1,4 +1,7 @@
 3/13/2014 Marianna Pena
+Uploaded SelectOpeation to github and server
+
+3/13/2014 Marianna Pena
 Uploaded EditPipelineParameters and ViewResult to github
 
 3/12/2014 Alex Knaust
