@@ -2,10 +2,11 @@
 /**
  * @author awknaust
  */
+require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
 require_once 'ViskoPipeline.php';
 
-class ViskoPipelineSet implements JsonDeserializable{
+class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	private $artifactURL;
 	private $pipelines;
 
@@ -20,6 +21,10 @@ class ViskoPipelineSet implements JsonDeserializable{
 			$pipe->fromJson($jsonpipe);
 			array_push($this->pipelines, $pipe);
 		}
+	}
+	
+	public function toJson(){
+		return "";
 	}
 
 	/**
