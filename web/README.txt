@@ -1,5 +1,10 @@
+3/13/2014 Marianna Pena
+Uploaded EditPipelineParameters and ViewResult to github
+
 3/12/2014 Alex Knaust
 Uploaded to github
+
+--------------------------------------------------------------------------------------
 
 3:44 PM 2/28/2014 Eduardo Corral v1.1
 * Changed the adminRegister.php, the fg_membersite.php inside the 'include' folder.
