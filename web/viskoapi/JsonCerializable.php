@@ -4,7 +4,7 @@
  * @author awknaust
  *
  */
-interface JsonSerializable{
+interface JsonCerializable{
 
 	/**
 	 * Convert this Object to its JSON representation

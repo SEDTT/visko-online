@@ -4,11 +4,14 @@
  * A dummy driver for getting pipeline data.
  */
 require_once 'ViskoPipelineSet.php';
+require_once 'ViskoQuery.php';
+require_once 'JsonTransformer.php';
 
 $pset =  new ViskoPipelineSet;
 //echo file_get_contents('serialized_pipelineset.json');
 
-$pset->fromJson(json_decode(file_get_contents('serialized_pipelineset.json')));
+$jt = new JsonTransformer();
+$pset->fromJson($jt->decode(file_get_contents('serialized_pipelineset.json')));
 $pipelines = $pset->getPipelines();
 
 echo "I have ". count($pipelines) . " Pipelines <br>";
@@ -30,4 +33,8 @@ $groups = $pset->groupPipelinesByToolkit();
 foreach($groups as $toolkit => $pipelines){
 	echo $toolkit . " (" . count($pipelines). ") <br>";
 }
+
+$vq = new ViskoQuery("SELECT * FROM BANAS WHERE 3 = 4");
+echo $vq->toJson();
+
 ?>
