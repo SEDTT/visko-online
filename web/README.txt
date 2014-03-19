@@ -1,5 +1,5 @@
 3/19/2014 Marianna Pena
-Uploaded EditTransformer  and EditViewer to github and server.
+Uploaded EditTransformer, EditViewer, EditViewerSet to github and server.
 
 3/18/2014 Janelle Ybarra
 Uploaded ConfigureAccountRegularUser to github and server. 
