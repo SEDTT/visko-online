@@ -228,7 +228,7 @@
 	</div>
 	</body>
 	
-<div id = "nav_table" style="position: fixed; left:0px; right: 31px; top: 120px; bottom: auto; display: block">
+<div id="nav_table" style="position: fixed; left:0px; right: 31px; top: 120px; bottom: auto; display: block">
     <ul id="sidebar-nav" class="Menu">
 <body>
 	<br>
@@ -246,14 +246,13 @@
 		  <td><center><br><a href="./ChooseQueryStyle.php" style="text-decoration:none;"><font size="5" color="black">Visualize</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="./ManageServices.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
+		  <td><center><br><a href="./SelectOperation.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="./ConfigureAccount.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
+		  <td><center><br><a href="./ConfigureAccountRegularUser.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
 		</tr>
 	</table>
     </ul>
 </div>
 </body>
 </html>
-

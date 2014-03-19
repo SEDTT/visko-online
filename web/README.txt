@@ -1,3 +1,7 @@
+3/19/2014 Eduardo Corral
+re-named some of the side menu to go to the local php file.
+from "http://.../file.php" TO "./file.php"
+
 3/19/2014 Marianna Pena
 Uploaded EditTransformer, EditViewer, EditViewerSet, EditFilter to github and server.
 

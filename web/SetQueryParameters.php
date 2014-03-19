@@ -188,19 +188,19 @@
 		  <td><center></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="http://cs4311.cs.utep.edu/team3/RegularUserHome.php" style="text-decoration:none;"><font size="5" color="black">Home</font></a><br><br></td>
+		  <td><center><br><a href="./RegularUserHome.php" style="text-decoration:none;"><font size="5" color="black">Home</font></a><br><br></td>
+		</tr>                      
+		<tr>                       
+		  <td><center><br><a href="./SpecifyCriteria.php" style="text-decoration:none;"><font size="5" color="black">Search <br> History</font></a><br><br></td>
+		</tr>                      
+		<tr>                       
+		  <td><center><br><a href="./ChooseQueryStyle.php" style="text-decoration:none;"><font size="5" color="black">Visualize</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="http://cs4311.cs.utep.edu/team3/SpecifyCriteria.php" style="text-decoration:none;"><font size="5" color="black">Search <br> History</font></a><br><br></td>
+		  <td><center><br><a href="./SelectOperation.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="http://cs4311.cs.utep.edu/team3/ChooseQueryStyle.php" style="text-decoration:none;"><font size="5" color="black">Visualize</font></a><br><br></td>
-		</tr>
-		<tr>
-		  <td><center><br><a href="http://cs4311.cs.utep.edu/team3/SelectOperation.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
-		</tr>
-		<tr>
-		  <td><center><br><a href="http://cs4311.cs.utep.edu/team3/ConfigureAccount.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
+		  <td><center><br><a href="./ConfigureAccountRegularUser.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
 		</tr>
 	</table>
     </ul>

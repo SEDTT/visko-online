@@ -15,7 +15,7 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<link rel="shortcut icon" href="http://cs4311.cs.utep.edu/team3/images/logo.png">
+<link rel="shortcut icon" href="./images/logo.png">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<title>Team 3</title>
@@ -56,23 +56,23 @@
 		<br>
 		<br>
 		<br>
-        <a href="http://cs4311.cs.utep.edu/team3/RegularUserHome.php" style="text-decoration:none;"><font size="5" color="black">Home</font></a>
+        <a href="./RegularUserHome.php" style="text-decoration:none;"><font size="5" color="black">Home</font></a>
 		<br>
 		<br>
 		<br>
-		<a href="http://cs4311.cs.utep.edu/team3/SearchHistory.php" style="text-decoration:none;"><font size="5" color="black">Search <br> History</font></a>
+		<a href="./SearchHistory.php" style="text-decoration:none;"><font size="5" color="black">Search <br> History</font></a>
 		<br>
 		<br>
 		<br>
-		<a href="http://cs4311.cs.utep.edu/team3/Visualize.php" style="text-decoration:none;"><font size="5" color="black">Visualize</font></a>
+		<a href="./Visualize.php" style="text-decoration:none;"><font size="5" color="black">Visualize</font></a>
 		<br>
 		<br>
 		<br>
-		<a href="http://cs4311.cs.utep.edu/team3/ManageServices.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a>
+		<a href="./ManageServices.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a>
 		<br>
 		<br>
 		<br>
-		<a href="http://cs4311.cs.utep.edu/team3/ConfigureAccount.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a>	
+		<a href="./ConfigureAccountRegularUser.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a>	
     </ul>
 </div>
 </body>
