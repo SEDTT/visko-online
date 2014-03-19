@@ -1,3 +1,8 @@
+3/18/2014 Janelle Ybarra
+Uploaded ConfigureAccountRegularUser to github and server. 
+We may need to change some navigation. 
+Orginally the file was named ConfigureAccount
+
 3/17/2014 Marianna Pena
 Uploaded EditConverter to github and server
 
