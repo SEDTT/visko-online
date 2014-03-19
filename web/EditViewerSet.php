@@ -59,7 +59,7 @@
 						<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 						<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js">
 						</script> <link rel="stylesheet" href="/resources/demos/style.css">
-						<script> $(function() { $( "#operation" ).menu(); $( "#supported_abstraction" ).menu(); $( "#input_format" ).menu(); $( "#output_format" ).menu(); $( "#input_data_type" ).menu(); $( "#output_data_type" ).menu(); $( "#toolkit" ).menu(); }); 
+						<script> $(function() { $( "#toolkit" ).menu(); }); 
 						</script> 
 						<style> .ui-menu { width: 150px;}
 						</style> 
