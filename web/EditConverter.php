@@ -75,7 +75,7 @@
 										<li><a href="#">Operation 4</a></li>
 										<li><a href="#">Operation 5</a></li>
 										<li><a href="#">Operation 6</a></li>
-										<li><a href="#">Operation 7</a></li>
+										<li><a id="last" href="#">Operation 7</a></li>
 									</ul>
 							</div>
 							<br>
@@ -93,7 +93,7 @@
 										<li><a href="#">Format 4</a></li>
 										<li><a href="#">Format 5</a></li>
 										<li><a href="#">Format 6</a></li>
-										<li><a href="#">Format 7</a></li>
+										<li><a id="last" href="#">Format 7</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -111,7 +111,7 @@
 										<li><a href="#">Format 4</a></li>
 										<li><a href="#">Format 5</a></li>
 										<li><a href="#">Format 6</a></li>
-										<li><a href="#">Format 7</a></li>
+										<li><a id="last" href="#">Format 7</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -129,7 +129,7 @@
 										<li><a href="#">Toolkit 4</a></li>
 										<li><a href="#">Toolkit 5</a></li>
 										<li><a href="#">Toolkit 6</a></li>
-										<li><a href="#">Toolkit 7</a></li>
+										<li><a id="last" href="#">Toolkit 7</a></li>
 									</ul>
 								</div>				
 							<br><br>
@@ -143,8 +143,6 @@
 		<br><br><br>
 		<footer>&copy; Developmental Technologies Team. All Rights Reserved</footer>
 	</div>
-
-	
 	
 <div id="nav_table" style="position: fixed; left:0px; right: 31px; top: 120px; bottom: auto; display: block">
     <ul id="sidebar-nav" class="Menu">

@@ -1,5 +1,8 @@
+
 3/20/2014 Eduardo Corral
 Changed styleDrop.css and EditTransformer.php files
+added an 'id' to the last of the options of the dropdown menus in all of the files that start with "EDIT".
+changed that the logo redirects to the index page
 
 3/20/2014 Marianna Pena
 Fixed Dropdown from SetQueryParameters, SelectOperation, EditMapper, EditConverter, EditViewer, EditViewerSet, and EditFilter.
