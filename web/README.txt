@@ -1,3 +1,7 @@
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+
 3/20/2014 Eduardo Corral
 Changed styleDrop.css and EditTransformer.php files
 
