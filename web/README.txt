@@ -1,3 +1,7 @@
+3/20/2014 Marianna Pena
+Fixed Dropdown from SetQueryParameters.php
+Added styleDrop.css and dropdown.js
+
 3/19/2014 Eduardo Corral
 re-named some of the side menu to go to the local php file.
 from "http://.../file.php" TO "./file.php"

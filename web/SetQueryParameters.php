@@ -53,16 +53,9 @@
 						<br><br>
 						<!--here starts-->
 						<head> 
-						<meta charset="utf-8"> 
-						<title>jQuery UI Menu - Default functionality</title> 
-						<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-						<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-						<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js">
-						</script> <link rel="stylesheet" href="/resources/demos/style.css">
-						<script> $(function() { $( "#Viewer_set" ).menu(); $( "#Inputdata_format" ).menu(); $( "#Inputdata_type" ).menu(); $( "#Inputdata_URL" ).menu(); }); 
-						</script> 
-						<style> .ui-menu { width: 150px; }
-						</style> 
+						<link rel="stylesheet" href="css/styleDrop.css">
+						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+						<script type="text/javascript" src="scripts/dropdown.js"></script>
 						</head> 
 						
 
@@ -87,7 +80,14 @@
 						<table style="width:100%">
 						<tr>
 							<td>
-									<font size="2" color="black">Viewer Set</font>
+									<div id="dd" class="wrapper-dropdown-1" style = "width:400px;">
+									<span>Viewer Set</span>
+									<ul class="dropdown">
+										<li><a href="#">Web Browser</a></li>
+										<li><a href="#">Viewer Set 2</a></li>
+									</ul>
+									</div>
+									<!--<font size="2" color="black">Viewer Set</font>
 									<ul id="Viewer_set" style = "width:400px; height:20px"> 
 									<li> 
 									<a href="#">Web Browser</a> 
@@ -97,7 +97,7 @@
 									</li> 
 									</ul> 
 									</li> 
-									</ul> 
+									</ul> -->
 									<br>
 							</td>
 							<td style="width:20px"></td>
@@ -107,7 +107,14 @@
 						</tr>
 						<tr>
 							<td>
-									<font size="2" color="black">Input Data Format</font>
+									<div id="dd2" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
+									<span>Input Data Format</span>
+									<ul class="dropdown">
+										<li><a href="#">TIFF</a></li>
+										<li><a href="#">Input Data Format 2</a></li>
+									</ul>
+									</div>
+									<!--<font size="2" color="black">Input Data Format</font>
 									<ul id="Inputdata_format" style = "width:400px; height:20px"> 
 									<li> 
 									<a href="#">TIFF</a> 
@@ -117,7 +124,7 @@
 									</li> 
 									</ul> 
 									</li> 
-									</ul> 
+									</ul> -->
 									<br>
 							</td>
 							<td></td>
@@ -127,7 +134,14 @@
 						</tr>
 						<tr>
 							<td>
-									<font size="2" color="black">Input Data Type</font>
+									<div id="dd3" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
+									<span>Input Data Type</span>
+									<ul class="dropdown">
+										<li><a href="#">VTKPolyData</a></li>
+										<li><a href="#">Input Data Type 2</a></li>
+									</ul>
+									</div>
+									<!--<font size="2" color="black">Input Data Type</font>
 									<ul id="Inputdata_type" style = "width:400px; height:20px"> 
 									<li> 
 									<a href="#">VTKPolyData</a> 
@@ -137,7 +151,7 @@
 									</li> 
 									</ul> 
 									</li> 
-									</ul> 
+									</ul> -->
 									<br>
 							</td>
 							<td></td>
@@ -147,7 +161,14 @@
 						</tr>
 						<tr>
 							<td>
-									<font size="2" color="black">Input Data URL</font>
+									<div id="dd4" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
+									<span>Input Data URL</span>
+									<ul class="dropdown">
+										<li><a href="#">Input Data URL</a></li>
+										<li><a href="#">Input Data URL 2</a></li>
+									</ul>
+									</div>
+									<!--<font size="2" color="black">Input Data URL</font>
 									<ul id="Inputdata_URL" style = "width:400px; height:20px"> 
 									<li> 
 									<a href="#">Input data URL 1</a> 
@@ -157,7 +178,7 @@
 									</li> 
 									</ul> 
 									</li> 
-									</ul> 
+									</ul> -->
 									<br>
 							</td>
 							<td></td>
@@ -166,7 +187,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td><center><button type="button">Submit</button></td>
+							<td><center><button type="button" style= "background-color:#d9d9d9; width: 75px">Submit</button></td>
 						</tr>
 						</table>
 						</body>
