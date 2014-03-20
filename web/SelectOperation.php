@@ -71,7 +71,7 @@
 									</ul>
 						
 						</div>
-						<br>
+						<br><br>
 
 						<center><button type="button" style= "background-color:#d9d9d9; width: 75px">Add</button></center>
 						
