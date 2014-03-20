@@ -292,7 +292,7 @@
 		  <td><center><br><a href="./SelectOperation.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="./ConfigureAccount.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
+		  <td><center><br><a href="./ConfigureAccountRegularUser.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
 		</tr>
 	</table>
     </ul>
