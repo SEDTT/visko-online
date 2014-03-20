@@ -79,7 +79,7 @@
 						
 						<table style="width:100%">
 						<tr>
-							<td>
+							<td style = "height:50px">
 									<div id="dd" class="wrapper-dropdown-1" style = "width:400px;">
 									<span>Viewer Set</span>
 									<ul class="dropdown">
@@ -98,7 +98,6 @@
 									</ul> 
 									</li> 
 									</ul> -->
-									<br>
 							</td>
 							<td style="width:20px"></td>
 							<td>
@@ -106,7 +105,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td style = "height:50px">
 									<div id="dd2" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
 									<span>Input Data Format</span>
 									<ul class="dropdown">
@@ -125,7 +124,6 @@
 									</ul> 
 									</li> 
 									</ul> -->
-									<br>
 							</td>
 							<td></td>
 							<td>
@@ -133,7 +131,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td style = "height:50px">
 									<div id="dd3" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
 									<span>Input Data Type</span>
 									<ul class="dropdown">
@@ -152,7 +150,6 @@
 									</ul> 
 									</li> 
 									</ul> -->
-									<br>
 							</td>
 							<td></td>
 							<td>
@@ -160,7 +157,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td style = "height:50px">
 									<div id="dd4" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
 									<span>Input Data URL</span>
 									<ul class="dropdown">
@@ -179,7 +176,6 @@
 									</ul> 
 									</li> 
 									</ul> -->
-									<br>
 							</td>
 							<td></td>
 							<td>

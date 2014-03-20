@@ -53,45 +53,27 @@
 						<br><br>
 						<!--here starts-->
 						<head> 
-						<meta charset="utf-8"> 
-						<title>jQuery UI Menu - Default functionality</title> 
-						<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-						<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-						<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js">
-						</script> <link rel="stylesheet" href="/resources/demos/style.css">
-						<script> $(function() { $( "#service_type" ).menu(); $( "#viewer_set" ).menu(); $( "#viewer" ).menu(); $( "#filter" ).menu(); $( "#transformer" ).menu(); $( "#converter" ).menu(); $( "#mapper" ).menu(); }); 
-						</script> 
-						<style> .ui-menu { width: 150px; float: right;}
-						</style> 
+						<link rel="stylesheet" href="css/styleDrop.css">
+						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+						<script type="text/javascript" src="scripts/dropdown.js"></script>
 						</head>
 						<!--ends here-->
 						
+						<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
+									<span>Service Type</span>
+									<ul class="dropdown">
+										<li><a href="#">Viewer Set</a></li>
+										<li><a href="#">Viewer</a></li>
+										<li><a href="#">Filter</a></li>
+										<li><a href="#">Transformer</a></li>
+										<li><a href="#">Converter</a></li>
+										<li><a href="#">Mapper</a></li>
+									</ul>
 						
-						<font size="2" color="black">Service Type</font>
-						<ul id="service_type" style = "width:100%; height:20px"> 
-							<li> 
-								<a href="#">Viewer Set</a> 
-								<ul> 
-									<li>
-									<a href="#">Viewer</a>
-									</li> 
-									<li>
-									<a href="#">Filter</a>
-									</li> 
-									<li>
-									<a href="#">Transformer</a>
-									</li> 
-									<li>
-									<a href="#">Converter</a>
-									</li> 
-									<li>
-									<a href="#">Mapper</a>
-									</li> 
-								</ul> 
-							</li> 
-						</ul> 
-						<br><br><br><br>
-						<center><button type="button">Add</button></center>
+						</div>
+						<br>
+
+						<center><button type="button" style= "background-color:#d9d9d9; width: 75px">Add</button></center>
 						
 						<br>
 						<hr>
@@ -99,166 +81,93 @@
 						
 						<font size="5" color="black">Edit / Delete Service</font><br><br>
 						
+
 						<form action="">
-							<font size="2" color="black">&emsp;&emsp;&emsp;Viewer Sets</font><br>
-							<input type="radio" name="service" value="viewer_sets">
-								<ul id="viewer_set" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Viewer Set 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Viewer Set 2</a>
-											</li> 
-											<li>
-											<a href="#">Viewer Set 3</a>
-											</li> 
-											<li>
-											<a href="#">Viewer Set 4</a>
-											</li> 
-											<li>
-											<a href="#">Viewer Set 5</a>
-											</li> 
-											<li>
-											<a href="#">Viewer Set 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
+								<input type="radio" name="service" value="viewer_sets">
+								<div id="dd2" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Viewer Set</span>
+									<ul class="dropdown">
+										<li><a href="#">Viewer Set 1</a></li>
+										<li><a href="#">Viewer Set 2</a></li>
+										<li><a href="#">Viewer Set 3</a></li>
+										<li><a href="#">Viewer Set 4</a></li>
+										<li><a href="#">Viewer Set 5</a></li>
+										<li><a href="#">Viewer Set 6</a></li>
+									</ul>
+								</div>
+								<br><br>
 	
-
-								<font size="2" color="black">&emsp;&emsp;&emsp;Viewers</font><br>
 								<input type="radio" name="service" value="viewers">
-								<ul id="viewer" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Viewer 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Viewer 2</a>
-											</li> 
-											<li>
-											<a href="#">Viewer 3</a>
-											</li> 
-											<li>
-											<a href="#">Viewer 4</a>
-											</li> 
-											<li>
-											<a href="#">Viewer 5</a>
-											</li> 
-											<li>
-											<a href="#">Viewer 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
-
-
-								<font size="2" color="black">&emsp;&emsp;&emsp;Filters</font><br>
+								<div id="dd3" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Viewer</span>
+									<ul class="dropdown">
+										<li><a href="#">Viewer 1</a></li>
+										<li><a href="#">Viewer 2</a></li>
+										<li><a href="#">Viewer 3</a></li>
+										<li><a href="#">Viewer 4</a></li>
+										<li><a href="#">Viewer 5</a></li>
+										<li><a href="#">Viewer 6</a></li>
+									</ul>
+								</div>
+								<br><br>
+								
 								<input type="radio" name="service" value="filters">
-								<ul id="filter" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Filter 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Filter 2</a>
-											</li> 
-											<li>
-											<a href="#">Filter 3</a>
-											</li> 
-											<li>
-											<a href="#">Filter 4</a>
-											</li> 
-											<li>
-											<a href="#">Filter 5</a>
-											</li> 
-											<li>
-											<a href="#">Filter 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
-	
-								<font size="2" color="black">&emsp;&emsp;&emsp;Transformers</font><br>
+								<div id="dd4" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Filter</span>
+									<ul class="dropdown">
+										<li><a href="#">Filter 1</a></li>
+										<li><a href="#">Filter 2</a></li>
+										<li><a href="#">Filter 3</a></li>
+										<li><a href="#">Filter 4</a></li>
+										<li><a href="#">Filter 5</a></li>
+										<li><a href="#">Filter 6</a></li>
+									</ul>
+								</div>
+								<br><br>
+
 								<input type="radio" name="service" value="transformers">
-								<ul id="transformer" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Transformer 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Transformer 2</a>
-											</li> 
-											<li>
-											<a href="#">Transformer 3</a>
-											</li> 
-											<li>
-											<a href="#">Transformer 4</a>
-											</li> 
-											<li>
-											<a href="#">Transformer 5</a>
-											</li> 
-											<li>
-											<a href="#">Transformer 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
+								<div id="dd5" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Transformer</span>
+									<ul class="dropdown">
+										<li><a href="#">Transformer 1</a></li>
+										<li><a href="#">Transformer 2</a></li>
+										<li><a href="#">Transformer 3</a></li>
+										<li><a href="#">Transformer 4</a></li>
+										<li><a href="#">Transformer 5</a></li>
+										<li><a href="#">Transformer 6</a></li>
+									</ul>
+								</div>
+								<br><br>
 								
-								<font size="2" color="black">&emsp;&emsp;&emsp;Converters</font><br>
 								<input type="radio" name="service" value="converters">
-								<ul id="converter" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Converter 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Converter 2</a>
-											</li> 
-											<li>
-											<a href="#">Converter 3</a>
-											</li> 
-											<li>
-											<a href="#">Converter 4</a>
-											</li> 
-											<li>
-											<a href="#">Converter 5</a>
-											</li> 
-											<li>
-											<a href="#">Converter 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
-								
-								<font size="2" color="black">&emsp;&emsp;&emsp;Mappers</font><br>
+								<div id="dd6" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Converter</span>
+									<ul class="dropdown">
+										<li><a href="#">Converter 1</a></li>
+										<li><a href="#">Converter 2</a></li>
+										<li><a href="#">Converter 3</a></li>
+										<li><a href="#">Converter 4</a></li>
+										<li><a href="#">Converter 5</a></li>
+										<li><a href="#">Converter 6</a></li>
+									</ul>
+								</div>
+								<br><br>
+
 								<input type="radio" name="service" value="mappers">
-								<ul id="mapper" style = "width:95%; height:20px"> 
-									<li> 
-										<a href="#">Mapper 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Mapper 2</a>
-											</li> 
-											<li>
-											<a href="#">Mapper 3</a>
-											</li> 
-											<li>
-											<a href="#">Mapper 4</a>
-											</li> 
-											<li>
-											<a href="#">Mapper 5</a>
-											</li> 
-											<li>
-											<a href="#">Mapper 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-								<br><br><br>
+								<div id="dd7" class="wrapper-dropdown-1" style = "width:98%;">
+									<span>Mapper</span>
+									<ul class="dropdown">
+										<li><a href="#">Mapper 1</a></li>
+										<li><a href="#">Mapper 2</a></li>
+										<li><a href="#">Mapper 3</a></li>
+										<li><a href="#">Mapper 4</a></li>
+										<li><a href="#">Mapper 5</a></li>
+										<li><a href="#">Mapper 6</a></li>
+									</ul>
+								</div>
+								<br><br>
 	
-							<center><button type="button">Edit</button>&nbsp;&nbsp;<button type="button">Delete</button>
+							<center><button type="button" style= "background-color:#d9d9d9; width: 75px">Edit</button>&nbsp;&nbsp;<button type="button" style= "background-color:#d9d9d9; width: 75px">Delete</button>
 						
 						</form>
 						</body>

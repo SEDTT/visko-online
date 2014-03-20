@@ -50,6 +50,8 @@
 
     /* Font settings */
     font-weight: bold;
+	
+	display:inline-block;
 }
 
 .wrapper-dropdown-1:after {
