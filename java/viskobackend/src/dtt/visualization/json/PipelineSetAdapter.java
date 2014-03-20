@@ -39,6 +39,7 @@ public class PipelineSetAdapter implements JsonSerializer<PipelineSet>, JsonDese
 		//TODO this could not exist/ be null
 		pipeSet.setArtifactURL(jobj.get("artifactURL").getAsString());
 		
+		
 		JsonArray jarray = jobj.get("pipelines").getAsJsonArray();
 		
 		for (JsonElement jsonPipe : jarray){
@@ -63,6 +64,7 @@ public class PipelineSetAdapter implements JsonSerializer<PipelineSet>, JsonDese
 		
 		jobj.addProperty("artifactURL", pipeSet.getArtifactURL());
 		jobj.addProperty("type", PipelineSet.class.getSimpleName());
+		jobj.add("query", context.serialize(pipeSet.getQuery()));
 		
 		//serialize the pipelines in this set
 		JsonArray pipelines = new JsonArray();
