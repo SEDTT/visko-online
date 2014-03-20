@@ -1,3 +1,10 @@
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+
+3/20/2014 Eduardo Corral
+Changed styleDrop.css and EditTransformer.php files
+
 3/20/2014 Marianna Pena
 Fixed Dropdown from SetQueryParameters, SelectOperation, EditMapper, EditConverter, EditViewer, EditViewerSet, and EditFilter.
 Added styleDrop.css and dropdown.js
