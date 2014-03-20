@@ -6,11 +6,12 @@
 *,
 *:after,
 *:before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	padding: 0;
+	margin: 0;
 }
 
 ::selection {
@@ -52,6 +53,12 @@
     font-weight: bold;
 	
 	display:inline-block;
+	
+	/*Makes the dropdowns round*/
+	border: 1px solid #999;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius: 5px;
 }
 
 .wrapper-dropdown-1:after {
@@ -89,6 +96,13 @@
     text-decoration: none;
     color: #000000;
     padding: 10px 20px;
+	
+	border-left: 2px solid #999;
+	border-right: 2px solid #999;
+}
+
+#last{
+	border-bottom: 2px solid #999;
 }
 
 /* Hover state */

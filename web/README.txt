@@ -1,6 +1,3 @@
-3/20/2014 Janelle Ybarra
-uploaded edited version of Specify Citeria
-
 3/20/2014 Marianna Pena
 Fixed Dropdown from SetQueryParameters, SelectOperation, EditMapper, EditConverter, EditViewer, EditViewerSet, and EditFilter.
 Added styleDrop.css and dropdown.js
