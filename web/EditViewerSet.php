@@ -53,16 +53,9 @@
 						<br><br>
 						<!--here starts-->
 						<head> 
-						<meta charset="utf-8"> 
-						<title>jQuery UI Menu - Default functionality</title> 
-						<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"> 
-						<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-						<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js">
-						</script> <link rel="stylesheet" href="/resources/demos/style.css">
-						<script> $(function() { $( "#toolkit" ).menu(); }); 
-						</script> 
-						<style> .ui-menu { width: 150px;}
-						</style> 
+						<link rel="stylesheet" href="css/styleDrop.css">
+						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+						<script type="text/javascript" src="scripts/dropdown.js"></script>
 						</head>
 						<!--ends here-->
 						
@@ -90,30 +83,19 @@
 						</table>
 						<br>
 						
-								<font size="2" color="black">Toolkit</font><br>
-								<ul id="toolkit" style = "width:100%; height:20px"> 
-									<li> 
-										<a href="#">Toolkit 1</a> 
-										<ul> 
-											<li>
-											<a href="#">Toolkit 2</a>
-											</li> 
-											<li>
-											<a href="#">Toolkit 3</a>
-											</li> 
-											<li>
-											<a href="#">Toolkit 4</a>
-											</li> 
-											<li>
-											<a href="#">Toolkit 5</a>
-											</li> 
-											<li>
-											<a href="#">Toolkit 6</a>
-											</li> 
-										</ul> 
-									</li> 
-								</ul> 
-							<br>
+						<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
+							<span>Toolkit</span>
+							<ul class="dropdown">
+								<li><a href="#">Toolkit 1</a></li>
+								<li><a href="#">Toolkit 2</a></li>
+								<li><a href="#">Toolkit 3</a></li>
+								<li><a href="#">Toolkit 4</a></li>
+								<li><a href="#">Toolkit 5</a></li>
+								<li><a href="#">Toolkit 6</a></li>
+								<li><a href="#">Toolkit 7</a></li>
+							</ul>
+						</div>				
+							<br><br>
 							<center><button type="button">Commit</button>
 						
 						</form>

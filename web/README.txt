@@ -1,5 +1,5 @@
 3/20/2014 Marianna Pena
-Fixed Dropdown from SetQueryParameters.php
+Fixed Dropdown from SetQueryParameters, SelectOperation, EditMapper, EditConverter, EditViewer, EditViewerSet, and EditFilter.
 Added styleDrop.css and dropdown.js
 
 3/19/2014 Eduardo Corral
