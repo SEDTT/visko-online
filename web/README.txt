@@ -1,9 +1,38 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 3/20/2014 Janelle Ybarra
 Uploaded new version of the Specify Criteria page
 
+>>>>>>> 7f92d855bb18adb37ccf630ca5247b07e67a781a
+=======
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+>>>>>>> 7f92d855bb18adb37ccf630ca5247b07e67a781a
+=======
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+>>>>>>> 7f92d855bb18adb37ccf630ca5247b07e67a781a
+=======
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+>>>>>>> 7f92d855bb18adb37ccf630ca5247b07e67a781a
+=======
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+>>>>>>> 731cf1019815914b08ee45024b18c8b1600884f0
 
 3/20/2014 Eduardo Corral
 Changed styleDrop.css and EditTransformer.php files
+added an 'id' to the last of the options of the dropdown menus in all of the files that start with "EDIT".
+changed that the logo redirects to the index page
 
 3/20/2014 Marianna Pena
 Fixed Dropdown from SetQueryParameters, SelectOperation, EditMapper, EditConverter, EditViewer, EditViewerSet, and EditFilter.
@@ -17,8 +46,8 @@ from "http://.../file.php" TO "./file.php"
 Uploaded EditTransformer, EditViewer, EditViewerSet, EditFilter to github and server.
 
 3/18/2014 Janelle Ybarra
-Uploaded ConfigureAccountRegularUser to github and server. 
-We may need to change some navigation. 
+Uploaded ConfigureAccountRegularUser to github and server.
+We may need to change some navigation.
 Orginally the file was named ConfigureAccount
 
 3/17/2014 Marianna Pena
@@ -65,16 +94,16 @@ Uploaded to github
 *now being redirected to 'RegularUserHome.php'
 p.s. Marianna add these anywhere in the 'Style.css' file
 .error{
-	font-family: Verdana, Arial, sans-serif; 
-	font-size: 0.7em;
-	color: #900;
-	background-color : #ffff00;
+font-family: Verdana, Arial, sans-serif;
+font-size: 0.7em;
+color: #900;
+background-color : #ffff00;
 }
 
 .spmhidip{
-	display:none;
-	width:10px;
-	height:3px;
+display:none;
+width:10px;
+height:3px;
 }
 
 9:43 PM 2/28/2014 Eduardo Corral
