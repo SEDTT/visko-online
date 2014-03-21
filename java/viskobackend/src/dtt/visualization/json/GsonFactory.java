@@ -3,7 +3,7 @@ package dtt.visualization.json;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
-import dtt.visualization.QueryResponse;
+import dtt.visualization.responses.QueryResponse;
 import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.pipelines.Pipeline;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;

@@ -8,8 +8,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import dtt.visualization.QueryResponse;
 import dtt.visualization.errors.VisualizationError;
+import dtt.visualization.responses.QueryResponse;
 
 /**
  * Serialize a QueryResponse to JSON.

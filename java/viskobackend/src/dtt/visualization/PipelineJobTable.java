@@ -119,6 +119,10 @@ public class PipelineJobTable {
 			return jw.getJob();
 		}
 		
+		public boolean containsKey(int id){
+			return this.table.containsKey(id);
+		}
+		
 		
 		private synchronized void setIsCleaning(boolean value){
 			this.isCleaning = value;

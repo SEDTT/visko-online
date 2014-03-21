@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dtt.visualization.QueryResponse;
 import dtt.visualization.errors.InvalidQueryException;
 import dtt.visualization.errors.JsonError;
+import dtt.visualization.errors.NoQueryError;
 import dtt.visualization.errors.UnexecutableQueryException;
 import dtt.visualization.errors.VisualizationError;
+import dtt.visualization.responses.QueryResponse;
 import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.QueryEngine;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
-import edu.utep.trustlab.visko.sparql.SPARQL_EndpointFactory;
 
 /**
  * This Servlet is responsible for serving the "/query" URL.
@@ -53,8 +53,8 @@ public class QueryServlet extends VisualizationServlet {
 		QueryResponse qresponse = new QueryResponse();
 		/* Failed to pass query => show sample query*/
 		if(rawQuery == null){
-			Query q = new Query(getSampleQuery());
-			out.print(this.gson.toJson(q));
+			qresponse.addError(new NoQueryError());
+			this.log("Received request without query.");
 		}else{
 			Query query;
 			try{
@@ -70,7 +70,7 @@ public class QueryServlet extends VisualizationServlet {
 						qresponse.addError(new UnexecutableQueryException());
 					}
 					
-					System.out.println(query.isExecutableQuery());
+					
 					/* Generate Pipelines and return */
 					PipelineSet pipes = queryEngine.getPipelines();
 					this.log("Generated " + pipes.size() + " pipelines from query");
@@ -86,13 +86,16 @@ public class QueryServlet extends VisualizationServlet {
 			}catch(com.google.gson.JsonParseException e){
 				qresponse.addError(new JsonError(e));
 			}catch(Exception e1){ //this is for programmer error
-				qresponse.addError(new VisualizationError(e1.getClass().getSimpleName()));
+				qresponse.addError(new VisualizationError(
+						"Unexpected Error of type (" + e1.getClass().getSimpleName() 
+						+ ") Check Tomcat log"));
 				e1.printStackTrace();
 			}
 				
-			//spit out the response
-			out.print(this.gson.toJson(qresponse));
+			
 		}
+		//spit out the response
+		out.print(this.gson.toJson(qresponse));
 		out.flush();
 		
 	}

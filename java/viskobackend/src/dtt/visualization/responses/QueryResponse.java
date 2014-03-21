@@ -1,4 +1,4 @@
-package dtt.visualization;
+package dtt.visualization.responses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,37 +17,12 @@ import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
  * @author awknaust
  *
  */
-public class QueryResponse {
+public class QueryResponse extends VisualizationResponse {
 	private PipelineSet pipelines;
-	private List<VisualizationError> errors;
 	
-	public QueryResponse(){
-		this.errors = new ArrayList<VisualizationError>();
-	}
 	
-	/**
-	 * Set the pipelineset for this response.
-	 * 
-	 * @param pipelines
-	 */
 	public void setPipelines(PipelineSet pipelines){
 		this.pipelines = pipelines;
-	}
-	
-	/**
-	 * Add an error to this response's list of errors.
-	 * @param e
-	 */
-	public void addError(VisualizationError e){
-		this.errors.add(e);
-	}
-	
-	/**
-	 * Get this responses list of errors.
-	 * @return
-	 */
-	public List<VisualizationError> getErrors(){
-		return this.errors;
 	}
 	
 	/**
