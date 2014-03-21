@@ -34,11 +34,11 @@
 
 								var dd = new DropDown( $('#dd') );
 								var dd2 = new DropDown( $('#dd2') );
-								var dd2 = new DropDown( $('#dd3') );
-								var dd2 = new DropDown( $('#dd4') );
-								var dd2 = new DropDown( $('#dd5') );
-								var dd2 = new DropDown( $('#dd6') );
-								var dd2 = new DropDown( $('#dd7') );
+								var dd3 = new DropDown( $('#dd3') );
+								var dd4 = new DropDown( $('#dd4') );
+								var dd5 = new DropDown( $('#dd5') );
+								var dd6 = new DropDown( $('#dd6') );
+								var dd7 = new DropDown( $('#dd7') );
 
 								$(document).click(function() {
 									// all dropdowns

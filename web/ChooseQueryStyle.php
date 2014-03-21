@@ -40,7 +40,7 @@
 			<br><br><br>
 			<font size="2" color="white"><b>Welcome back <?PHP echo $nameOfPerson ?>!&nbsp;&nbsp;</b></font>
 			<form id="form1" action="logout.php" method="get">
-				<input type="submit" value="Logout">
+				<input id="logout" type="submit" value="Logout">
 			</form>
 			</div>
 		</div>
@@ -53,7 +53,7 @@
 					<textarea rows = '5' cols = '107'></textarea>
 					<br><br>
 					<div style = "float:right;">
-							<a href="http://cs4311.cs.utep.edu/team3/SelectPipelines.php">
+							<a href="./SelectPipelines.php">
 								<button>Submit</button>
 							</a>
 					</div>

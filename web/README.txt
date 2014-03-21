@@ -1,3 +1,7 @@
+3/20/2014 Eduardo Corral
+made small changes to the 'look' of the site.
+
+
 3/20/2014 Janelle Ybarra
 Uploaded new version of the Specify Criteria page
 
@@ -18,8 +22,8 @@ from "http://.../file.php" TO "./file.php"
 Uploaded EditTransformer, EditViewer, EditViewerSet, EditFilter to github and server.
 
 3/18/2014 Janelle Ybarra
-Uploaded ConfigureAccountRegularUser to github and server.
-We may need to change some navigation.
+Uploaded ConfigureAccountRegularUser to github and server. 
+We may need to change some navigation. 
 Orginally the file was named ConfigureAccount
 
 3/17/2014 Marianna Pena
@@ -66,16 +70,16 @@ Uploaded to github
 *now being redirected to 'RegularUserHome.php'
 p.s. Marianna add these anywhere in the 'Style.css' file
 .error{
-font-family: Verdana, Arial, sans-serif;
-font-size: 0.7em;
-color: #900;
-background-color : #ffff00;
+	font-family: Verdana, Arial, sans-serif; 
+	font-size: 0.7em;
+	color: #900;
+	background-color : #ffff00;
 }
 
 .spmhidip{
-display:none;
-width:10px;
-height:3px;
+	display:none;
+	width:10px;
+	height:3px;
 }
 
 9:43 PM 2/28/2014 Eduardo Corral

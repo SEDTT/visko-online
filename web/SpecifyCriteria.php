@@ -42,7 +42,7 @@
 			<br><br><br>
 			<font size="2" color="white"><b>Welcome back <?PHP echo $nameOfPerson ?>!&nbsp;&nbsp;</b></font>
 				<form id="form1" action="logout.php" method="get">
-					<input type="submit" value="Logout">
+					<input id="logout" type="submit" value="Logout">
 				</form>
 			</div>
 		</div>
@@ -66,7 +66,7 @@
 												<span>Abstraction</span>
 												<ul class="dropdown">
 													<li><a href="#">Abstraction 1</a></li>
-													<li><a href="#">Abstraction 2</a></li>
+													<li><a id="last" href="#">Abstraction 2</a></li>
 												</ul>
 											</div>
 										</td>
@@ -105,7 +105,7 @@
 									<span>Input URL </span>
 									<ul class="dropdown">
 										<li><a href="#">Input URL 1</a></li>
-										<li><a href="#">Input URL 2</a></li>
+										<li><a id="last" href="#">Input URL 2</a></li>
 									</ul>
 									</div>
 								</td>
@@ -115,7 +115,7 @@
 									<span>View Set </span>
 									<ul class="dropdown">
 										<li><a href="#">Viewer Set 1</a></li>
-										<li><a href="#">Viewer Set 2</a></li>
+										<li><a id="last" href="#">Viewer Set 2</a></li>
 									</ul>
 									</div>
 								</td>
@@ -127,7 +127,7 @@
 									<span>Source Format </span>
 									<ul class="dropdown">
 										<li><a href="#">Source Format 1</a></li>
-										<li><a href="#">Source Format 2</a></li>
+										<li><a id="last" href="#">Source Format 2</a></li>
 									</ul>
 									</div>
 								</td>
@@ -137,7 +137,7 @@
 									<span>Source Type </span>
 									<ul class="dropdown">
 										<li><a href="#">Source Type 1</a></li>
-										<li><a href="#">Source Type 2</a></li>
+										<li><a id="last" href="#">Source Type 2</a></li>
 									</ul>
 									</div>
 								</td>
