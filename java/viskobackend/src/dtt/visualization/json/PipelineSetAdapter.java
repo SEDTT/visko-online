@@ -11,6 +11,9 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.JsonDeserializer;
 
+import dtt.visualization.IdentifiedPipeline;
+
+import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.pipelines.Pipeline;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
@@ -34,16 +37,16 @@ public class PipelineSetAdapter implements JsonSerializer<PipelineSet>, JsonDese
 		
 		JsonObject jobj = (JsonObject) jelement;
 		
-		PipelineSet pipeSet = new PipelineSet(null);
+		JsonElement jquery = jobj.get("query");
+		Query query = context.deserialize(jquery, Query.class);
+		PipelineSet pipeSet = new PipelineSet(query);
 		
 		//TODO this could not exist/ be null
 		pipeSet.setArtifactURL(jobj.get("artifactURL").getAsString());
-		
-		
 		JsonArray jarray = jobj.get("pipelines").getAsJsonArray();
 		
 		for (JsonElement jsonPipe : jarray){
-			Pipeline p = context.deserialize(jsonPipe, Pipeline.class);
+			Pipeline p = context.deserialize(jsonPipe, IdentifiedPipeline.class);
 			
 			//This depends on a modified visko version
 			p.setParentPipelineSet(pipeSet);

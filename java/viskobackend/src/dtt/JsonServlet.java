@@ -22,6 +22,8 @@ public abstract class JsonServlet extends HttpServlet {
 	
 	protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		this.doJson(request, response);
 	}
 
@@ -30,6 +32,8 @@ public abstract class JsonServlet extends HttpServlet {
 	 */
 	protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		this.doJson(request, response);
 	}
 	

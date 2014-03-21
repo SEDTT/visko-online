@@ -3,6 +3,7 @@ package dtt.visualization.json;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 
+import dtt.visualization.IdentifiedPipeline;
 import dtt.visualization.responses.QueryResponse;
 import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.pipelines.Pipeline;
@@ -30,7 +31,8 @@ public class GsonFactory{
 		gbuilder.registerTypeAdapter(Query.class, new QueryAdapter());
 		gbuilder.registerTypeAdapter(PipelineSet.class, new PipelineSetAdapter());
 		gbuilder.registerTypeAdapter(Pipeline.class, new PipelineAdapter());
-		gbuilder.registerTypeAdapter(QueryResponse.class, new QueryResponseAdapter());
+		gbuilder.registerTypeAdapter(IdentifiedPipeline.class,  new IdentifiedPipelineAdapter());
+		//gbuilder.registerTypeAdapter(QueryResponse.class, new QueryResponseAdapter());
 		
 		if(SERIALIZE_NULLS)
 			gbuilder.serializeNulls();

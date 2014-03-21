@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dtt.visualization.errors.InvalidQueryException;
 import dtt.visualization.errors.JsonError;
-import dtt.visualization.errors.NoQueryError;
+import dtt.visualization.errors.MissingParameterError;
 import dtt.visualization.errors.UnexecutableQueryException;
 import dtt.visualization.errors.VisualizationError;
 import dtt.visualization.responses.QueryResponse;
@@ -53,7 +53,8 @@ public class QueryServlet extends VisualizationServlet {
 		QueryResponse qresponse = new QueryResponse();
 		/* Failed to pass query => show sample query*/
 		if(rawQuery == null){
-			qresponse.addError(new NoQueryError());
+			qresponse.addError(new MissingParameterError("query",
+					"A JSON serialized ViskoQuery object"));
 			this.log("Received request without query.");
 		}else{
 			Query query;
@@ -98,24 +99,6 @@ public class QueryServlet extends VisualizationServlet {
 		out.print(this.gson.toJson(qresponse));
 		out.flush();
 		
-	}
-	
-	//TODO remove this
-	public static String getSampleQuery(){
-		String NEWLINE = "\n";
-		String queryString =
-				"PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl#" + NEWLINE +
-				"PREFIX formats http://openvisko.org/rdf/pml2/formats/" + NEWLINE +
-				"PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#" + NEWLINE +
-				"PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#" + NEWLINE +
-				"PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#" + NEWLINE +
-				"VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt" + NEWLINE +
-				"AS views:2D_ContourMap IN visko:web-browser" + NEWLINE +
-				"WHERE" + NEWLINE +
-				"FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES" + NEWLINE +
-				"AND TYPE = types:d19";
-
-		return queryString;	
 	}
 
 }

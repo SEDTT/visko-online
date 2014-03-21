@@ -14,13 +14,13 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 /**
- * An adapter to convert Pipeline objects back and forth between JSON.
+ * An adapter to convert Pipeline objects to JSON.
  * 
  * Should only be used indirectly by PipelineSetAdapter.
  * @author awknaust
  *
  */
-public class PipelineAdapter implements JsonSerializer<Pipeline>, JsonDeserializer<Pipeline> {
+public class PipelineAdapter implements JsonSerializer<Pipeline> {
 
 	@Override
 	public JsonElement serialize(Pipeline pipe, Type type, JsonSerializationContext context) {
@@ -51,27 +51,6 @@ public class PipelineAdapter implements JsonSerializer<Pipeline>, JsonDeserializ
 		jobj.addProperty("getOutputFormat", pipe.getOutputFormat());
 		
 		return jobj;
-	}
-
-	@Override
-	public Pipeline deserialize(JsonElement jelement, Type type,
-			JsonDeserializationContext context) throws JsonParseException {
-		
-		JsonObject jobj = (JsonObject) jelement;
-		
-		//get named fields
-		String viewerURI = jobj.get("viewerURI").getAsString();
-		String viewURI = jobj.get("viewURI").getAsString();
-		
-		Pipeline pipe = new Pipeline(viewerURI, viewURI, null);
-		
-		JsonArray services = jobj.getAsJsonArray("services");
-		
-		for(JsonElement svc : services){
-			pipe.add(svc.getAsString());
-		}
-		
-		return pipe;
 	}
 
 }

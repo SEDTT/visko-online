@@ -12,6 +12,8 @@ import dtt.visualization.errors.VisualizationError;
 import dtt.visualization.responses.QueryResponse;
 
 /**
+ * TODO : this class isn't currently registered and doesn't seem necessary.
+ * 
  * Serialize a QueryResponse to JSON.
  * 
  * Example : 
