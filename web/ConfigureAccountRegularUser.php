@@ -35,7 +35,7 @@
 		<div id="main_container">
 		<div class="header">
 			<div id="logo">
-				<a href="http://cs4311.cs.utep.edu/team3/"><img src="images/logo.png" alt="" border="0" /></a>
+				<a href="index.php"><img src="images/logo.png" alt="" border="0" /></a>
 				<font size="10" color="white"><b> VisKo</b></font>
 			</div>
 			<div class="welcome">

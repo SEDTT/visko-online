@@ -57,7 +57,7 @@
 							<link rel="stylesheet" href="/resources/demos/style.css">
 							<script>
 								$(function() {
-								$( "#accordion" ).accordion();
+									$( "#accordion" ).accordion();
 								});
 							</script>
 						</head>
@@ -98,9 +98,6 @@
 		<footer>&copy; Developmental Technologies Team. All Rights Reserved</footer>
 	</div>
 	</body>
-
-
-	
 	
 <div id="nav_table" style="position: fixed; left:0px; right: 31px; top: 120px; bottom: auto; display: block">
     <ul id="sidebar-nav" class="Menu">
