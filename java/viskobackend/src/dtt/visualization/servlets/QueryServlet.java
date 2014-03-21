@@ -9,17 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import dtt.JsonServlet;
 import dtt.visualization.QueryResponse;
 import dtt.visualization.errors.InvalidQueryException;
 import dtt.visualization.errors.JsonError;
 import dtt.visualization.errors.UnexecutableQueryException;
-import dtt.visualization.json.GsonFactory;
+import dtt.visualization.errors.VisualizationError;
 import edu.utep.trustlab.visko.planning.Query;
 import edu.utep.trustlab.visko.planning.QueryEngine;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
+import edu.utep.trustlab.visko.sparql.SPARQL_EndpointFactory;
 
 /**
  * This Servlet is responsible for serving the "/query" URL.
@@ -40,6 +38,8 @@ public class QueryServlet extends VisualizationServlet {
         super();
     }
 
+
+	
     /**
      * Pull a JSON'd Query object from the 'query' parameter, and respond with a QueryResponse (pipelineset).
      */
@@ -59,7 +59,6 @@ public class QueryServlet extends VisualizationServlet {
 			Query query;
 			try{
 				query = this.gson.fromJson(rawQuery, Query.class);
-				System.out.println(query);
 				QueryEngine queryEngine = new QueryEngine(query);
 				
 				/* Invalid Queries = error while getting pipelines */
@@ -71,8 +70,10 @@ public class QueryServlet extends VisualizationServlet {
 						qresponse.addError(new UnexecutableQueryException());
 					}
 					
+					System.out.println(query.isExecutableQuery());
 					/* Generate Pipelines and return */
 					PipelineSet pipes = queryEngine.getPipelines();
+					this.log("Generated " + pipes.size() + " pipelines from query");
 					
 					qresponse.setPipelines(pipes);
 					
@@ -83,8 +84,10 @@ public class QueryServlet extends VisualizationServlet {
 				}
 				
 			}catch(com.google.gson.JsonParseException e){
-
 				qresponse.addError(new JsonError(e));
+			}catch(Exception e1){ //this is for programmer error
+				qresponse.addError(new VisualizationError(e1.getClass().getSimpleName()));
+				e1.printStackTrace();
 			}
 				
 			//spit out the response
