@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 3/20/2014 Janelle Ybarra
 Uploaded new version of the Specify Criteria page
@@ -22,6 +23,11 @@ Uploaded new version of the Specify Criteria page
 Uploaded new version of the Specify Criteria page
 
 >>>>>>> 7f92d855bb18adb37ccf630ca5247b07e67a781a
+=======
+3/20/2014 Janelle Ybarra
+Uploaded new version of the Specify Criteria page
+
+>>>>>>> 731cf1019815914b08ee45024b18c8b1600884f0
 
 3/20/2014 Eduardo Corral
 Changed styleDrop.css and EditTransformer.php files
