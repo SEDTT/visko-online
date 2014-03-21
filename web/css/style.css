@@ -119,6 +119,20 @@ span.dark_blue{
 	display: inline-block;
 }
 
+#logout{
+	width: 100px;
+	-moz-border-radius:    5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius:  5px;
+}
+
+button{
+	width: 60px;
+	-moz-border-radius:    5px;
+	-webkit-border-radius: 5px;
+	-khtml-border-radius:  5px;
+}
+
 /*----------------------menu-------------------------*/
 #menu{
 	width:   500px;

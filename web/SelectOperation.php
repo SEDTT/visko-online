@@ -40,7 +40,7 @@
 			<br><br><br>
 			<font size="2" color="white"><b>Welcome back <?PHP echo $nameOfPerson ?>!&nbsp;&nbsp;</b></font>
 			<form id="form1" action="logout.php" method="get">
-				<input type="submit" value="Logout">
+				<input id="logout" type="submit" value="Logout">
 			</form>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 										<li><a href="#">Filter</a></li>
 										<li><a href="#">Transformer</a></li>
 										<li><a href="#">Converter</a></li>
-										<li><a href="#">Mapper</a></li>
+										<li><a id="last" href="#">Mapper</a></li>
 									</ul>
 						
 						</div>
@@ -92,7 +92,7 @@
 										<li><a href="#">Viewer Set 3</a></li>
 										<li><a href="#">Viewer Set 4</a></li>
 										<li><a href="#">Viewer Set 5</a></li>
-										<li><a href="#">Viewer Set 6</a></li>
+										<li><a id="last" href="#">Viewer Set 6</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -106,7 +106,7 @@
 										<li><a href="#">Viewer 3</a></li>
 										<li><a href="#">Viewer 4</a></li>
 										<li><a href="#">Viewer 5</a></li>
-										<li><a href="#">Viewer 6</a></li>
+										<li><a id="last" href="#">Viewer 6</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -120,7 +120,7 @@
 										<li><a href="#">Filter 3</a></li>
 										<li><a href="#">Filter 4</a></li>
 										<li><a href="#">Filter 5</a></li>
-										<li><a href="#">Filter 6</a></li>
+										<li><a id="last" href="#">Filter 6</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -134,7 +134,7 @@
 										<li><a href="#">Transformer 3</a></li>
 										<li><a href="#">Transformer 4</a></li>
 										<li><a href="#">Transformer 5</a></li>
-										<li><a href="#">Transformer 6</a></li>
+										<li><a id="last" href="#">Transformer 6</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -148,7 +148,7 @@
 										<li><a href="#">Converter 3</a></li>
 										<li><a href="#">Converter 4</a></li>
 										<li><a href="#">Converter 5</a></li>
-										<li><a href="#">Converter 6</a></li>
+										<li><a id="last" href="#">Converter 6</a></li>
 									</ul>
 								</div>
 								<br><br>
@@ -162,7 +162,7 @@
 										<li><a href="#">Mapper 3</a></li>
 										<li><a href="#">Mapper 4</a></li>
 										<li><a href="#">Mapper 5</a></li>
-										<li><a href="#">Mapper 6</a></li>
+										<li><a id="last" href="#">Mapper 6</a></li>
 									</ul>
 								</div>
 								<br><br>

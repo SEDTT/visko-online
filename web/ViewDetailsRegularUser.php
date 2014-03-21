@@ -43,7 +43,7 @@
 			<br><br><br>
 			<font size="2" color="white"><b>Welcome back <?PHP echo $nameOfPerson ?>!&nbsp;&nbsp;</b></font>
 				<form id="form1" action="logout.php" method="get">
-					<input type="submit" value="Logout">
+					<input id="logout" type="submit" value="Logout">
 				</form>
 			</div>
 		</div>
@@ -133,11 +133,10 @@
 		  <td><center><br><a href="./ManageServices.php" style="text-decoration:none;"><font size="5" color="black">Manage <br> Services</font></a><br><br></td>
 		</tr>
 		<tr>
-		  <td><center><br><a href="./ConfigureAccount.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
+		  <td><center><br><a href="./ConfigureAccountRegularUser.php" style="text-decoration:none;"><font size="5" color="black">Configure <br> Account</font></a><br><br></td>
 		</tr>
 	</table>
     </ul>
 </div>
 </body>
 </html>
-

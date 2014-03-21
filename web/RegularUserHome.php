@@ -40,7 +40,7 @@
 				<br><br><br>
 				<font size="2" color="white"><b>Welcome back <?PHP echo $nameOfPerson ?>!&nbsp;&nbsp;</b></font>
 					<form id="form1" action="logout.php" method="get">
-						<input type="submit" value="Logout">
+						<input id="logout" type="submit" value="Logout">
 					</form>
 				</div>
 			</div>
