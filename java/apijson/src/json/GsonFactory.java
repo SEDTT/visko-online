@@ -29,6 +29,7 @@ public class GsonFactory{
 		gbuilder.registerTypeAdapter(Query.class, new QueryAdapter());
 		gbuilder.registerTypeAdapter(PipelineSet.class, new PipelineSetAdapter());
 		gbuilder.registerTypeAdapter(Pipeline.class, new PipelineAdapter());
+		gbuilder.registerTypeAdapter(DropDownListFiller.class, new InterfacePopulationAdapter());
 		
 		if(SERIALIZE_NULLS)
 			gbuilder.serializeNulls();
