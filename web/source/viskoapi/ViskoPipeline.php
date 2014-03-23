@@ -5,15 +5,28 @@
 
 require_once 'JsonDeserializable.php';
 		
-class ViskoPipeline implements JsonDeserializable{
-	private $viewURI;
-	private $viewerURI;
-	private $services;
-	private $viewerSets;
-	private $requiresInputURL;
-	private $toolkitThatGeneratesView;
-	private $outputFormat;
+class ViskoPipeline implements JsonDeserializable, JsonCerializable{
+	
+	/* Actual fields */
+	protected $viewURI;
+	protected $viewerURI;
+	protected $services;
+	protected $viewerSets;
+	
+	/* pseudo-fields from JSON */
+	protected $requiresInputURL;
+	protected $toolkitThatGeneratesView;
+	protected $outputFormat;
 
+	
+	
+	public function init($viewURI, $viewerURI, $services, $viewerSets){
+		$this->viewURI = $viewURI;
+		$this->viewerURI = $viewerURI;
+		$this->services = $services;
+		$this->viewerSets = $viewerSets;
+	}
+	
 	/**
 	 * Creates a Pipeline object from JSON
 	 * @param string $json json_decoded object representing a pipeline
@@ -35,6 +48,17 @@ class ViskoPipeline implements JsonDeserializable{
 			array_push($this->viewerSets, $viewerSet);
 		}
 
+	}
+	
+	public function toJson(){
+		$jarr = array(
+			'viewURI' => $this->viewURI,
+			'viewerURI' => $this->viewerURI,
+			'services' => $this->services,
+			'viewerSets' => $this->viewerSets,
+		);
+		
+		return $jarr;
 	}
 
 	public function getViewURI(){

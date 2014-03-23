@@ -9,12 +9,21 @@ require_once 'ViskoPipeline.php';
 class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	private $artifactURL;
 	private $pipelines;
+	private $query;
 
 
+	public function __construct(){
+		$this->pipelines = [];
+	}
+	
 	public function fromJson($result){
 
 		$this->artifactURL = $result->artifactURL;
 
+		$this->query = new ViskoQuery();
+		
+		$this->query->fromJson($result->query);
+		
 		$this->pipelines = array();
 		foreach ($result->pipelines as $jsonpipe){
 			$pipe = new ViskoPipeline();
@@ -24,9 +33,30 @@ class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	}
 	
 	public function toJson(){
-		return "";
+		
+		$jpipes = array();
+		foreach ($this->pipelines as $pipe){
+			$jpipes[] = $pipe->toJson();
+		}
+		
+		$jarr = array(
+			'artifactURL' => $this->artifactURL,
+			'query' => $this->query->toJson(),
+			'pipelines' => $jpipes
+		);
+		
+		return $jarr;
 	}
 
+	/**
+	 * Adds a pipeline to this pipelineset.
+	 * 
+	 * @param ViskoPipeline $vpipeline
+	 */
+	public function addPipeline($vpipeline){
+		$this->pipelines[] = $vpipeline; 	
+	}
+	
 	/**
 	 * Get this pipelineset's array of Pipeline objects.
 	 *
@@ -34,6 +64,23 @@ class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	 */
 	public function getPipelines(){
 		return $this->pipelines;
+	}
+	
+	/**
+	 * Set the pipelineset's generating query.
+	 * @param ViskoQuery $vquery
+	 */
+	public function setQuery($vquery){
+		$this->artifactURL = $vquery->getArtifactURL();
+		$this->query = $vquery;
+	}
+
+	/**
+	 * Get the pipelineset's generating query
+	 * @return ViskoQuery
+	 */
+	public function getQuery(){
+		return $this->query;
 	}
 
 	/**
