@@ -1,8 +1,9 @@
-3/24/2014 Marianna Pena
-Added pages with new populated dropdowns.
+3/24/2014 Eduardo Corral
+Just changed the submit button from the 'ConfigureAccountRegularUser.php' file
 
 3/20/2014 Eduardo Corral
 made small changes to the 'look' of the site.
+
 
 3/20/2014 Janelle Ybarra
 Uploaded new version of the Specify Criteria page
