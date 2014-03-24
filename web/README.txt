@@ -1,6 +1,3 @@
-3/22/2014 Janelle Ybarra
-Uploaded homepage for Privileged User to git and server
-
 3/20/2014 Eduardo Corral
 made small changes to the 'look' of the site.
 

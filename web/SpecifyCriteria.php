@@ -4,8 +4,8 @@
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
 	}
-*/
-	
+
+*/	
 	if(isset($_POST['submitted'])){
 		/*if($fgmembersite->RegisterUser()){
 			$fgmembersite->RedirectToURL("thank-you.html");
@@ -54,21 +54,27 @@
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 						<script type="text/javascript" src="scripts/dropdown.js"></script>
-						</head> 
-						
-
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									 $.each(obj.abstractions,function(key,value)
+									 {
+										$("#dd9").append('<option value='+key+'>'+ value.abstractionName +'</option>');
+									 });
+								});
+							});
+						</script>
+						</head>
 						<!--ends here-->
 								<body>
 								<table>
 									<tr>
 										<td>
-											<div id="dd" class="wrapper-dropdown-1" style = "width:400px;">
-												<span>Abstraction</span>
-												<ul class="dropdown">
-													<li><a href="#">Abstraction 1</a></li>
-													<li><a id="last" href="#">Abstraction 2</a></li>
-												</ul>
-											</div>
+										<select id="dd9" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Abstractions</option>
+										</select>
 										</td>
 										<td style="width:250px"> </td>
 										<td>
@@ -112,10 +118,8 @@
 								<td></td>
 								<td>
 									<div id="dd3" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>View Set </span>
-									<ul class="dropdown">
-										<li><a href="#">Viewer Set 1</a></li>
-										<li><a id="last" href="#">Viewer Set 2</a></li>
+									<span>Viewer Set </span>
+									<ul class="dropdown" id="ekis2">
 									</ul>
 									</div>
 								</td>
