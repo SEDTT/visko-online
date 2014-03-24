@@ -1,3 +1,6 @@
+3/24/2014 Marianna Pena
+Added pages with new populated dropdowns
+
 3/24/2014 Eduardo Corral
 Just changed the submit button from the 'ConfigureAccountRegularUser.php' file
 
