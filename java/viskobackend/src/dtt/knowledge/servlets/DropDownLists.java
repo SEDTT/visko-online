@@ -1,4 +1,4 @@
-package knowledge;
+package dtt.knowledge.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,13 +8,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import json.DropDownListFiller;
-import json.GsonFactory;
-
 import com.google.gson.Gson;
 import com.hp.hpl.jena.query.ResultSet;
 
 import dtt.JsonServlet;
+import dtt.knowledge.json.DropDownListFiller;
+import dtt.knowledge.json.GsonFactory;
 import edu.utep.trustlab.visko.sparql.SPARQL_EndpointFactory;
 import edu.utep.trustlab.visko.sparql.ViskoTripleStore;
 
@@ -52,5 +51,4 @@ public class DropDownLists extends JsonServlet {
 		String json = gson.toJson(test);
 		out.println(json);
 	}
-
 }

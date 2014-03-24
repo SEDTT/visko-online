@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="/api/lib/pellet-2.3.0/xsdlib.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/api"/>
 	<classpathentry kind="lib" path="lib/gson-2.2.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
