@@ -11,7 +11,7 @@
 		}*/
 	}
 	
-	$nameOfPerson = $fgmembersite->UserEmail();
+ $nameOfPerson = $fgmembersite->UserEmail();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -55,20 +55,34 @@
 						<head> 
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-						<script type="text/javascript" src="scripts/dropdown.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									$.each(obj.viewerSets,function(key,value)
+									{
+										var optionViewerSets = $('<option />').val(value.viewerSetName).text(value.viewerSetName);
+										$("#ddViewerSet").append(optionViewerSets);
+									});
+								
+								});
+							});
+						</script>
 						</head>
 						<!--ends here-->
 						
-						<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Service Type</span>
-									<ul class="dropdown">
-										<li><a href="#">Viewer Set</a></li>
-										<li><a href="#">Viewer</a></li>
-										<li><a href="#">Filter</a></li>
-										<li><a href="#">Transformer</a></li>
-										<li><a href="#">Converter</a></li>
-										<li><a id="last" href="#">Mapper</a></li>
-									</ul>
+						<select id="ddServiceType" style="width:100%">
+							<option value="" disabled selected style='display:none;'>Service Type</option>
+							<option value="ViewerSet">Viewer Set</option>
+							<option value="Viewer">Viewer</option>
+							<option value="Filter">Filter</option>
+							<option value="Transformer">Transformer</option>
+							<option value="Converter">Converter</option>
+							<option value="Mapper">Mapper</option>
+						</select>
+						
+									
 						
 						</div>
 						<br><br>
@@ -84,87 +98,40 @@
 
 						<form action="">
 								<input type="radio" name="service" value="viewer_sets">
-								<div id="dd2" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Viewer Set</span>
-									<ul class="dropdown">
-										<li><a href="#">Viewer Set 1</a></li>
-										<li><a href="#">Viewer Set 2</a></li>
-										<li><a href="#">Viewer Set 3</a></li>
-										<li><a href="#">Viewer Set 4</a></li>
-										<li><a href="#">Viewer Set 5</a></li>
-										<li><a id="last" href="#">Viewer Set 6</a></li>
-									</ul>
-								</div>
+									<select id="ddViewerSet" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Viewer Set</option>
+									</select>
+
 								<br><br>
 	
 								<input type="radio" name="service" value="viewers">
-								<div id="dd3" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Viewer</span>
-									<ul class="dropdown">
-										<li><a href="#">Viewer 1</a></li>
-										<li><a href="#">Viewer 2</a></li>
-										<li><a href="#">Viewer 3</a></li>
-										<li><a href="#">Viewer 4</a></li>
-										<li><a href="#">Viewer 5</a></li>
-										<li><a id="last" href="#">Viewer 6</a></li>
-									</ul>
-								</div>
+									<select id="ddViewer" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Viewer</option>
+									</select>
 								<br><br>
 								
 								<input type="radio" name="service" value="filters">
-								<div id="dd4" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Filter</span>
-									<ul class="dropdown">
-										<li><a href="#">Filter 1</a></li>
-										<li><a href="#">Filter 2</a></li>
-										<li><a href="#">Filter 3</a></li>
-										<li><a href="#">Filter 4</a></li>
-										<li><a href="#">Filter 5</a></li>
-										<li><a id="last" href="#">Filter 6</a></li>
-									</ul>
-								</div>
+									<select id="ddFilter" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Filter</option>
+									</select>
 								<br><br>
 
 								<input type="radio" name="service" value="transformers">
-								<div id="dd5" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Transformer</span>
-									<ul class="dropdown">
-										<li><a href="#">Transformer 1</a></li>
-										<li><a href="#">Transformer 2</a></li>
-										<li><a href="#">Transformer 3</a></li>
-										<li><a href="#">Transformer 4</a></li>
-										<li><a href="#">Transformer 5</a></li>
-										<li><a id="last" href="#">Transformer 6</a></li>
-									</ul>
-								</div>
+								<select id="ddTransformer" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Transformer</option>
+									</select>
 								<br><br>
 								
 								<input type="radio" name="service" value="converters">
-								<div id="dd6" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Converter</span>
-									<ul class="dropdown">
-										<li><a href="#">Converter 1</a></li>
-										<li><a href="#">Converter 2</a></li>
-										<li><a href="#">Converter 3</a></li>
-										<li><a href="#">Converter 4</a></li>
-										<li><a href="#">Converter 5</a></li>
-										<li><a id="last" href="#">Converter 6</a></li>
-									</ul>
-								</div>
+								<select id="ddConverter" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Converter</option>
+									</select>
 								<br><br>
 
 								<input type="radio" name="service" value="mappers">
-								<div id="dd7" class="wrapper-dropdown-1" style = "width:98%;">
-									<span>Mapper</span>
-									<ul class="dropdown">
-										<li><a href="#">Mapper 1</a></li>
-										<li><a href="#">Mapper 2</a></li>
-										<li><a href="#">Mapper 3</a></li>
-										<li><a href="#">Mapper 4</a></li>
-										<li><a href="#">Mapper 5</a></li>
-										<li><a id="last" href="#">Mapper 6</a></li>
-									</ul>
-								</div>
+								<select id="ddMapper" style="width:90%">
+										<option value="" disabled selected style='display:none;'>Mapper</option>
+									</select>
 								<br><br>
 	
 							<center><button type="button" style= "background-color:#d9d9d9; width: 75px">Edit</button>&nbsp;&nbsp;<button type="button" style= "background-color:#d9d9d9; width: 75px">Delete</button>
