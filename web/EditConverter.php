@@ -55,7 +55,19 @@
 						<head> 
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-						<script type="text/javascript" src="scripts/dropdown.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									 $.each(obj.toolkits,function(key,value)
+									 {
+										var optionToolkits = $('<option />').val(value.toolkitName).text(value.toolkitName);
+										$("#ddToolkit").append(optionToolkits);
+									 });
+								});
+							});
+						</script>
 						</head>
 						<!--ends here-->
 						
@@ -64,74 +76,39 @@
 						<form>
 							<input type="text" name="WSDL URL" style = "width:100%; height:20px"><br>
 						</form> 	
-						<br>
+						<br><br>
 						
 						<form action="">
-							<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Operation</span>
-									<ul class="dropdown">
-										<li><a href="#">Operation 2</a></li>
-										<li><a href="#">Operation 3</a></li>
-										<li><a href="#">Operation 4</a></li>
-										<li><a href="#">Operation 5</a></li>
-										<li><a href="#">Operation 6</a></li>
-										<li><a id="last" href="#">Operation 7</a></li>
-									</ul>
-							</div>
+								<select id="ddOperation" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Operation</option>
+								</select>
 							<br>
 
 								
 								<table style="width:100%">
 								<tr>
 								<td>
-								<div id="dd2" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Input Format</span>
-									<ul class="dropdown">
-										<li><a href="#">Format 1</a></li>
-										<li><a href="#">Format 2</a></li>
-										<li><a href="#">Format 3</a></li>
-										<li><a href="#">Format 4</a></li>
-										<li><a href="#">Format 5</a></li>
-										<li><a href="#">Format 6</a></li>
-										<li><a id="last" href="#">Format 7</a></li>
-									</ul>
-								</div>
-								<br><br>
+								<select id="ddInputFormat" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Input Format</option>
+								</select>
+								<br><br><br>
 								</td>
 								
 								<td style = "width:20px"></td>
 	
 								<td>
-								<div id="dd3" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Output Format</span>
-									<ul class="dropdown">
-										<li><a href="#">Format 1</a></li>
-										<li><a href="#">Format 2</a></li>
-										<li><a href="#">Format 3</a></li>
-										<li><a href="#">Format 4</a></li>
-										<li><a href="#">Format 5</a></li>
-										<li><a href="#">Format 6</a></li>
-										<li><a id="last" href="#">Format 7</a></li>
-									</ul>
-								</div>
-								<br><br>
+								<select id="ddOutputFormat" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Output Format</option>
+								</select>
+								<br><br><br>
 								</td>
 								</tr>
-								<br>
+								<br><br>
 								</table>
 								
-								<div id="dd4" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Toolkit</span>
-									<ul class="dropdown">
-										<li><a href="#">Toolkit 1</a></li>
-										<li><a href="#">Toolkit 2</a></li>
-										<li><a href="#">Toolkit 3</a></li>
-										<li><a href="#">Toolkit 4</a></li>
-										<li><a href="#">Toolkit 5</a></li>
-										<li><a href="#">Toolkit 6</a></li>
-										<li><a id="last" href="#">Toolkit 7</a></li>
-									</ul>
-								</div>				
+								<select id="ddToolkit" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Toolkit</option>
+								</select>
 							<br><br>
 							<center><button type="button">Commit</button>
 						

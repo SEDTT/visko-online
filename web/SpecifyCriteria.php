@@ -1,18 +1,18 @@
 <?php
 	require_once("./include/membersite_config.php");
-/*	if(!$fgmembersite->CheckLogin()){
+	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
 	}
 
-*/	
+	
 	if(isset($_POST['submitted'])){
 		/*if($fgmembersite->RegisterUser()){
 			$fgmembersite->RedirectToURL("thank-you.html");
 		}*/
 	}
 	
-//	$nameOfPerson = $fgmembersite->UserEmail();
+	$nameOfPerson = $fgmembersite->UserEmail();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -61,7 +61,8 @@
 							   {
 									 $.each(obj.abstractions,function(key,value)
 									 {
-										$("#dd9").append('<option value='+key+'>'+ value.abstractionName +'</option>');
+										var option = $('<option />').val(value.abstractionName).text(value.abstractionName);
+										$("#ddAbstract").append(option);
 									 });
 								});
 							});
@@ -72,7 +73,7 @@
 								<table>
 									<tr>
 										<td>
-										<select id="dd9" style="width:90%">
+										<select id="ddAbstract" style="width:100%">
 										<option value="" disabled selected style='display:none;'>Abstractions</option>
 										</select>
 										</td>
@@ -107,43 +108,29 @@
 							<tr style = "height:100px"></tr>
 							<tr>
 								<td>
-									<div id="dd2" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Input URL </span>
-									<ul class="dropdown">
-										<li><a href="#">Input URL 1</a></li>
-										<li><a id="last" href="#">Input URL 2</a></li>
-									</ul>
-									</div>
+									<select id="ddInputURL" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Input URL</option>
+									</select>
 								</td>
 								<td></td>
 								<td>
-									<div id="dd3" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Viewer Set </span>
-									<ul class="dropdown" id="ekis2">
-									</ul>
-									</div>
+									<select id="ddviewSet" style="width:100%">
+										<option value="" disabled selected style='display:none;'>View Set</option>
+									</select>
 								</td>
 							</tr>
 							<tr style = "height:100px"></tr>
 							<tr>	
 								<td>
-									<div id="dd4" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Source Format </span>
-									<ul class="dropdown">
-										<li><a href="#">Source Format 1</a></li>
-										<li><a id="last" href="#">Source Format 2</a></li>
-									</ul>
-									</div>
+									<select id="ddSourceFormat" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Source Format</option>
+									</select>
 								</td>
 								<td style= "width:250px"></td>
 								<td>	
-									<div id="dd5" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Source Type </span>
-									<ul class="dropdown">
-										<li><a href="#">Source Type 1</a></li>
-										<li><a id="last" href="#">Source Type 2</a></li>
-									</ul>
-									</div>
+									<select id="ddSourceType" style="width:100%">
+										<option value="" disabled selected style='display:none;'>Source Type</option>
+									</select>
 								</td>
 							</tr>		
 								</table>	
