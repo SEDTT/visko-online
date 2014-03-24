@@ -1,3 +1,6 @@
+3/24/2014 Eduardo Corral
+Just changed the submit button from the 'ConfigureAccountRegularUser.php' file
+
 3/20/2014 Eduardo Corral
 made small changes to the 'look' of the site.
 

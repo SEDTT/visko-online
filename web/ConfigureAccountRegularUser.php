@@ -5,7 +5,6 @@
 		exit;
 	}
 
-	
 	if(isset($_POST['submitted'])){
 		/*if($fgmembersite->RegisterUser()){
 			$fgmembersite->RedirectToURL("thank-you.html");
@@ -82,7 +81,7 @@
 							</table>
 							
 							<div align="center">
-								<button id = "button_id">Submit Changes</button></br></br>
+								<button id="button_id" class="button">Submit Changes</button></br></br>
 							</div>
 			
 			
