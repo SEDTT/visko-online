@@ -1,9 +1,15 @@
 <?php
 
-require_once('../ConfigurationManager.php');
-require_once('JsonTransformer.php');
-require_once('ViskoPipeline.php');
+require_once '../ConfigurationManager.php';
+require_once 'JsonTransformer.php';
+require_once 'ViskoPipeline.php';
 
+/**
+	Class responsible for contacting the ViskoBackend and parsing
+	the responses. Deals primarily with Visko** objects.
+
+	@author awknaust
+*/
 class ViskoVisualizer{
 	
 	private $backendLocation;
@@ -64,8 +70,15 @@ class ViskoVisualizer{
 		$url = $this->joinURL($this->backendLocation, 'execute');
 		
 		
+		/* Parse response from backend */
 		$response = $this->sendByPost($url, $data);
-		var_dump($response);
+		$decoded = $jt->decode($response);
+		
+		$pipeStatus = new ViskoPipelineStatus();
+		$status = $pipeStatus->fromJson($decoded->status);
+		$errors = $this->getErrors($decoded);
+		
+		return array($pipeStatus, $errors);
 	}
 	
 	/**
@@ -117,6 +130,7 @@ class ViskoVisualizer{
 
 /**
  * Bind an integer identifaction to a ViskoPipeline.
+ * Should only be used by ViskoVisualizer.
  * @author awknaust
  *
  */
