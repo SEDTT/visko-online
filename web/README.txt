@@ -1,3 +1,6 @@
+3/24/2014 Janelle Ybarra
+Updated SpecifyCriteria and EditConverter
+
 3/24/2014 Marianna Pena
 Added pages with new populated dropdowns
 
