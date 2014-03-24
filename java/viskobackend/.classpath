@@ -43,5 +43,6 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/xsdlib.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/joda-time-2.3.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/owls-api-3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
