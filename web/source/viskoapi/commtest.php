@@ -2,6 +2,7 @@
 require_once 'ViskoPipelineSet.php';
 require_once 'ViskoQuery.php';
 require_once 'ViskoVisualizer.php';
+require_once 'ViskoPipelineStatus.php';
 
 $vq = new ViskoQuery('fake');
 
@@ -15,4 +16,10 @@ list($pipes, $errors) = $vv->generatePipelines($vq);
 
 $pipe = $pipes->getPipelines()[1];
 
-$vv->executePipeline(time() % 100000, $pipes->getQuery(), $pipe);
+
+list($pipeStatus, $errors) = $vv->executePipeline(time() % 100000, $pipes->getQuery(), $pipe);
+
+var_dump($errors);
+var_dump($pipeStatus);
+
+?>

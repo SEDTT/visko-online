@@ -124,12 +124,7 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 							this.log("Pipeline execution completed Normally? : " +
 									job.getJobStatus().didJobCompletedNormally());
 							
-							/* Set up the response with the results */
-							presp.setCompletedNormally(job.getJobStatus().didJobCompletedNormally());
-							presp.setLastPipelineState(job.getJobStatus().getPipelineState());
-							presp.setLastService(job.getJobStatus().getCurrentServiceIndex());
-							presp.setStateMessage(job.getJobStatus().toString());
-							presp.setResultURL(job.getFinalResultURL());
+							presp.setStatus(pipe.getID(), job);
 					}
 				}
 				
