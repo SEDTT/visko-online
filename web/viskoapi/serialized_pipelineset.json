@@ -1,0 +1,410 @@
+{
+  "artifactURL": "http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt",
+  "type": "PipelineSet",
+  "pipelines": [
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#gmt",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-pdf-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PDF.owl#PDF"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    },
+    {
+      "type": "Pipeline",
+      "viewerURI": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser-image-viewer",
+      "viewURI": "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap",
+      "services": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map",
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png"
+      ],
+      "viewerSets": [
+        "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser"
+      ],
+      "requiresInputURL": true,
+      "getToolkitThatGeneratesView": "http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#ncl",
+      "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
+    }
+  ]
+}

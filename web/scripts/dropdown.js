@@ -29,7 +29,7 @@
 									return this.index;
 								}
 							}
-
+							
 							$(function() {
 
 								var dd = new DropDown( $('#dd') );
