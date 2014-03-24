@@ -92,20 +92,34 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 						PipelineExecutorJob job = new PipelineExecutorJob(pipe);
 						this.jobTable.put(pipe.getID(), job);
 						
+						
 						/* Set up the job to be executed */
-						PipelineExecutor executor = new PipelineExecutor();
+						PipelineExecutor executor = new PipelineExecutorWithErrors();
+						
 						executor.setJob(job);
 							//fork thread to run service
 							executor.process();
 							
-							/* TODO how long to try this if it doesn't work ?? 
-							 * Also, while polling is bad-form... consider changing to sleeping/notify
+							/* 
+							 * Error handling on PipelineExecutors is impossible without altering the API
+							 * We can only know if it failed or not.
+							 * TODO how long to try this if it doesn't work ?? 
+							 * 
+							 * Also, while polling is bad-form... consider changing to sleeping/notify.
+							 * (This also seems extremely difficult to fix without redesigning the API, possibly
+							 * by extending PipelineExecutor)
 							 */
+							synchronized(this){
+								//TODO test this better
+								this.wait();
+							}
+							/*
 							while(executor.isAlive()){
 								this.log("executing serivce with index: " + job.getJobStatus().getCurrentServiceIndex());
 								this.log("executing: " + job.getJobStatus().getCurrentServiceURI());
 								this.log(job.getJobStatus().getPipelineState().toString());
 							}
+							*/
 							
 							this.log("Pipeline execution completed Normally? : " +
 									job.getJobStatus().didJobCompletedNormally());
@@ -133,6 +147,20 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 		out.flush();
 	}
 
+	class PipelineExecutorWithErrors extends PipelineExecutor{
+		
+		/* Override run to notify the executing servlet */
+		@Override
+		public void run(){
+			synchronized(PipelineExecutionServlet.this){
+				super.run();
+				PipelineExecutionServlet.this.notify();
+			}
+		}
+	}
 }
+
+
+
 
 

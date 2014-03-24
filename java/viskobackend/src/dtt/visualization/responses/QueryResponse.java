@@ -1,9 +1,5 @@
 package dtt.visualization.responses;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import dtt.visualization.errors.VisualizationError;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
 /**

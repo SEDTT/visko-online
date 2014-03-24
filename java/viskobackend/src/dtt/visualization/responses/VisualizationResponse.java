@@ -4,14 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dtt.visualization.errors.VisualizationError;
-import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
 public abstract class VisualizationResponse {
 
-	
+	@SuppressWarnings("unused")
+	private String type;
 	protected List<VisualizationError> errors;
 
 	public VisualizationResponse(){
+		this.type = this.getClass().getSimpleName();
 		this.errors = new ArrayList<VisualizationError>();
 	}	
 	
