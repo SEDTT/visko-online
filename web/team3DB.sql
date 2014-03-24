@@ -14,44 +14,63 @@ CREATE TABLE IF NOT EXISTS User(
 	PRIMARY KEY(U_id, U_email)
 );
 
-CREATE TABLE IF NOT EXISTS History(
-	U_id INT NOT NULL AUTO_INCREMENT,
-	H_id INT NOT NULL,
-	H_Query VARCHAR(255),
-	H_date VARCHAR(255),
-	PRIMARY KEY(U_id, H_id)
+CREATE TABLE `Query` (
+  `id` int(11) NOT NULL auto_increment,
+  `U_id` int(11) NOT NULL,
+  `vsql` text default NULL,
+  `targetFormatURI` varchar(1024) default NULL,
+  `targetTypeURI` varchar(1024) default NULL,
+  `viewURI` varchar(1024) default NULL,
+  `viewerSetURI` varchar(1024) default NULL,
+  `artifactURL` varchar(1024) default NULL,
+  `dateSubmitted` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS Service(
-	U_id INT NOT NULL AUTO_INCREMENT,
-	S_id INT NOT NULL,
-	S_registered CHAR(255),
-	S_date CHAR(255) NOT NULL,
-	PRIMARY KEY(U_id, S_id)
+CREATE TABLE `Pipeline` (
+  `id` int(11) NOT NULL auto_increment,
+  `queryID` int(11) NOT NULL,
+  `viewURI` varchar(1024) default NULL,
+  `viewerURI` varchar(1024) default NULL,
+  `toolkit` varchar(1024) default NULL,
+  `outputFormat` varchar(1024) default NULL,
+  `requiresInputURL` bool,
+  PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS QueryError(
-	Qe_id INT NOT NULL AUTO_INCREMENT,
-	E_id INT NOT NULL,
-	E_type VARCHAR(255) NOT NULL,
-	Q_msg VARCHAR(255) NOT NULL,
-	PRIMARY KEY(Qe_id, E_id)
+CREATE TABLE `PipelineExecution` (
+  `id` int(11) NOT NULL auto_increment,
+  `pipelineID` int(11) NOT NULL,
+  `resultURL` varchar(1024) default NULL,
+  `pipelineState` varchar(1024) default NULL,
+  `stateMessage` varchar(1024) default NULL,
+  `serviceIndex` INT(11) default NULL,
+  `serviceURI` varchar(1024) default NULL,
+  `completedNormally` bool,
+  PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS PipelineError(
-	Pe_id INT NOT NULL AUTO_INCREMENT,
-	E_id INT NOT NULL,
-	E_type VARCHAR(255) NOT NULL,
-	P_id INT NOT NULL,
-	P_msg VARCHAR(255) NOT NULL,
-	PRIMARY KEY(Pe_id, E_id)
+CREATE TABLE `Services` (
+  `id` int(11) NOT NULL auto_increment,
+  `userID` int(11) NOT NULL,
+  `URI` varchar(1024) default NULL,
+  `dateAdded` datetime NOT NULL,
+  PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS ServiceError(
-	Se_id INT NOT NULL AUTO_INCREMENT,
-	E_id INT NOT NULL,
-	E_type VARCHAR(255) NOT NULL,
-	S_id INT NOT NULL,
-	S_msg VARCHAR(255) NOT NULL,
-	PRIMARY KEY(Se_id, E_id)
+CREATE TABLE `PipelinexService` (
+  `pipelineID` int(11) NOT NULL,
+  `serviceID` int(11) NOT NULL,
+  `position` int(11) default NULL
+);
+
+CREATE TABLE `PipelinexViewerSet` (
+  `pipelineID` int(11) NOT NULL,
+  `viewerSetID` int(11) NOT NULL
+);
+
+CREATE TABLE `ViewerSets` (
+  `id` int(11) NOT NULL auto_increment,
+  `URI` varchar(1024) NOT NULL,
+   PRIMARY KEY  (`id`)
 );
