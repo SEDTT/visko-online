@@ -55,57 +55,55 @@
 						<head> 
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-						<script type="text/javascript" src="scripts/dropdown.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									 $.each(obj.inputFormats,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputFormatName).text(value.inputFormatName);
+										$("#ddInputDataFormat").append(option);
+									 });
+
+									 $.each(obj.inputDataTypes,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputDataTypeName).text(value.inputDataTypeName);
+										$("#ddInputDataType").append(option);
+									 });
+									 
+									$.each(obj.viewerSets,function(key,value)
+									 {
+										var option = $('<option />').val(value.viewerSetName).text(value.viewerSetName);
+										$("#ddViewerSet").append(option);
+									 });
+								});
+							});
+						</script>
 						</head>
 						<!--ends here-->
 						
 						
-						<font size="2" color="black">Name</font>
+						<font size="2" color="black">Name *</font>
 						<form>
 							<input type="text" name="WSDL URL" style = "width:100%; height:20px"><br>
 						</form> 	
 						<br>
 						
 						<form action="">
-								<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Input Format</span>
-									<ul class="dropdown">
-										<li><a href="#">Format 1</a></li>
-										<li><a href="#">Format 2</a></li>
-										<li><a href="#">Format 3</a></li>
-										<li><a href="#">Format 4</a></li>
-										<li><a href="#">Format 5</a></li>
-										<li><a href="#">Format 6</a></li>
-										<li><a id="last" href="#">Format 7</a></li>
-									</ul>
-								</div>
+							<select id="ddInputDataFormat" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Format</option>
+							</select>
 								<br><br>
 
-								<div id="dd2" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Input Data Type (Optional)</span>
-									<ul class="dropdown">
-										<li><a href="#">Data Type 1</a></li>
-										<li><a href="#">Data Type 2</a></li>
-										<li><a href="#">Data Type 3</a></li>
-										<li><a href="#">Data Type 4</a></li>
-										<li><a href="#">Data Type 5</a></li>
-										<li><a href="#">Data Type 6</a></li>
-										<li><a id="last" href="#">Data Type 7</a></li>
-									</ul>
-								</div>
+							<select id="ddInputDataType" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Type (optional)</option>
+							</select>
 								<br><br>
 								
-								<div id="dd3" class="wrapper-dropdown-1" style = "width:100%;">
-									<span>Part of Viewer Set</span>
-									<ul class="dropdown">
-										<li><a href="#">Viewer Set 1</a></li>
-										<li><a href="#">Viewer Set 2</a></li>
-										<li><a href="#">Viewer Set 3</a></li>
-										<li><a href="#">Viewer Set 4</a></li>
-										<li><a href="#">Viewer Set 5</a></li>
-										<li><a id="last" href="#">Viewer Set 6</a></li>
-									</ul>
-								</div>
+							<select id="ddViewerSet" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Part of Viewer Set</option>
+							</select>
 							<br><br>
 							
 							<center><button type="button">Commit</button>

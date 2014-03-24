@@ -55,7 +55,32 @@
 						<head> 
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-						<script type="text/javascript" src="scripts/dropdown.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									 $.each(obj.viewerSets,function(key,value)
+									 {
+										var option = $('<option />').val(value.viewerSetName).text(value.viewerSetName);
+										$("#ddViewerSet").append(option);
+									 });
+									 
+									 $.each(obj.inputFormats,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputFormatName).text(value.inputFormatName);
+										$("#ddInputDataFormat").append(option);
+									 });
+									 
+									 $.each(obj.inputDataTypes,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputDataTypeName).text(value.inputDataTypeName);
+										$("#ddInputDataType").append(option);
+									 });
+							
+								});
+							});
+						</script>
 						</head> 
 						
 
@@ -80,24 +105,9 @@
 						<table style="width:100%">
 						<tr>
 							<td style = "height:50px">
-									<div id="dd" class="wrapper-dropdown-1" style = "width:400px;">
-									<span>Viewer Set</span>
-									<ul class="dropdown">
-										<li><a href="#">Web Browser</a></li>
-										<li><a href="#">Viewer Set 2</a></li>
-									</ul>
-									</div>
-									<!--<font size="2" color="black">Viewer Set</font>
-									<ul id="Viewer_set" style = "width:400px; height:20px"> 
-									<li> 
-									<a href="#">Web Browser</a> 
-									<ul> 
-									<li>
-									<a href="#">Viewer Set 2</a>
-									</li> 
-									</ul> 
-									</li> 
-									</ul> -->
+								<select id="ddViewerSet" style="width:400px">
+								<option value="" disabled selected style='display:none;'>Viewer Set</option>
+								</select>
 							</td>
 							<td style="width:20px"></td>
 							<td>
@@ -106,24 +116,9 @@
 						</tr>
 						<tr>
 							<td style = "height:50px">
-									<div id="dd2" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Input Data Format</span>
-									<ul class="dropdown">
-										<li><a href="#">TIFF</a></li>
-										<li><a href="#">Input Data Format 2</a></li>
-									</ul>
-									</div>
-									<!--<font size="2" color="black">Input Data Format</font>
-									<ul id="Inputdata_format" style = "width:400px; height:20px"> 
-									<li> 
-									<a href="#">TIFF</a> 
-									<ul> 
-									<li>
-									<a href="#">Input data format 2</a>
-									</li> 
-									</ul> 
-									</li> 
-									</ul> -->
+								<select id="ddInputDataFormat" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Format</option>
+								</select>
 							</td>
 							<td></td>
 							<td>
@@ -132,24 +127,9 @@
 						</tr>
 						<tr>
 							<td style = "height:50px">
-									<div id="dd3" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Input Data Type</span>
-									<ul class="dropdown">
-										<li><a href="#">VTKPolyData</a></li>
-										<li><a href="#">Input Data Type 2</a></li>
-									</ul>
-									</div>
-									<!--<font size="2" color="black">Input Data Type</font>
-									<ul id="Inputdata_type" style = "width:400px; height:20px"> 
-									<li> 
-									<a href="#">VTKPolyData</a> 
-									<ul> 
-									<li>
-									<a href="#">Input data type 2</a>
-									</li> 
-									</ul> 
-									</li> 
-									</ul> -->
+								<select id="ddInputDataType" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Type</option>
+								</select>
 							</td>
 							<td></td>
 							<td>
@@ -158,24 +138,9 @@
 						</tr>
 						<tr>
 							<td style = "height:50px">
-									<div id="dd4" class="wrapper-dropdown-1" tabindex="1" style = "width:400px;">
-									<span>Input Data URL</span>
-									<ul class="dropdown">
-										<li><a href="#">Input Data URL</a></li>
-										<li><a href="#">Input Data URL 2</a></li>
-									</ul>
-									</div>
-									<!--<font size="2" color="black">Input Data URL</font>
-									<ul id="Inputdata_URL" style = "width:400px; height:20px"> 
-									<li> 
-									<a href="#">Input data URL 1</a> 
-									<ul> 
-									<li>
-									<a href="#">Input data URL 2</a>
-									</li> 
-									</ul> 
-									</li> 
-									</ul> -->
+								<form>
+								Input Data URL: <input type="text" name="inputDataURL" style="width:100%"><br>
+								</form> 
 							</td>
 							<td></td>
 							<td>

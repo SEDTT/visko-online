@@ -21,7 +21,6 @@
 		<title>VisKo</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
-		<script type="text/javascript" src="scripts/dropdown.js"></script>
 		<style type="text/css">
 		table.bottomBorder { border-collapse:collapse; }
 		table.bottomBorder td, table.bottomBorder th { border-bottom:1px dotted black;padding:5px; }
@@ -50,13 +49,56 @@
 			<div class="middle_box_content">
 					<html lang="en">
 						<body>
-						<font size="5" color="black">Edit Transformer</font>
+						<font size="5" color="black">Edit Mapper</font>
 						<br><br>
 						<!--here starts-->
 						<head> 
-							<link rel="stylesheet" href="css/styleDrop.css">
-							<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-							<script type="text/javascript" src="scripts/dropdown.js"></script>
+						<link rel="stylesheet" href="css/styleDrop.css">
+						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+						<script type="text/javascript">
+							$(document).ready(function()
+							{
+								$.getJSON("json/dropdownlists.txt",function(obj)
+							   {
+									 $.each(obj.abstractions,function(key,value)
+									 {
+										var option = $('<option />').val(value.operationName).text(value.operationName);
+										$("#ddOperation").append(option);
+									 });
+									 								 
+									 $.each(obj.inputFormats,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputFormatName).text(value.inputFormatName);
+										$("#ddInputDataFormat").append(option);
+									 });
+									 
+									 $.each(obj.inputFormats,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputFormatName).text(value.inputFormatName);
+										$("#ddOutputDataFormat").append(option);
+									 });
+									 
+									 $.each(obj.inputDataTypes,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputDataTypeName).text(value.inputDataTypeName);
+										$("#ddInputDataType").append(option);
+									 });
+									 
+									 $.each(obj.inputDataTypes,function(key,value)
+									 {
+										var option = $('<option />').val(value.inputDataTypeName).text(value.inputDataTypeName);
+										$("#ddOutputDataType").append(option);
+									 });
+									 
+									 $.each(obj.toolkits,function(key,value)
+									 {
+										var option = $('<option />').val(value.toolkitName).text(value.toolkitName);
+										$("#ddToolkit").append(option);
+									 });
+							
+								});
+							});
+						</script>
 						</head>
 						<!--ends here-->
 						
@@ -67,86 +109,53 @@
 						</form> 	
 						<br>
 						
-						<form action="">
-							<div id="dd" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Operation</span>
-								<ul class="dropdown">
-									<li><a href="#">Operation 1</a></li>
-									<li><a href="#">Operation 2</a></li>
-									<li><a href="#">Operation 3</a></li>
-									<li><a href="#">Operation 4</a></li>
-									<li><a href="#">Operation 5</a></li>
-									<li><a id="last" href="#">Operation 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
-							
-							<div id="dd2" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Input Format</span>
-								<ul class="dropdown">
-									<li><a href="#">Format 1</a></li>
-									<li><a href="#">Format 2</a></li>
-									<li><a href="#">Format 3</a></li>
-									<li><a href="#">Format 4</a></li>
-									<li><a href="#">Format 5</a></li>
-									<li><a id="last" href="#">Format 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
-
-							<div id="dd3" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Output Format</span>
-								<ul class="dropdown">
-									<li><a href="#">Format 1</a></li>
-									<li><a href="#">Format 2</a></li>
-									<li><a href="#">Format 3</a></li>
-									<li><a href="#">Format 4</a></li>
-									<li><a href="#">Format 5</a></li>
-									<li><a id="last" href="#">Format 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
-							
-							<div id="dd4" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Input Data Type (Optional)</span>
-								<ul class="dropdown">
-									<li><a href="#">Data Type 1</a></li>
-									<li><a href="#">Data Type 2</a></li>
-									<li><a href="#">Data Type 3</a></li>
-									<li><a href="#">Data Type 4</a></li>
-									<li><a href="#">Data Type 5</a></li>
-									<li><a id="last" href="#">Data Type 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
-							
-							<div id="dd5" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Output Data Type (Optional)</span>
-								<ul class="dropdown">
-									<li><a href="#">Data Type 1</a></li>
-									<li><a href="#">Data Type 2</a></li>
-									<li><a href="#">Data Type 3</a></li>
-									<li><a href="#">Data Type 4</a></li>
-									<li><a href="#">Data Type 5</a></li>
-									<li><a id="last" href="#">Data Type 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
-							
-							<div id="dd6" class="wrapper-dropdown-1" style = "width:100%;">
-								<span>Toolkit</span>
-								<ul class="dropdown">
-									<li><a href="#">Toolkit 1</a></li>
-									<li><a href="#">Toolkit 2</a></li>
-									<li><a href="#">Toolkit 3</a></li>
-									<li><a href="#">Toolkit 4</a></li>
-									<li><a href="#">Toolkit 5</a></li>
-									<li><a id="last" href="#">Toolkit 6</a></li>
-								</ul>						
-							</div>
-							<br/><br/>
+						<form action="">	
+							<select id="ddOperation" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Operation</option>
+							</select>
+								<br>	
+												
+								<table style="width:100%">
+								<tr>
+								<td>
+							<select id="ddInputDataFormat" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Format</option>
+							</select>
+								<br><br>
+								</td>
+								
+								<td style = "width:20px"></td>
 	
-							<br>
+								<td>
+							<select id="ddOutputDataFormat" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Output Data Format</option>
+							</select>
+								<br><br>
+								</td>
+								</tr>
+								<br>
+								
+								<tr>
+								<td>
+							<select id="ddInputDataType" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Input Data Type (optional)</option>
+							</select>
+								</td>
+								
+								<td></td>
+								
+								<td>
+							<select id="ddOutputDataType" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Output Data Type (optional)</option>
+							</select>
+								</td>
+								</tr>
+								</table>
+								<br>
+							<select id="ddToolkit" style="width:100%">
+								<option value="" disabled selected style='display:none;'>Toolkit</option>
+							</select>				
+							<br><br>
 							<center><button type="button">Commit</button>
 						
 						</form>
