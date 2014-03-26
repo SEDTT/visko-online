@@ -46,51 +46,28 @@
 			</div>
 			<div id="middle_box">
 				<div class="middle_box_content">
-					<font size="6" color="black">Frequency of Pipeline Executions</font></br></br>				
+					<font size="6" color="black">Frequency of Service Properties</font></br></br>				
 					
-					- Total Number of Pipelines Executed: [[X]]<br><br>
-					- Most Popular Abstraction Generated: [[Abstraction]]<br><br>
-					- Most Popular Input Format: [[Format]]<br>
-					- Most Popular Output Format: [[Format]]<br><br>
-					- Most Popular Input Data Type: [[Type]]<br>
-					- Most Popular Output Data Type: [[Type]]<br><br><br>
+					- Total Number of Services Registered: [[X]]<br><br>
+					- Most Supported Abstraction: [[Abstraction]]<br>
+					- Most Supported Input Format: [[Format]]<br>
+					- Most Supported Input Data Type: [[Type]]<br>
+					- Most Supported Output Format: [[Format]]<br>
+					- Most Supported Output Data Type: [[Type]]<br>
+					- Most Supported Service Toolkit: [[Toolkit Name]]<br><br><br>
 					
-					<p>	
-					Frequency of Pipeline Errors
-					</p><br>
 					<img border="0" src="http://www.powertolearn.com/images/102606graph2.gif" alt="Pulpit rock" width="400px" style="padding-left:30px">
 					<br><br><br>
 					
 					<p>	
-					Most Popular Pipeline
-					</p><br>
-					<div id = "PipelineTbl"  style="padding-left:30px">
-				
-								<table  border = "1" style=	"width:400px; height:55px" >
-								<tr bgcolor="#cccccc">
-									<td align="center">ID</td>
-									<td align="center">Abstraction</td>
-									<td align="center">Output Format</td>
-								</tr>
-								<tr>
-									<td align="center">12</td>
-									<td align="center">Isosurfaces</td>
-									<td align="center">JPEG</td>
-								</tr>
-								</table>
-								<br><br>
+					Frequence of Service Errors
+					</p>
+					<p>
+					- Service with most associated errors: [[Service Name]]
+					</p>
+					<div id = "ServiceGraph"  style="padding-left:30px">
+						<img border="0" src="http://www.powertolearn.com/images/102606graph2.gif" alt="Pulpit rock" width="370px" style="padding-left:30px">
 					</div>	
-					<div id="serviceLoop"  style="padding-left:30px">
-					<!-- Should be in a loop to fill dynamically-->
-						Service 1:<br>
-						&nbsp; Parameter 1 = <input style="background-color:#cccccc; width:312px;" type="text" value="12" readonly><br>
-						&nbsp; Parameter 2 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
-						Service 2:<br>
-						&nbsp; Parameter 3 = <input style="background-color:#cccccc; width:312px;" type="text" value="12" readonly><br>
-						Service 3:<br>
-						&nbsp; Parameter 4 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
-						&nbsp; Parameter 5 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
-					</div>
 					<br><br>
 					
 				</div>
