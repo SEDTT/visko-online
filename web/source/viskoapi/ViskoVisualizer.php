@@ -36,7 +36,6 @@ class ViskoVisualizer{
 
 		$response = $this->sendByPost($url, $data);
 		
-		
 		$decoded = $jt->decode($response);
 		
 		$pipelines = new ViskoPipelineSet();

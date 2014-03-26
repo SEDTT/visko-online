@@ -19,12 +19,18 @@ class ViskoPipeline implements JsonDeserializable, JsonCerializable{
 	protected $outputFormat;
 
 	
-	
-	public function init($viewURI, $viewerURI, $services, $viewerSets){
+	public function init($viewURI, $viewerURI, $toolkitThatGeneratesView,
+		$requiresInputURL, $outputFormat, $services, $viewerSets){
+		assert(count($services) > 0);
+		assert(count($viewerSets) > 0);
+
 		$this->viewURI = $viewURI;
 		$this->viewerURI = $viewerURI;
 		$this->services = $services;
 		$this->viewerSets = $viewerSets;
+		$this->toolkitThatGeneratesView = $toolkitThatGeneratesView;
+		$this->requiresInputURL = $requiresInputURL;
+		$this->outputFormat = $outputFormat;
 	}
 	
 	/**

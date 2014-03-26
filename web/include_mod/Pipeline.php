@@ -5,11 +5,21 @@
 		protected $queryID;
 		protected $viskoPipeline;
 
+		public function __construct($queryID, $viskoPipeline, $id = null){
+			$this->id = $id;
+			$this->queryID = $queryID;
+			$this->viskoPipeline = $viskoPipeline;
+		}
+
 		public function getViskoPipeline(){
 			return $this->viskoPipeline;
 		}
 
-		public function getPipelineID(){
+		public function setID($id){
+			$this->id = $id;
+		}
+
+		public function getID(){
 			return $this->id;
 		}
 

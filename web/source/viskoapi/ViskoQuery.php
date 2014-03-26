@@ -9,9 +9,19 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	private $viewURI;
 	private $viewerSetURI;
 	private $artifactURL;
+	private $parameterBindings;
 	
 	public function __construct(){
 		
+	}
+
+	public function init($vsql, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL){
+		$this->vsql = $vsql;
+		$this->targetFormatURI = $targetFormatURI;
+		$this->targetTypeURI = $targetTypeURI;
+		$this->viewURI = $viewURI;
+		$this->viewerSetURI = $viewerSetURI;
+		$this->artifactURL = $artifactURL;
 	}
 	
 	public function getQueryText(){
@@ -42,6 +52,10 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		$this->vsql = $queryText;
 	}
 	
+	public function getParameterBindings(){
+		return $this->parameterBindings;
+	}
+
 	public function toJson(){
 		$attrs = array(
 			"type" => "Query",
@@ -57,5 +71,8 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		$this->viewURI = $json->viewURI;
 		$this->viewerSetURI = $json->viewerSetURI;
 		$this->artifactURL = $json->artifactURL;
+	
+		//var_dump($json->parameterBindings);	
+		//$this->parameterBindings = array($json->parameterBindings);
 	}
 }
