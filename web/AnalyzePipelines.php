@@ -1,17 +1,17 @@
 <?php
 	require_once("./include/membersite_config.php");
-	if(!$fgmembersite->CheckLogin()){
+/*	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
 	}
-	
+*/	
 	if(isset($_POST['submitted'])){
 		/*if($fgmembersite->RegisterUser()){
 			$fgmembersite->RedirectToURL("thank-you.html");
 		}*/
 	}
 	
-	$nameOfPerson = $fgmembersite->UserEmail();
+//	$nameOfPerson = $fgmembersite->UserEmail();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -46,63 +46,52 @@
 			</div>
 			<div id="middle_box">
 				<div class="middle_box_content">
-					<font size="6" color="black"> Pipeline <> Details</font></br></br>
+					<font size="6" color="black">Frequency of Pipeline Executions</font></br></br>				
 					
-					<ul>
-						<li>Submitted by: "USER NAME" </li>
-						<li>Date: "DATE/TIME"</li>
-						<li>Error: "NAME OF ERROR"</li>
-						<li>Error occurred on service: "NAME OF SERVICE"</li>
-						<li>With input data at URL: "URL"</li>
-					</ul>
-					<hr>
-					Responsible Pipeline: <br>
-					<div id = "PipelineTbl" align = "center">
+					Total Number of Pipelines Executed: [[X]]<br><br>
+					Most Popular Abstraction Generated: [[Abstraction]]<br><br>
+					Most Popular Input Format: [[Format]]<br>
+					Most Popular Output Format: [[Format]]<br><br>
+					Most Popular Input Data Type: [[Type]]<br>
+					Most Popular Output Data Type: [[Type]]<br><br><br>
+					
+					<p>	
+					Frequency of Pipeline Errors
+					</p><br>
+					<img border="0" src="http://www.powertolearn.com/images/102606graph2.gif" alt="Pulpit rock" width="400px" style="padding-left:30px">
+					<br><br><br>
+					
+					<p>	
+					Most Popular Pipeline
+					</p><br>
+					<div id = "PipelineTbl"  style="padding-left:30px">
 				
-								<table  border = "1" style=	"width:350px; height:55px" >
+								<table  border = "1" style=	"width:400px; height:55px" >
 								<tr bgcolor="#cccccc">
 									<td align="center">ID</td>
 									<td align="center">Abstraction</td>
 									<td align="center">Output Format</td>
-									<td align="center">Date Executed</td>
 								</tr>
 								<tr>
 									<td align="center">12</td>
 									<td align="center">Isosurfaces</td>
 									<td align="center">JPEG</td>
-									<td align="center">"DATE"</td>
 								</tr>
 								</table>
 								<br><br>
 					</div>	
-					<div id="servieLoop" style="padding-left:60px">
+					<div id="serviceLoop"  style="padding-left:30px">
 					<!-- Should be in a loop to fill dynamically-->
 						Service 1:<br>
-						&nbsp; Parameter 1 = <input style="background-color:#cccccc" type="text" value="12" readonly><br>
-						&nbsp; Parameter 2 = <input style="background-color:#cccccc" type="text" value="122343.3434" readonly><br>
+						&nbsp; Parameter 1 = <input style="background-color:#cccccc; width:312px;" type="text" value="12" readonly><br>
+						&nbsp; Parameter 2 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
 						Service 2:<br>
-						&nbsp; Parameter 1 = <input style="background-color:#cccccc" type="text" value="12" readonly><br>
-						&nbsp; Parameter 2 = <input style="background-color:#cccccc" type="text" value="122343.3434" readonly><br>
+						&nbsp; Parameter 3 = <input style="background-color:#cccccc; width:312px;" type="text" value="12" readonly><br>
+						Service 3:<br>
+						&nbsp; Parameter 4 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
+						&nbsp; Parameter 5 = <input style="background-color:#cccccc; width:312px;" type="text" value="122343.3434" readonly><br>
 					</div>
 					<br><br>
-					<div id="pipelineOutput">
-						Responsible Pipeline Output:<br><br>
-						<table border="1" align="center" style="width:800px; height:350px">
-						<tr bgcolor=#cccccc ><td align="center">'Some visualization image resulting from some pipeline with some ID' </td></tr>
-						</table>
-						<br>
-					</div>
-					<hr>
-					Responsible Query:<br><br>
-					<div id="query"  style="padding-left:200px">
-					<style type="text/css"> 
-						input{ 
-						text-align:center; 
-						} 
-					</style> 
-						
-						<input style="width:500px; height:250px" type="text" value="QUERY" readonly>
-					</div>
 					
 				</div>
 			
