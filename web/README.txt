@@ -1,11 +1,5 @@
-3/24/2014 Janelle Ybarra
-Updated SpecifyCriteria, SelectOperation, and EditConverter
-
-3/24/2014 Marianna Pena
-Added pages with new populated dropdowns
-
-3/24/2014 Eduardo Corral
-Just changed the submit button from the 'ConfigureAccountRegularUser.php' file
+3/25/2014 Marianna Pena & Janelle Ybarra
+Added new privilege pages and updated navigation in regular user pages.
 
 3/20/2014 Eduardo Corral
 made small changes to the 'look' of the site.
