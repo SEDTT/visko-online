@@ -96,4 +96,11 @@ class ViskoPipeline implements JsonDeserializable, JsonCerializable{
 	public function getOutputFormat(){
 		return $this->outputFormat;
 	}
+
+	/**
+	* Returns boolean to determine if Pipeline requires a inputURL or not.
+	*/
+	public function getRequiresInputURL(){
+		return $this->requiresInputURL;
+	}
 }
