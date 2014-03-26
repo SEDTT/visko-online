@@ -8,5 +8,13 @@
 		public function getViskoPipeline(){
 			return $this->viskoPipeline;
 		}
+
+		public function getPipelineID(){
+			return $this->id;
+		}
+
+		public function getQueryID(){
+			return $this->queryID;
+		}
 	}
 ?>

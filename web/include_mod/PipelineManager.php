@@ -1,6 +1,14 @@
 <?PHP
 	
+	require_once("./viskoapi/ViskoPipeline.php");
+	require_once("./include_mod/Pipeline.php");
+
+	/*****************************************************
+	*
+	*
+	*****************************************************/
 	class PipelineManager extends DBManager{
+
 
 		/**
 		* Returns the ID of the pipeline after the insert has occured.
@@ -9,8 +17,8 @@
 
 			// Validate login information is legit. Uses inherited DBLogin function from DBManager.
 			if(!$this->DBLogin()){
-            $this->HandleError("Database login failed!");
-        }
+            	$this->HandleError("Database login failed!");
+        	}
             
 
             $viskoPipeline = $pipeline->getViskoPipeline(); // Retrieve ViskoPipeline object from 
@@ -28,8 +36,9 @@
                 );';
 
 			$query = 'SELECT LAST_INSERT_ID() as newid;'; 
-			$result = mysql_query($insert_query.$query);
-			$row = mysql_fetch_assoc($result);
+			$result = mysql_query($insert_query, $this->connection); // Just insert
+			$result2 = mysql_query($query), $this->connection; // Contains id of last inserted object.
+			$row = mysql_fetch_assoc($result2);
 			$pipelineID = row['newid']; // Get the id of the pipeline we just inserted.
 
 
@@ -49,13 +58,13 @@
 					"' .SanitizeForSQL($position). '"
 					);';
 
-				mysql_query($insert_pipelinexService);
+				mysql_query($insert_pipelinexService, $this->connection);
 			}	
 
+			
+			$viewerSets = $viskoPipline->getViewerSets(); // get list of viewersets
+
 			// Adding into PipelinexViewerSet
-			$viewerSets = $viskoPipline->getViewerSets();
-
-
 			for($position = 0; $position < count($viewerSets); $position++){
 				$URI = $viewerSets[$position];
 				$viewerSetID = 'SELECT id FROM ViewerSets WHERE URI ='.$URI.';';
@@ -65,23 +74,41 @@
 					"' .SanitizeForSQL($viewerSetID). '"
 					);';
 				
-				mysql_query($insert_pipelinexViewerSet);
+				mysql_query($insert_pipelinexViewerSet,$this->connection);
 			}
 
 			return $pipelineID;
 		}
 
 		/**
-		*
+		* 
 		*/
-		public Pipeline getPipeLineByID($id){
+		public function getPipelineByID($id){
+			$pipeline = new Pipeline();
+			$viskoPipeline = new ViskoPipeline();
+
+			$pipeline->id = $id;
+			$pipeline->queryID = 'SELECT queryID FROM Pipeline WHERE id='.$id.';';
+			$viskoPipeline->viewURI = 'SELECT viewURI FROM Pipeline WHERE id='.$id.';';
+			$viskoPipeline->viewerURI = 'SELECT viewerURI FROM Pipeline WHERE id='.$id.';';
+			$viskoPipeline->toolkitThatGeneratesView = 'SELECT toolkit FROM Pipeline WHERE id='.$id.';';
+			$viskoPipeline->outputFormat = 'SELECT outputFormat FROM Pipeline WHERE id='.$id.';';
+			$viskoPipeline->requiresInputURL = 'SELECT requiresInputURL FROM Pipeline WHERE id='.$id.';';
+
+			// generate service array from PipelinexService
+			$listOfServices = 'SELECT * FROM PipelinexService WHERE pipelineID='.$id.' ORDER BY position;';
+			for($i =0; $i < count($listOfServices); $i++){
+				
+				$services = array_push($services, $i);
+			}
+			// generate viewerSet array from PipelinexViewerSet
 
 		}
 
 		/**
 		*
 		*/
-		public PipelineStatus getPipelineStatus($pipeline){
+		public function getPipelineStatus($pipeline){
 
 		}
 	}
