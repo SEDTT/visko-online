@@ -46,63 +46,57 @@
 			</div>
 			<div id="middle_box">
 				<div class="middle_box_content">
-					<font size="6" color="black"> Pipeline <> Details</font></br></br>
+					<font size="6" color="black"> Service <> Details</font></br></br>
 					
 					<ul>
-						<li>Submitted by: "USER NAME" </li>
-						<li>Date: "DATE/TIME"</li>
-						<li>Error: "NAME OF ERROR"</li>
-						<li>Error occurred on service: "NAME OF SERVICE"</li>
-						<li>With input data at URL: "URL"</li>
+						<li>Registered by  User: "USER NAME" </li>
+						<li>Registered on Date: "DATE/TIME"</li>
 					</ul>
+					<br>
 					<hr>
-					Responsible Pipeline: <br>
-					<div id = "PipelineTbl" align = "center">
-				
-								<table  border = "1" style=	"width:350px; height:55px" >
-								<tr bgcolor="#cccccc">
-									<td align="center">ID</td>
-									<td align="center">Abstraction</td>
-									<td align="center">Output Format</td>
-									<td align="center">Date Executed</td>
-								</tr>
-								<tr>
-									<td align="center">12</td>
-									<td align="center">Isosurfaces</td>
-									<td align="center">JPEG</td>
-									<td align="center">"DATE"</td>
-								</tr>
-								</table>
-								<br><br>
-					</div>	
-					<div id="servieLoop" style="padding-left:60px">
-					<!-- Should be in a loop to fill dynamically-->
-						Service 1:<br>
-						&nbsp; Parameter 1 = <input style="background-color:#cccccc" type="text" value="12" readonly><br>
-						&nbsp; Parameter 2 = <input style="background-color:#cccccc" type="text" value="122343.3434" readonly><br>
-						Service 2:<br>
-						&nbsp; Parameter 1 = <input style="background-color:#cccccc" type="text" value="12" readonly><br>
-						&nbsp; Parameter 2 = <input style="background-color:#cccccc" type="text" value="122343.3434" readonly><br>
-					</div>
-					<br><br>
-					<div id="pipelineOutput">
-						Responsible Pipeline Output:<br><br>
-						<table border="1" align="center" style="width:800px; height:350px">
-						<tr bgcolor=#cccccc ><td align="center">'Some visualization image resulting from some pipeline with some ID' </td></tr>
-						</table>
-						<br>
-					</div>
-					<hr>
-					Responsible Query:<br><br>
-					<div id="query"  style="padding-left:200px">
-					<style type="text/css"> 
-						input{ 
-						text-align:center; 
-						} 
-					</style> 
+					<br>
+					Interface Details: <br>
+					<ul>
+						<li>Input Format: "FORMAT" </li>
+						<li>Output Format: "FORMAT"</li><br>
+						<li>Input Type: "TYPE" </li>
+						<li>Output Type: "TYPE"</li><br>
+						<li>Supported Abstraction: "ABSTRACTION"</li>
 						
-						<input style="width:500px; height:250px" type="text" value="QUERY" readonly>
-					</div>
+					</ul>
+					<br>
+					<hr>
+					<br>
+					Errors:<br>
+					<ul>
+						<li>Number of erroneous access:"X"</li><br>
+					</ul>
+					<br>
+					<table border = "1"  align="center" style="width:600px; height:100px">
+						<tr bgcolor="#cccccc">
+							<td align="center">Date Accessed</td>
+							<td align="center">Error Type</td>
+							<td align="center">From Pipeline ID</td>
+							<td align="center">With input data URL</td>
+							<td align="center">Executed by User</td>
+						</tr>
+						<tr>
+							<td align="center">"DATE"</td>
+							<td align="center">"SERVICE ERROR"</td>
+							<td align="center">"ID"</td>
+							<td align="center">"URL"</td>
+							<td align="center">"USERNAME"</td>
+						</tr>
+						<tr>
+							<td align="center">"DATE"</td>
+							<td align="center">"SERVICE ERROR"</td>
+							<td align="center">"ID"</td>
+							<td align="center">"URL"</td>
+							<td align="center">"USERNAME"</td>
+						</tr>
+					</table>
+					
+				
 					
 				</div>
 			

@@ -1,4 +1,4 @@
-3/25/2014 Marianna Pena & Janelle Ybarra
+3/25/2014 & 3/26/14 Marianna Pena & Janelle Ybarra
 Added new privilege pages and updated navigation in regular user pages.
 
 3/20/2014 Eduardo Corral
