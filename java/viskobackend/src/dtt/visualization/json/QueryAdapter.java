@@ -1,6 +1,8 @@
 package dtt.visualization.json;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -9,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import com.google.gson.reflect.TypeToken;
 
 import edu.utep.trustlab.visko.planning.Query;
 
@@ -47,6 +50,10 @@ public class QueryAdapter implements JsonSerializer<Query>, JsonDeserializer<Que
 		JsonElement jTargetFormatURI = jobj.get("targetFormatURI");
 		JsonElement jTargetTypeURI = jobj.get("targetTypeURI");
 		
+		//parameters
+		JsonElement jParameterBindings = jobj.get("parameterBindings");
+		
+		
 		Query query;
 		
 		//Check if it was submitted as VSQL and override other features
@@ -83,6 +90,15 @@ public class QueryAdapter implements JsonSerializer<Query>, JsonDeserializer<Que
 			if(jTargetTypeURI != null && jTargetTypeURI.isJsonPrimitive()){
 				query.setTargetTypeURI(jTargetTypeURI.getAsString());
 			}
+			if(jParameterBindings != null){
+				Type typeOfHashMap = new TypeToken<HashMap<String, String>>() { }.getType();
+				HashMap<String, String> parameterBindings = context.deserialize(
+					jobj.get("parameterBindings"), 
+					typeOfHashMap);
+				query.setParameterBindings(parameterBindings);
+				
+			}
+			
 		}
 		
 		return query;
@@ -104,6 +120,10 @@ public class QueryAdapter implements JsonSerializer<Query>, JsonDeserializer<Que
 		jobj.addProperty("targetTypeURI", query.getTargetTypeURI());
 		jobj.addProperty("viewURI", query.getViewURI());
 		jobj.addProperty("vsql", query.toString().trim());
+		
+		Type typeOfHashMap = new TypeToken<HashMap<String, String>>() { }.getType();
+		jobj.add("parameterBindings", 
+				context.serialize(query.getParameterBindings(), typeOfHashMap));
 		
 		return jobj;
 	}
