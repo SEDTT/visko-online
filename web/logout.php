@@ -32,6 +32,12 @@
 			</div>
 			<div id="middle_box">
 				<div class="middle_box_content">
+					<?php
+						if (isset($_GET['message']) && $_GET['message'] != ''){
+							
+						echo '<font size="5" color="black">'. $_GET['message'] . '</font><br><br>';
+						}
+						?>
 						<font size="5" color="black">You have logged out.</font>
 						<br><br>
 						<font size="2" color="black">You are being redirected to the home page.</font>

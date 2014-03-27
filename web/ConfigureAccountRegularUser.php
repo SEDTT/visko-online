@@ -1,5 +1,6 @@
 <?php
 	require_once("./include/membersite_config.php");
+	require_once 'source/db/UserManager.php';
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
@@ -13,6 +14,24 @@
 	}
 	
 	$nameOfPerson = $fgmembersite->UserEmail();
+	
+	//TODO handle errors? what about other fields
+	//TODO this is pure hacks.	
+	if(isset($_POST['currentPassword']) && $_POST['currentPassword'] != ''){
+		$_POST['oldpwd'] = $_POST['currentPassword'];
+		$_POST['newpwd'] = $_POST['newPassword'];
+		$fgmembersite->ChangePassword();
+		$fgmembersite->RedirectToURL("logout.php?message=Password%20Change%20Successful");
+		exit;
+	}
+	
+	if(isset($_POST['newEmail']) && $_POST['newEmail'] != ''){
+		$rec = null;
+		$fgmembersite->GetUserFromEmail($nameOfPerson, $rec);
+		$um = new UserManager();
+		$um->updateEmailFromID($rec['U_id'], $_POST['newEmail']);
+		$fgmembersite->RedirectToURL("logout.php?message=Email%20Change%20Successful");
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -47,22 +66,24 @@
 			</div>
 		</div>
 		<div id="middle_box">
+			
+			<form id ="mainForm" action="ConfigureAccountRegularUser.php" method="post">
 			<div class="middle_box_content">
 						<font size="5" color="black">Change Password</font></br></br></br>	
 							<table width="70%">
 								<tr>
 									<td>Current Password:</td>
-									<td><input type="text" name="CurrentPassword" size="60"></td>
+									<td><input type="password" name="currentPassword" size="60"></td>
 								</tr>
 								<tr height="20px"></tr>
 								<tr>
 									<td>New Password:</td>
-									<td><input type="text" name="New Password" size="60"></td>
+									<td><input type="password" name="newPassword" size="60"></td>
 								</tr>
 								<tr height="20px"></tr>
 								<tr>
 									<td>Confirm New Password:</td>
-									<td><input type="text" name="New Password Confirmed" size="60"></td>
+									<td><input type="password" name="confirmNewPassword" size="60"></td>
 								</tr>
 							</table>	
 							</br></br>
@@ -71,12 +92,12 @@
 							<table width="70%">
 								<tr>
 									<td>New Email Address:</td>
-									<td><input type="text" name="CurrentPassword" size="60"></td>
+									<td><input type="text" name="newEmail" size="60"></td>
 								</tr>
 								<tr height="20px"></tr>
 								<tr>
-									<td>New Email Adress Confirmed:</td>
-									<td><input type="text" name="New Password" size="60"></td>
+									<td>New Email Address Confirmed:</td>
+									<td><input type="text" name="confirmNewEmail" size="60"></td>
 								</tr>
 								<tr height="20px"></tr>
 							</table>
@@ -85,8 +106,24 @@
 								<button id = "button_id">Submit Changes</button></br></br>
 							</div>
 			
+			<script type='text/javascript'>
+			// <![CDATA[
+			var frmvalidator = new Validator("register");
+			frmvalidator.EnableOnPageErrorDisplay();
+			frmvalidator.EnableMsgsTogether();
 			
+			frmvalidator.addValidation("U_email",     "req",   " Please fill in your email");
+			frmvalidator.addValidation("U_email",     "email", " Please input a valid email");
+			frmvalidator.addValidation("U_email_Con", "req",   " Please confirm your email");
+			frmvalidator.addValidation("U_pwd",       "req",   " Please fill in your password");
+			frmvalidator.addValidation("U_pwd_Con",   "req",   " Please confirm your password");
+			//frmvalidator.addValidation("U_first",     "req",   " Please fill in your first name");
+			//frmvalidator.addValidation("U_last",      "req",   " Please fill in your last name");
+			// ]]>
+			</script>
+
 			<footer>&copy; Developmental Technologies Team. All Rights Reserved</footer>
+			</form>
 			</div>
 		</div>
 		</body>
