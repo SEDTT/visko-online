@@ -47,6 +47,43 @@
 			}
 		}
 
+		
+		/*
+		* Updates a query object that is already in the database (valid id).
+		* 
+		* Sets everything except the user_id, id, and datesubmitted.
+		*/
+		public function updateQuery($query){
+			$conn = $this->getConnection();
+			
+			$vq = $query->getViskoQuery();
+		
+			if(!($stmt = $conn->prepare("
+				UPDATE Query SET
+					vsql = ?, targetFormatURI = ?, targetTypeURI = ?,
+					viewURI = ?, viewerSetURI = ?, artifactURL = ?
+				WHERE id = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param('ssssssi',
+					$vq->getQueryText(),
+					$vq->getTargetFormatURI(),
+					$vq->getTargetTypeURI(),
+					$vq->getViewURI(),
+					$vq->getViewerSetURI(),
+					$vq->getArtifactURL(),
+					$query->getID()
+
+				);	
+
+				if(!$stmt->execute()){
+					$this->handleExecuteError();
+				}else{
+					//good?
+					return;
+				}
+			}
+		}
 
 		/**
 		* Fetch a Query object from the database by its query id
