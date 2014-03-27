@@ -9,7 +9,7 @@
  */
 class ConfigurationManager{
 
-	private static $configLocation = '../config.ini';
+	private static $configLocation = '../config/config.ini';
 	
 	
 	public function getBackendLocation(){
