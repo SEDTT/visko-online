@@ -6,7 +6,8 @@
 	require_once 'PipelineManager.php';
 	require_once __DIR__ . '/../Pipeline.php';
 	require_once __DIR__ . '/../viskoapi/ViskoPipelineSet.php';
-
+	require_once __DIR__ . '/../PipelineStatus.php';
+	
 	$jt = new JsonTransformer();
 
 	/* Pipeline/PipelineManager testing code */

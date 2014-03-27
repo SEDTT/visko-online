@@ -2,6 +2,8 @@
 	
 	require_once __DIR__ . "/../viskoapi/ViskoPipeline.php";
 	require_once __DIR__ . "/../Pipeline.php";
+	require_once __DIR__ . "/../PipelineStatus.php";
+	require_once __DIR__ . "/../viskoapi/ViskoPipelineStatus.php";
 	require_once "Manager.php";
 
 	/*****************************************************
@@ -260,9 +262,56 @@
 			
 		}
 
-		//Fetch from PipelineExecutionTable
+		/*
+			Get a pipelinestatus for this pipeline. It will be null
+			if the pipeline has not been executed.
+		*/
 		public function getPipelineStatus($pipeline){
+			$conn = $this->getConnection();
+			
+			if(!($stmt = $conn->prepare(
+				"SELECT id, resultURL, pipelineState, stateMessage,
+					serviceIndex, serviceURI, completedNormally,
+					dateExecuted
+				FROM PipelineExecution
+				WHERE pipelineID = ?"))){
+				return $this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param('i', $pipeline->getID());
 
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					if($stmt->num_rows != 1)
+						return null;
+
+					$stmt->bind_result(
+						$id, $resultURL, $pipelineState, $stateMessage,
+						$serviceIndex, $serviceURI, $completedNormally,
+						$dateExecuted
+					);
+					
+					while($stmt->fetch()){
+						;
+					}
+	 
+
+					$vps = new ViskoPipelineStatus(
+						$completedNormally,
+					 	$resultURL,
+				 		$serviceIndex,
+						$serviceURI,
+			 			$pipelineState,
+			 			$stateMessage
+					);
+
+					$pipeStatus = new Pipeline($pipeline->getID(),
+						$vps, $id, $dateExecuted);
+					$stmt->close();
+					return $pipeStatus;
+				}
+				$stmt->close();
+			}
 		}
 	}
 ?>

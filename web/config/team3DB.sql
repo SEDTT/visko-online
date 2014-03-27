@@ -37,6 +37,7 @@ CREATE TABLE `Pipeline` (
 
 CREATE TABLE `PipelineExecution` (
   `id` int(11) NOT NULL auto_increment,
+  `dateExecuted` datetime NOT NULL,
   `pipelineID` int(11) NOT NULL,
   `resultURL` varchar(1024) default NULL,
   `pipelineState` varchar(1024) default NULL,

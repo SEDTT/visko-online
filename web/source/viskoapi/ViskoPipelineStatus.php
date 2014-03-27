@@ -15,6 +15,20 @@ class ViskoPipelineStatus implements JsonDeserializable{
 	private $pipelineState;
 	private $stateMessage;
 	
+
+	public function __construct($completedNormally=false,
+		$resultURL = null, $serviceIndex = null,
+		$serviceURI = null, $pipelineState = null,
+		$stateMessage = null
+	){
+		$this->completedNormally = $completedNormally;
+		$this->resultURL = $resultURL;
+		$this->serviceIndex = $serviceIndex;
+		$this->pipelineState = $pipelineState;
+		$this->stateMessage = $stateMessage;
+	
+	}
+
 	/**
 		Return whether the pipeline generated a visualization.	
 
