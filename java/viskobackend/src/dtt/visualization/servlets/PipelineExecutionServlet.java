@@ -15,11 +15,13 @@ import dtt.visualization.PipelineJobTable;
 import dtt.visualization.errors.JsonError;
 import dtt.visualization.errors.MissingParameterError;
 import dtt.visualization.errors.PipelineExecutionError;
+import dtt.visualization.errors.PipelineExecutionTimeoutError;
 import dtt.visualization.errors.UnexecutableQueryException;
 import dtt.visualization.errors.VisualizationError;
 import dtt.visualization.responses.PipelineExecutionResponse;
 import edu.utep.trustlab.visko.execution.PipelineExecutor;
 import edu.utep.trustlab.visko.execution.PipelineExecutorJob;
+import edu.utep.trustlab.visko.execution.PipelineExecutorJobStatus.PipelineState;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
 /**
@@ -35,7 +37,19 @@ import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 public class PipelineExecutionServlet extends VisualizationServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
 	private PipelineJobTable jobTable;
-
+	
+	/* Maximum time to execute a service in ms*/
+	private static final int SERVICE_TIMEOUT = 10000;
+	
+	/* Maximum time for entire pipeline in ms */
+	private static final int PIPELINE_TIMEOUT = 30000;
+	
+	/* How often to check pipeline status while executing in ms */
+	private static final int POLL_INTERVAL = 100;
+	
+	/* How long to wait after execution *should* have completed */
+	private static final int JOIN_TIMEOUT = 1000;
+	
 	/**
 	 * Initialize the PipelineJobTable in the server context.
 	 */
@@ -48,6 +62,7 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 			sc.setAttribute("visualization.pipeline.jobtable", jobTable);
 		}
 		this.jobTable = jobTable;
+		
 	}
 
 
@@ -92,39 +107,20 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 						PipelineExecutorJob job = new PipelineExecutorJob(pipe);
 						this.jobTable.put(pipe.getID(), job);
 						
+						//execute the job (blocking)
+						VisualizationError ve = this.executePipelineJob(job);
 						
-						/* Set up the job to be executed */
-						PipelineExecutor executor = new PipelineExecutorWithErrors();
-						
-						executor.setJob(job);
-							//fork thread to run service
-							executor.process();
-							
-							/* 
-							 * Error handling on PipelineExecutors is impossible without altering the API
-							 * We can only know if it failed or not.
-							 * TODO how long to try this if it doesn't work ?? 
-							 * 
-							 * Also, while polling is bad-form... consider changing to sleeping/notify.
-							 * (This also seems extremely difficult to fix without redesigning the API, possibly
-							 * by extending PipelineExecutor)
-							 */
-							synchronized(this){
-								//TODO test this better
-								this.wait();
-							}
-							/*
-							while(executor.isAlive()){
-								this.log("executing serivce with index: " + job.getJobStatus().getCurrentServiceIndex());
-								this.log("executing: " + job.getJobStatus().getCurrentServiceURI());
-								this.log(job.getJobStatus().getPipelineState().toString());
-							}
-							*/
+						if(ve == null){
+							//actual success ~ ish
+							presp.setStatus(pipe.getID(), job);
 							
 							this.log("Pipeline execution completed Normally? : " +
 									job.getJobStatus().didJobCompletedNormally());
 							
-							presp.setStatus(pipe.getID(), job);
+						}else{
+							presp.addError(ve);
+							this.log("Interrupted Pipeline Execution");
+						}
 					}
 				}
 				
@@ -141,18 +137,109 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 		out.println(gson.toJson(presp));
 		out.flush();
 	}
-
-	class PipelineExecutorWithErrors extends PipelineExecutor{
+	
+	/**
+	 * Converts nanoseconds to milliseconds
+	 * @param nanos
+	 * @return
+	 */
+	private long toMilliSeconds(long nanos){
+		return nanos/1000000;
+	}
+	
+	/**
+	 * Converts milliseconds to nanoseconds
+	 * @param millis
+	 * @return
+	 */
+	private long toNanoSeconds(long millis){
+		return millis * 1000000;
+	}
+	
+	
+	/**
+	 * Execute a pipeline job and monitor how long it takes to run.
+	 * 
+	 * Unfortunately there doesn't seem to be a way to actually kill the thread. It can timeout
+	 * itself in another call and never get to the isScheduledForTermination... part.
+	 * 
+	 * @param job
+	 * 
+	 * @return a PipelineExecutionTimeoutError if any of the services or the entire pipeline took too long
+	 * 	to execute. returns null if successful
+	 * 
+	 * @throws InterruptedException if this thread is interrupted
+	 */
+	private PipelineExecutionTimeoutError executePipelineJob(PipelineExecutorJob job) throws InterruptedException{
+		/* Set up executor, but start in our own thread */
+		PipelineExecutor executor = new PipelineExecutor();
+		executor.setJob(job);
+		Thread t = new Thread(executor);
+		t.start();
 		
-		/* Override run to notify the executing servlet */
-		@Override
-		public void run(){
-			synchronized(PipelineExecutionServlet.this){
-				super.run();
-				PipelineExecutionServlet.this.notify();
+		boolean live = true;
+		long serviceStart = 0;
+		long pipelineStart = 0;
+		int serviceIdx = -1;
+		boolean interrupted = false;
+		
+		
+		//poll every POLL_INTERVAL, sleep in between
+		while(live){
+			if(job.getJobStatus().getPipelineState() == PipelineState.RUNNING){
+				//check pipeline time
+				if(serviceIdx >= 0 &&
+						System.nanoTime() - pipelineStart > toNanoSeconds(PIPELINE_TIMEOUT)
+					){
+					executor.scheduleForTermination();
+					live = false;
+					interrupted = true;
+				}
+				
+				//start timing this service
+				if(job.getJobStatus().getCurrentServiceIndex() != serviceIdx){
+					if(serviceIdx < 0)
+						pipelineStart = System.nanoTime();
+					serviceStart = System.nanoTime();
+					serviceIdx = job.getJobStatus().getCurrentServiceIndex();
+				}
+				//check service time
+				else{
+					if( System.nanoTime() - serviceStart > toNanoSeconds(SERVICE_TIMEOUT)){
+						executor.scheduleForTermination();
+						live = false;
+						interrupted = true;
+					}
+				}
+			}
+			
+			//PipelineExecution has not yet started
+			else if(job.getJobStatus().getPipelineState() == PipelineState.NEW){
+				;
+			}
+			
+			//PipelineExecution has errored/reached a final state
+			else{
+				live = false;
+			}
+			
+			if(live){
+				Thread.sleep(POLL_INTERVAL);
 			}
 		}
+		
+		//Thread should be stopping, wait for it to finish
+		t.join(JOIN_TIMEOUT);
+		
+		if(interrupted){
+			return new PipelineExecutionTimeoutError(serviceIdx, 
+					toMilliSeconds(System.nanoTime() - pipelineStart));
+		}else{
+			return null;
+		}
+		
 	}
+	
 }
 
 
