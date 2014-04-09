@@ -1,5 +1,5 @@
-{
-    "artifactURL": "http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt",
+{    
+"artifactURL": "http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt",
     "type": "PipelineSet",
     "query": {
       "type": "Query",
@@ -479,4 +479,4 @@
         "getOutputFormat": "http://openvisko.org/rdf/pml2/formats/PNG.owl#PNG"
       }
     ]
-  }
+}

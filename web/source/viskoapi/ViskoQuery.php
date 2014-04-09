@@ -71,8 +71,8 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		$this->viewURI = $json->viewURI;
 		$this->viewerSetURI = $json->viewerSetURI;
 		$this->artifactURL = $json->artifactURL;
-	
-		//var_dump($json->parameterBindings);	
-		//$this->parameterBindings = array($json->parameterBindings);
+
+		//weird php hack to get object fields as assoc array
+		$this->parameterBindings = get_object_vars($json->parameterBindings);	
 	}
 }

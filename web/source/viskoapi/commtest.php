@@ -12,7 +12,6 @@ $vq->fromJson($jt->decode(file_get_contents('serialized_query.json')));
 $vv = new ViskoVisualizer();
 list($pipes, $errors) = $vv->generatePipelines($vq);
 
-echo $pipes->getQuery()->getParameterBindings();
 
 //var_dump($pipes);
 

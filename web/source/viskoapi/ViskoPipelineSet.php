@@ -5,6 +5,7 @@
 require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
 require_once 'ViskoPipeline.php';
+require_once 'ViskoQuery.php';
 
 class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	private $artifactURL;
