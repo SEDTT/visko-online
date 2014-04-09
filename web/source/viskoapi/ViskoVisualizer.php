@@ -4,6 +4,8 @@ require_once '../ConfigurationManager.php';
 require_once 'JsonTransformer.php';
 require_once 'ViskoPipeline.php';
 
+class BackendConnectException extends Exception{}
+
 /**
 	Class responsible for contacting the ViskoBackend and parsing
 	the responses. Deals primarily with Visko** objects.
@@ -13,6 +15,8 @@ require_once 'ViskoPipeline.php';
 class ViskoVisualizer{
 	
 	private $backendLocation;
+	private static $queryURL = 'query';
+	private static $executeURL = 'execute';
 	
 	function __construct(){
 		$cfgMgr = new ConfigurationManager();
@@ -23,16 +27,19 @@ class ViskoVisualizer{
 	 * Generates PipelineSet from a query.
 	 * 
 	 * @param ViskoQuery $vquery the query from which to generate pipelines
+	 *
+	 * @throws BackendConnectException if the visko backend could not be contacted
 	 * 
 	 * @return array(ViskoPipelineSet, array(ViskoError))
 	 */
 	public function generatePipelines($vquery){
+		assert($vquery->getQueryText() != null && trim($vquery->getQueryText()) != '');
 
 		$jt = new JsonTransformer();
 		$jsondQuery = $jt->encode($vquery->toJson());
 		
 		$data = ['query' => $jsondQuery];
-		$url = $this->joinURL($this->backendLocation, 'query');
+		$url = $this->joinURL($this->backendLocation, self::$queryURL);
 
 		$response = $this->sendByPost($url, $data);
 		
@@ -52,6 +59,11 @@ class ViskoVisualizer{
 	 * @param int $id
 	 * @param ViskoQuery $vquery
 	 * @param ViskoPipeline $vpipeline
+
+	 * @throws BackendConnectException if the visko backend could not be
+	 * contacted
+	 * 
+	 *	@return array(ViskoPipelineStatus, array(ViskoError))
 	 */
 	public function executePipeline($id, $vquery, $vpipeline){
 		$jt = new JsonTransformer();
@@ -66,7 +78,7 @@ class ViskoVisualizer{
 		$jpipes = $jt->encode($pipes->toJson());
 		$data = ['pipelineset' => $jpipes];
 		
-		$url = $this->joinURL($this->backendLocation, 'execute');
+		$url = $this->joinURL($this->backendLocation, self::$executeURL);
 		
 		
 		/* Parse response from backend */
@@ -107,9 +119,11 @@ class ViskoVisualizer{
 	 * 
 	 * @param string $url location of Page
 	 * @param assocarray $data array of post keys->data parameters
+	 *
+	 * @throws BackendConnectException If failed to reach the backend server 
 	 * @return string text response
 	 */
-	private function sendByPost($url, $data){
+	protected function sendByPost($url, $data){
 		
 		$options = array(
 				'http' => array(
@@ -121,8 +135,13 @@ class ViskoVisualizer{
 		
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
-		
-		return $result;
+
+		if($result == false){
+			throw new BackendConnectException("Could not reach ViskoBackend
+				server at URL : ". $url);
+		}else{	
+			return $result;
+		}
 	}
 	
 }
@@ -141,6 +160,7 @@ class IdentifiedPipeline extends ViskoPipeline implements JsonCerializable{
 		parent::init(
 				$vpipeline->viewURI,
 				$vpipeline->viewerURI,
+				null, null, null,
 				$vpipeline->services,
 				$vpipeline->viewerSets
 				);

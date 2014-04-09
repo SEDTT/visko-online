@@ -16,7 +16,7 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	}
 
 	public function init($vsql, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL){
-		$this->vsql = $vsql;
+		$this->setQueryText($vsql);
 		$this->targetFormatURI = $targetFormatURI;
 		$this->targetTypeURI = $targetTypeURI;
 		$this->viewURI = $viewURI;
@@ -49,7 +49,7 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	}
 	
 	public function setQueryText($queryText){
-		$this->vsql = $queryText;
+		$this->vsql = trim($queryText);
 	}
 	
 	public function getParameterBindings(){
