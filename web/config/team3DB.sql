@@ -74,3 +74,12 @@ CREATE TABLE `ViewerSets` (
   `URI` varchar(1024) NOT NULL,
    PRIMARY KEY  (`id`)
 );
+
+CREATE TABLE `QueryParameters` (
+ `id` int(11) NOT NULL auto_increment,
+ `queryID` int(11) NOT NULL,
+ `URI` varchar(1024) NOT NULL,
+ `value` varchar(1024) NOT NULL,
+ PRIMARY KEY (`id`),
+ FOREIGN KEY(`queryID`) REFERENCES Query(id)
+);

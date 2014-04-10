@@ -15,13 +15,14 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		
 	}
 
-	public function init($vsql, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL){
+	public function init($vsql, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL, $parameterBindings){
 		$this->setQueryText($vsql);
 		$this->targetFormatURI = $targetFormatURI;
 		$this->targetTypeURI = $targetTypeURI;
 		$this->viewURI = $viewURI;
 		$this->viewerSetURI = $viewerSetURI;
 		$this->artifactURL = $artifactURL;
+		$this->parameterBindings = $parameterBindings;
 	}
 	
 	public function getQueryText(){
@@ -56,6 +57,11 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		return $this->parameterBindings;
 	}
 
+	/**
+	* When convertig to JSON, simply write text version of self?.
+	* TODO change this to work with parameters?
+	*
+	*/
 	public function toJson(){
 		$attrs = array(
 			"type" => "Query",

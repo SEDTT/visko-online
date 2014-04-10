@@ -81,12 +81,10 @@
 				//bind to variables and change variables
 				$stmt->bind_param('iis', $pid, $pos, $serviceURI);
 				
-				echo count($services);
 
 				//insert each service in the services array
 				for($pos = 0; $pos < count($services); $pos++){
 					$serviceURI = $services[$pos];
-					echo $serviceURI . '<br>';
 					//TODO better error handling...
 					if(!$stmt->execute()){
 						$success = false;
