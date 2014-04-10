@@ -1,6 +1,5 @@
 <?PHP
 	
-	require_once __DIR__ . "/../viskoapi/ViskoPipeline.php";
 	require_once __DIR__ . "/../Pipeline.php";
 	require_once __DIR__ . "/../PipelineStatus.php";
 	require_once __DIR__ . "/../viskoapi/ViskoPipelineStatus.php";
@@ -19,11 +18,10 @@
 		* @param Pipeline pipeline -- a pipeline without an ID
 		* @return int the id of the inserted pipeline.
 		*/
-		public function insertPipeline($pipeline, $qid){
+		public function insertPipeline($pipeline){
 
             		$conn = $this->getConnection();
-			$vp = $pipeline->getViskoPipeline(); 
-		
+			$qid = $pipeline->getQueryID();	
 			if(!($stmt = $conn->prepare("INSERT INTO Pipeline (queryID, viewURI, 
 				viewerURI, toolkit, outputFormat, requiresInputURL)
 				VALUES ( ?, ?, ?, ?, ?, ? )")
@@ -32,11 +30,11 @@
 			}else{
 				$stmt->bind_param('issssi',
 					$qid,
-					$vp->getViewURI(),
-					$vp->getViewerURI(),
-					$vp->getToolkitThatGeneratesView(),
-					$vp->getOutputFormat(),
-					$vp->getRequiresInputURL()
+					$pipeline->getViewURI(),
+					$pipeline->getViewerURI(),
+					$pipeline->getToolkitURI(),
+					$pipeline->getOutputFormat(),
+					$pipeline->getRequiresInputURL()
 				);
 				
 				if(!$stmt->execute()){
@@ -63,7 +61,7 @@
 		*/
 		private function insertServices($pipeline){
 			$success = true;
-			$services = $pipeline->getViskoPipeline()->getServices();
+			$services = $pipeline->getServices();
 			$pid = $pipeline->getID();
 			
 			$conn = $this->getConnection();
@@ -105,7 +103,7 @@
 		*/
 		private function insertViewerSets($pipeline){
 			$success = true;
-			$viewerSets = $pipeline->getViskoPipeline()->getViewerSets();
+			$viewerSets = $pipeline->getViewerSets();
 			$pid = $pipeline->getID();
 			
 			$conn = $this->getConnection();
@@ -165,17 +163,11 @@
 					$services = $this->collectServices($pid);
 					$viewerSets = $this->collectViewerSets($pid);
 					
-
-					$vp = new ViskoPipeline();
-					
-					$vp->init($viewURI, $viewerURI,
-						$toolkit, $requiresInputURL, $outputFormat,
-						$services, $viewerSets
-					);
-
-					$pipe = new Pipeline($queryID, $vp, $pid);
+					$pipe = new Pipeline($queryID, $viewURI,
+						$viewerURI, $toolkit, $requiresInputURL, $outputFormat,
+						$services, $viewerSets,
+						$pid);
 				
-					echo "here";
 					//TODO move this
 					$stmt->close();
 					return $pipe;

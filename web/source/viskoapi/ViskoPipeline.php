@@ -3,6 +3,7 @@
  * @author awknaust
  */
 
+require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
 		
 class ViskoPipeline implements JsonDeserializable, JsonCerializable{
