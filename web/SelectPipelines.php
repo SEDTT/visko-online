@@ -1,5 +1,25 @@
 <?php
 	require_once("./include/membersite_config.php");
+	require_once("./source/viskoapi/ViskoQuery.php");
+	require_once("./source/viskoapi/ViskoVisualizer.php");
+	require_once("./source/viskoapi/ViskoPipeline.php");
+	
+	$x = $_POST['QueryArea'];
+	$query = new ViskoQuery();
+	$query->init($x,"","","","","");
+	$visualizer = new ViskoVisualizer(); 
+	
+	//echo($query->getQueryText()); // Hopefully this shows our query.
+	//$pipelineSet = $visualizer->generatePipelines($query->getQuery);
+	
+	list($pipes, $errors) = $visualizer->generatePipelines($query);
+
+	//var_dump($pipes->getPipelines()[0]);
+	//var_dump($pipes->groupPipelinesByToolkit());
+	
+	$pipelineArray = $pipes->groupPipelinesByToolkit();
+	//$visualizer
+	
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
@@ -71,7 +91,38 @@
 						<tr>
 						<td>
 							<div id="accordion">
-								<h3>Pipelines: &lt;&lt;GMT&gt;&gt;</h3>
+								<?php
+									 count($pipelineArray);
+									 $ToolkitArray = array();
+									 $pipelinesAllArray = array(); 
+									 
+									foreach ($pipelineArray as $key => $value)
+									{
+										foreach ($value as $pipe)
+										{
+										
+											$tk = parse_url($pipe->getToolkitThatGeneratesView(), PHP_URL_FRAGMENT);
+											if (!(in_array($tk,$ToolkitArray)))
+											{
+												array_push($ToolkitArray, $tk);
+											}
+											$subArray = array();
+											$abstraction = parse_url($pipe -> getViewURI(), PHP_URL_FRAGMENT);
+											$format = parse_url($pipe->getOutputFormat(), PHP_URL_FRAGMENT);
+											
+											array_push($subArray, $abstraction, $format, $tk);
+											array_push($pipelinesAllArray, $subArray);
+											
+										}
+										
+									}
+										
+										foreach ($ToolkitArray as $tool)
+										{
+										
+									?>
+										<h3>Pipelines: <?php echo $tool; ?> </h3>
+										
 								<div>
 									<table border="1" color="black" style="width:100%">
 									<tr>
@@ -85,32 +136,25 @@
 											<p><b><center>Format</b></p>
 										</td>
 									</tr>
-									<tr>
+							
+									<?php
+									$counter = 0;
+									foreach ($pipelinesAllArray as $x => $y)
+									{
+										 $counter ++;
+										 if($y[2] == $tool)
+										  {
+										?>
+										<tr>
 										<td>
-											<p><center>12</p>
+										
+											<p><center><?php echo "$counter"; ?></p>
 										</td>
 										<td>
-											<p><center>Isosurfaces</p>
+											<p><center><?php echo "$y[0]" ?></p>
 										</td>
 										<td>
-											<p><center>JPEG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>13</p>
-										</td>
-										<td>
-											<p><center>Countour Map</p>
-										</td>
-										<td>
-											<p><center>JPEG</p>
+											<p><center><?php echo "$y[1]" ?></p>
 										</td>
 										<td>
 											<center><button type="button">Edit</button>
@@ -118,167 +162,27 @@
 										<td>
 											<center><button type="button">Run</button>
 										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>14</p>
-										</td>
-										<td>
-											<p><center>Contour Map</p>
-										</td>
-										<td>
-											<p><center>PNG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
+										</tr>
+										<?php
+								
+										}
+										}
+										?>
 									
-									</tr>
+									
 									</table>
 								</div>
-								<h3>Pipelines: &lt;&lt;VTK&gt;&gt;</h3>
-								<div>
-									<table border="1" color="black" style="width:100%">
-									<tr>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>ID</b></p>
-										</td>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>Abstraction</b></p>
-										</td>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>Format</b></p>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>12</p>
-										</td>
-										<td>
-											<p><center>Isosurfaces</p>
-										</td>
-										<td>
-											<p><center>JPEG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>13</p>
-										</td>
-										<td>
-											<p><center>Countour Map</p>
-										</td>
-										<td>
-											<p><center>JPEG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>14</p>
-										</td>
-										<td>
-											<p><center>Contour Map</p>
-										</td>
-										<td>
-											<p><center>PNG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									
-									</tr>
-									</table>
-								</div>
-								<h3>Pipelines: &lt;&lt;Paraview&gt;&gt;</h3>
-								<div>
-									<table border="1" color="black" style="width:100%">
-									<tr>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>ID</b></p>
-										</td>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>Abstraction</b></p>
-										</td>
-										<td bgcolor="#C0C0C0">
-											<p><b><center>Format</b></p>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>12</p>
-										</td>
-										<td>
-											<p><center>Isosurfaces</p>
-										</td>
-										<td>
-											<p><center>JPEG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>13</p>
-										</td>
-										<td>
-											<p><center>Countour Map</p>
-										</td>
-										<td>
-											<p><center>JPEG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<p><center>14</p>
-										</td>
-										<td>
-											<p><center>Contour Map</p>
-										</td>
-										<td>
-											<p><center>PNG</p>
-										</td>
-										<td>
-											<center><button type="button">Edit</button>
-										</td>
-										<td>
-											<center><button type="button">Run</button>
-										</td>
-									
-									</tr>
-									</table>
-								</div>
+								<?php
+								}
+								?>
+					
+							
+							
+							
 							</div>
 						</td>
 						<td></td>
-						<td>
+						<td valign="top">
 							<table border="1" color="black" style="width:100%">
 							<tr>
 								<td bgcolor="#C0C0C0">

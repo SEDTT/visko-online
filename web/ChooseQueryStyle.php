@@ -1,5 +1,7 @@
 <?php
 	require_once("./include/membersite_config.php");
+
+	//init(x,"","","","","");
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
@@ -30,6 +32,16 @@
 		<![endif]-->
 	</head>
 	<body>
+		<script>
+// 			function getQuery(){
+// 				var x = document.getElementById("QueryArea").value;
+// 				//alert(x);
+// 				
+// 				$.post("http://localhost:8888/web/SelectPipelines.php",{x: x},"");
+// 				);
+// 				
+// 			}
+		</script>
 	<div id="main_container">
 		<div class="header">
 			<div id="logo">
@@ -42,6 +54,7 @@
 			<form id="form1" action="logout.php" method="get">
 				<input id="logout" type="submit" value="Logout">
 			</form>
+			
 			</div>
 		</div>
 
@@ -50,13 +63,16 @@
 				<div align = "center">
 					Option 1: Submit Visualization Query
 					<br><br>
-					<textarea rows = '5' cols = '107'></textarea>
+					<form action="SelectPipelines.php" method="post">
+					<textarea name = "QueryArea" style="width:100%; height: 100px;"></textarea><br><br>
+					<input type="submit">
 					<br><br>
-					<div style = "float:right;">
+					</form>
+					<!--<div style = "float:right;">
 							<a href="./SelectPipelines.php">
-								<button>Submit</button>
+								<button type="button" onclick="getQuery()">Submit</button>
 							</a>
-					</div>
+					</div>-->
 				</div>	
 				<br><br><br><br><br>
 				<div align = "center">
@@ -74,6 +90,7 @@
 								$(function() {
 								$( "#accordion" ).accordion();
 								});
+							
 							</script>
 						</head>
 						<body>
