@@ -21,7 +21,7 @@
 
             		$conn = $this->getConnection();
 			$qid = $pipeline->getQueryID();	
-			if(!($stmt = $conn->prepare("INSERT INTO Pipeline (queryID, viewURI, 
+			if(!($stmt = $conn->prepare("INSERT INTO Pipelines (queryID, viewURI, 
 				viewerURI, toolkit, outputFormat, requiresInputURL)
 				VALUES ( ?, ?, ?, ?, ?, ? )")
 			)){
@@ -37,7 +37,7 @@
 				);
 				
 				if(!$stmt->execute()){
-					$this->handleExecuteError();
+					$this->handleExecuteError($stmt);
 				}else{
 					$pid = $conn->insert_id;
 					$pipeline->setID($pid);
@@ -68,7 +68,7 @@
 			
 			//TODO what if select fails? (This shouldnt be possible)
 			if(!($stmt = $conn->prepare(
-				"INSERT INTO PipelinexService (pipelineID, serviceID, 
+				"INSERT INTO PipelineServices (pipelineID, serviceID, 
 					position)
 				  SELECT ?, id, ? 
 				  FROM Services 
@@ -109,7 +109,7 @@
 			$conn = $this->getConnection();
 			
 			if(!($stmt = $conn->prepare(
-				"INSERT INTO PipelinexViewerSet (pipelineID, ViewerSetID)
+				"INSERT INTO PipelineViewerSets (pipelineID, ViewerSetID)
 				  SELECT ?, id 
 				  FROM ViewerSets 
 				WHERE URI = ? "))){
@@ -141,7 +141,7 @@
 			if(!($stmt = $conn->prepare(
 				"SELECT queryID, viewURI, viewerURI, outputFormat, 
 					toolkit, requiresInputURL
-				FROM Pipeline
+				FROM Pipelines
 				WHERE id = ?"))){
 				$this->handlePrepareError($conn);	
 			}else{
@@ -189,9 +189,9 @@
 			 */
 			if(!($stmt = $conn->prepare(
 				"SELECT ViewerSets.URI
-				 FROM PipelinexViewerSet JOIN ViewerSets
-				 	ON PipelinexViewerSet.viewerSetID = ViewerSets.id
-				 WHERE PipelinexViewerSet.pipelineID = ?"))){
+				 FROM PipelineViewerSets JOIN ViewerSets
+				 	ON PipelineViewerSets.viewerSetID = ViewerSets.id
+				 WHERE PipelineViewerSets.pipelineID = ?"))){
 				$this->handlePrepareError($conn);
 			}else{
 				$stmt->bind_param('i', $pid);
@@ -226,10 +226,10 @@
 			 */
 			if(!($stmt = $conn->prepare(
 				"SELECT Services.URI
-				 FROM PipelinexService JOIN Services
-				 	ON PipelinexService.serviceID = Services.id
-				 WHERE PipelinexService.pipelineID = ?
-				 ORDER BY PipelinexService.position ASC"))){
+				 FROM PipelineServices JOIN Services
+				 	ON PipelineServices.serviceID = Services.id
+				 WHERE PipelineServices.pipelineID = ?
+				 ORDER BY PipelineServices.position ASC"))){
 				$this->handlePrepareError($conn);
 			}else{
 				$stmt->bind_param('i', $pid);
@@ -264,7 +264,7 @@
 				"SELECT id, resultURL,
 					serviceIndex, completedNormally,
 					dateExecuted
-				FROM PipelineExecution
+				FROM PipelineStatuses
 				WHERE pipelineID = ?
 				LIMIT 1"))){
 				return $this->handlePrepareError($conn);
@@ -314,7 +314,7 @@
 			$conn = $this->getConnection();
 			
 			if(!($stmt = $conn->prepare(
-				"INSERT INTO `PipelineExecution` (pipelineID, resultURL,
+				"INSERT INTO `PipelineStatuses` (pipelineID, resultURL,
 					serviceIndex, completedNormally, dateExecuted )
 				VALUES(?, ?, ?, ?, NOW())"))){
 				return $this->handlePrepareError($conn);

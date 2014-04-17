@@ -19,7 +19,7 @@
 	
 			$conn = $this->getConnection();
 
-			if(!($stmt = $conn->prepare("INSERT INTO `Query` (U_id, vsql, 
+			if(!($stmt = $conn->prepare("INSERT INTO `Queries` (userID, vsql, 
 				targetFormatURI, targetTypeURI, viewURI, 
 				viewerSetURI, artifactURL, dateSubmitted)
 				VALUES(?, ?, ?, ?, ?, ?, ?, NOW())"))){
@@ -70,7 +70,7 @@
 			$conn = $this->getConnection();
 			
 			if(!($stmt = $conn->prepare("
-				UPDATE Query SET
+				UPDATE Queries SET
 					vsql = ?, targetFormatURI = ?, targetTypeURI = ?,
 					viewURI = ?, viewerSetURI = ?, artifactURL = ?
 				WHERE id = ?"))){
@@ -177,10 +177,10 @@
 
 			if(!($stmt = $conn->prepare("
 			SELECT 
-				U_id, vsql, targetFormatURI, targetTypeURI, 
+				userID, vsql, targetFormatURI, targetTypeURI, 
 				viewURI, viewerSetURI, artifactURL, dateSubmitted 
-			FROM Query 
-			WHERE Query.id = ?"))){
+			FROM Queries 
+			WHERE Queries.id = ?"))){
 				$this->handlePrepareError($conn);
 			}else{
 				$stmt->bind_param("i", $id);
