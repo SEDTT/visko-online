@@ -22,8 +22,8 @@ class ViskoPipeline implements JsonDeserializable, JsonCerializable{
 	
 	public function init($viewURI, $viewerURI, $toolkitThatGeneratesView,
 		$requiresInputURL, $outputFormat, $services, $viewerSets){
-		assert(count($services) > 0);
-		assert(count($viewerSets) > 0);
+		#assert(count($services) > 0);
+		#assert(count($viewerSets) > 0);
 
 		$this->viewURI = $viewURI;
 		$this->viewerURI = $viewerURI;

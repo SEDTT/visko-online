@@ -16,7 +16,7 @@ class ViskoPipelineStatus implements JsonDeserializable{
 	private $stateMessage;
 	
 
-	public function __construct($completedNormally=false,
+	public function init($completedNormally=false,
 		$resultURL = null, $serviceIndex = null,
 		$serviceURI = null, $pipelineState = null,
 		$stateMessage = null
@@ -25,6 +25,7 @@ class ViskoPipelineStatus implements JsonDeserializable{
 		$this->resultURL = $resultURL;
 		$this->serviceIndex = $serviceIndex;
 		$this->pipelineState = $pipelineState;
+		$this->serviceURI = $serviceURI;
 		$this->stateMessage = $stateMessage;
 	
 	}

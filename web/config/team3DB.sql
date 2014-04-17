@@ -35,19 +35,6 @@ CREATE TABLE `Pipeline` (
   PRIMARY KEY  (`id`)
 );
 
-CREATE TABLE `PipelineExecution` (
-  `id` int(11) NOT NULL auto_increment,
-  `dateExecuted` datetime NOT NULL,
-  `pipelineID` int(11) NOT NULL,
-  `resultURL` varchar(1024) default NULL,
-  `pipelineState` varchar(1024) default NULL,
-  `stateMessage` varchar(1024) default NULL,
-  `serviceIndex` INT(11) default NULL,
-  `serviceURI` varchar(1024) default NULL,
-  `completedNormally` bool,
-  PRIMARY KEY  (`id`)
-);
-
 CREATE TABLE `Services` (
   `id` int(11) NOT NULL auto_increment,
   `userID` int(11) NOT NULL,
@@ -83,3 +70,16 @@ CREATE TABLE `QueryParameters` (
  PRIMARY KEY (`id`),
  FOREIGN KEY(`queryID`) REFERENCES Query(id)
 );
+
+CREATE TABLE `PipelineExecution` (
+  `id` int(11) NOT NULL auto_increment,
+  `dateExecuted` datetime NOT NULL,
+  `pipelineID` int(11) NOT NULL,
+  `resultURL` varchar(1024) default NULL,
+  `serviceIndex` INT(11) default NULL,
+  `completedNormally` bool,
+  PRIMARY KEY  (`id`),
+  FOREIGN KEY (pipelineID) REFERENCES Pipeline(id)
+);
+
+

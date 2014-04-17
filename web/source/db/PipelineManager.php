@@ -2,7 +2,6 @@
 	
 	require_once __DIR__ . "/../Pipeline.php";
 	require_once __DIR__ . "/../PipelineStatus.php";
-	require_once __DIR__ . "/../viskoapi/ViskoPipelineStatus.php";
 	require_once "Manager.php";
 
 	/*****************************************************
@@ -45,6 +44,7 @@
 					//TODO transaction coherency problems (fail to insert services = broken object)
 					$this->insertServices($pipeline);
 					$this->insertViewerSets($pipeline);
+					$stmt->close();
 					return $pid;
 				}
 				$stmt->close();
@@ -256,15 +256,17 @@
 			Get a pipelinestatus for this pipeline. It will be null
 			if the pipeline has not been executed.
 		*/
-		public function getPipelineStatus($pipeline){
+		public function getPipelineStatusForPipeline($pipeline){
 			$conn = $this->getConnection();
 			
+			//TODO limit to 1... but there could be more??
 			if(!($stmt = $conn->prepare(
-				"SELECT id, resultURL, pipelineState, stateMessage,
-					serviceIndex, serviceURI, completedNormally,
+				"SELECT id, resultURL,
+					serviceIndex, completedNormally,
 					dateExecuted
 				FROM PipelineExecution
-				WHERE pipelineID = ?"))){
+				WHERE pipelineID = ?
+				LIMIT 1"))){
 				return $this->handlePrepareError($conn);
 			}else{
 				$stmt->bind_param('i', $pipeline->getID());
@@ -276,8 +278,8 @@
 						return null;
 
 					$stmt->bind_result(
-						$id, $resultURL, $pipelineState, $stateMessage,
-						$serviceIndex, $serviceURI, $completedNormally,
+						$id, $resultURL, 
+						$serviceIndex, $completedNormally,
 						$dateExecuted
 					);
 					
@@ -286,22 +288,55 @@
 					}
 	 
 
-					$vps = new ViskoPipelineStatus(
+					$pipeStatus = new PipelineStatus(
+						$pipeline->getID(),
 						$completedNormally,
 					 	$resultURL,
 				 		$serviceIndex,
-						$serviceURI,
-			 			$pipelineState,
-			 			$stateMessage
+						$id,
+						$dateExecuted
 					);
 
-					$pipeStatus = new Pipeline($pipeline->getID(),
-						$vps, $id, $dateExecuted);
 					$stmt->close();
 					return $pipeStatus;
 				}
 				$stmt->close();
 			}
 		}
+		
+		/*
+			Insert a pipelineStatus into the database with execution time NOW.
+
+			@pre $pipelineStatus->pipelineID references a pipeline in database.
+			@return int id of inserted PipelineStatus.
+		*/
+		public function insertPipelineStatus($pipelineStatus){
+			$conn = $this->getConnection();
+			
+			if(!($stmt = $conn->prepare(
+				"INSERT INTO `PipelineExecution` (pipelineID, resultURL,
+					serviceIndex, completedNormally, dateExecuted )
+				VALUES(?, ?, ?, ?, NOW())"))){
+				return $this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param('isii', 
+					$pipelineStatus->getPipelineID(),
+					$pipelineStatus->getResultURL(),
+					$pipelineStatus->getLastServiceIndex(),
+					$pipelineStatus->completedNormally()
+				);
+
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+
+					$psid = $conn->insert_id;
+					$pipelineStatus->setID($psid);
+					$stmt->close();
+					return $psid;
+				}
+				$stmt->close();
+			}
+		}
+
 	}
-?>
