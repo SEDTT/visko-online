@@ -34,6 +34,14 @@ abstract class Error extends Exception{
 	protected function setMessage($message){
 		$this->message = $message;
 	}
+
+	/**
+	*
+	* @return int the ID of the user that caused this error.
+	*/
+	public function getUserID(){
+		return $this->userID;
+	}
 	
 	
 }

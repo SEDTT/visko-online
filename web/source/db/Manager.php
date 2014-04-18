@@ -21,7 +21,7 @@ abstract class Manager{
 
 	}
 
-	protected function getConnection(){
+	public function getConnection(){
 		return $this->connection;
 	}
 	
