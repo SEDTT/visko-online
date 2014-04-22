@@ -3,6 +3,8 @@
 require_once '../ConfigurationManager.php';
 require_once 'JsonTransformer.php';
 require_once 'ViskoPipeline.php';
+require_once 'ViskoError.php';
+require_once 'ViskoPipelineSet.php';
 
 class BackendConnectException extends Exception{}
 
@@ -98,7 +100,12 @@ class ViskoVisualizer{
 	 * @param object $visResponse a json decoded VisualizatonResponse
 	 */
 	private function getErrors($visResponse){
-		return $visResponse->errors;
+		$viskoErrors = [];
+		foreach ($visResponse->errors as $verr){
+			$ve = new ViskoError();
+			$ve->fromJson($verr);
+			$viskoErrors[] = $ve;
+		}
 	}
 	
 	/**
