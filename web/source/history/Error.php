@@ -12,8 +12,13 @@ abstract class Error extends Exception{
 	
 	public function __construct($userID, $timeOccurred=null, $id=null){
 		parent::__construct();
+		
 		$this->userID = $userID;
-		$this->timeOccured = $timeOccurred;
+		if($timeOccurred == null){
+			$this->timeOccurred = new DateTime();	
+		}else{
+			$this->timeOccured = $timeOccurred;
+		}
 		$this->id = $id;
 		
 	}
@@ -26,6 +31,12 @@ abstract class Error extends Exception{
 		$this->id = $id;
 	}
 	
+	/**
+	 * @return int This Error's database id
+	 */
+	public function getID(){
+		return $this->id;
+	}
 	
 	/**
 	 * set this Error's message
@@ -41,6 +52,13 @@ abstract class Error extends Exception{
 	*/
 	public function getUserID(){
 		return $this->userID;
+	}
+	
+	/**
+	 * @return DateTime the time this error occurred.
+	 */
+	public function getTimeOccurred(){
+		return $this->timeOccurred;
 	}
 	
 	

@@ -1,9 +1,9 @@
 <?php
-	require_once __DIR__ . '/../viskoapi/JsonTransformer.php';
-	require_once 'PipelineManager.php';
-	require_once __DIR__ . '/../Pipeline.php';
-	require_once __DIR__ . '/../viskoapi/ViskoPipelineSet.php';
-	require_once __DIR__ . '/../PipelineStatus.php';
+	require_once __DIR__ . '/../../viskoapi/JsonTransformer.php';
+	require_once __DIR__ . '/../PipelineManager.php';
+	require_once __DIR__ . '/../../Pipeline.php';
+	require_once __DIR__ . '/../../viskoapi/ViskoPipelineSet.php';
+	require_once __DIR__ . '/../../PipelineStatus.php';
 	
 	$jt = new JsonTransformer();
 

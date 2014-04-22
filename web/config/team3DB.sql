@@ -1,7 +1,6 @@
 
--- migrate to Users table later?
-
--- Cannot call it Users unfortunately.
+--Hopefully this will be the future refactored version of User table
+-- or at least hacked to share ids
 CREATE TABLE IF NOT EXISTS `Users`(
 	id int(11) NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY (`id`)
@@ -125,10 +124,10 @@ CREATE TABLE IF NOT EXISTS `PipelineErrors` (
 CREATE TABLE IF NOT EXISTS ServiceErrors (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
-	`serviceID` int(11) NOT NULL,
+	`pipelineServiceID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
 	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id),
-	FOREIGN KEY (`serviceID`) REFERENCES PipelineServices(id)
+	FOREIGN KEY (`pipelineServiceID`) REFERENCES PipelineServices(id)
 );
 
 CREATE TABLE IF NOT EXISTS ServiceTimeoutErrors(

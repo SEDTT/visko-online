@@ -1,6 +1,13 @@
 <?php
 require_once __DIR__ . '/../ConfigurationManager.php';
 
+/**
+ * Class for exceptions thrown by Managers
+ * @author awknaust
+ *
+ */
+class ManagerException extends Exception{}
+
 abstract class Manager{
 	private $connection;
 
@@ -25,14 +32,12 @@ abstract class Manager{
 		return $this->connection;
 	}
 	
-	protected function handlePrepareError($conn){
-		echo 'Failed to prepare a statement <br>';
-		var_dump($conn->error);
+	public function handlePrepareError($conn){
+		throw new ManagerException('Failed to prepare a statement;' . $conn->error);
 	}
 	
-	protected function handleExecuteError($stmt){
-		echo 'Failed to execute a statement <br>';
-		var_dump($stmt->error);
+	public function handleExecuteError($stmt){
+		throw new ManagerException('Failed to execute a statement;' . $stmt->error);
 	}
 
 	public function __destruct(){
