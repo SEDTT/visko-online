@@ -29,17 +29,18 @@
 			$this->id = $id;
 		}
 
-		/* Submit this query and generate pipelines 
+		/** Submit this query and generate pipelines 
 		*
 		* @pre $this->getUserID() != null && $this->getID() != null
 		* @pre informally("ViskoBackend visualization servlet is running")
 		* @post informally("return pipelines or throw errors that are NOT committed to the database ")
 		* 
 		* TODO check for malformedURI errors?
+		* 
+		* @return array(Pipeline) an array of pipelines stemming from this query.
 		* @throws BackendConnectException (cannot connect to backend, programmer error)
 		* @throws SyntaxError if query has bad syntax.
 		* @throws NoPipelineResultsError if query is correct, but generated 0 pipelines
-		* @return array(Pipeline) an array of pipelines stemming from this query.
 		*/
 		public function submit(){
 			/* Some assertions, maybe include syntax error checking */
@@ -57,7 +58,7 @@
 					$this->inspectErrors($errors);
 				}
 
-				if(count($vps->getPipelines()) == 0){
+				if($vps == null || count($vps->getPipelines()) == 0){
 					throw new NoPipelineResultsError($this->getUserID(), $this->getID());
 				}else{
 					//translate viskopipelines to pipeline objects
@@ -101,19 +102,19 @@
 
 		/**
 		* Translates viskoapis error types into history style exceptions.
-		* 
-		* @throws SyntaxException if query is invalid or unexecutable.
+		* //TODO refactor this so it doesnt have to know about viskobackend types
+		* @throws SyntaxError if query is invalid or unexecutable.
 		*/
 		private function inspectErrors($queryErrors){
 			$etypes = [];
 			foreach ($queryErrors as $qe){
-				$etypes[$qe->getType()] = $qe;
+				$etypes[$qe->type] = $qe;
 			}
 
 			if(array_key_exists('InvalidQueryException', $etypes)){
-				throw new SyntaxException($this->getUserID(), $this->getID());
+				throw new SyntaxError($this->getUserID(), $this->getID());
 			}else if(array_key_exists('UnexecutableQueryException', $etypes)){
-				throw new SyntaxException($this->getUserID(), $this->getID());
+				throw new SyntaxError($this->getUserID(), $this->getID());
 			}
 		}
 

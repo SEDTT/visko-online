@@ -2,6 +2,13 @@
 require_once __DIR__ . '/../Query.php';
 require_once __DIR__ . '/../history/QueryError.php';
 
+/**
+ * Test Query class.
+ * 
+ * Testing requires that viskobackend be running (and working)
+ * @author awknaust
+ *
+ */
 class QueryTest extends PHPUnit_Framework_TestCase{
 
 	public function testConstructor(){
@@ -80,14 +87,55 @@ class QueryTest extends PHPUnit_Framework_TestCase{
 	* @expectedException SyntaxError
 	*/
 	public function testSubmitSyntaxError(){
-		$this->markTestIncomplete('Not yet implemented');	
+		//NOTE 'VIASUALIZE'
+		$q2 = 'PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl#
+			PREFIX formats http://openvisko.org/rdf/pml2/formats/
+			PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#
+			PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#
+			PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#
+			VIASUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt
+			AS views:2D_ContourMap IN visko:web-browser
+			WHERE
+			FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
+			AND TYPE = types:d19';
+		
+		$qid = 17;
+		
+		$query = new Query(1, $q2);
+		$query->setID($qid);
+		
+		//submit and get error!
+		$pipes = $query->submit();
 	}
 
 	/**
 	* @expectedException NoPipelineResultsError
 	*/
 	public function testSubmitEmptyError(){
-
+		$q3 = 'PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl#
+			PREFIX formats http://openvisko.org/rdf/pml2/formats/
+			PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#
+			PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#
+			PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#
+			VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt
+			AS views:2D_ContourMap IN visko:paraview
+			WHERE
+			FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
+			AND TYPE = types:d19';
+		
+		$qid = 17;
+		
+		$query = new Query(1, $q3);
+		$query->setID($qid);
+		
+		//submit and get error!
+		$pipes = $query->submit();
+	}
+	
+	/**
+	 * @expectedException MalformedURIError 
+	 */
+	public function testSubmitBadURIError(){
 		$this->markTestIncomplete('Not yet implemented');
 	}
 

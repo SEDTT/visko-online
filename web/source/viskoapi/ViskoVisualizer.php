@@ -47,8 +47,12 @@ class ViskoVisualizer{
 		
 		$decoded = $jt->decode($response);
 		
-		$pipelines = new ViskoPipelineSet();
-		$pipelines->fromJson($decoded->pipelines); 
+		if($decoded->pipelines != null){
+			$pipelines = new ViskoPipelineSet();
+			$pipelines->fromJson($decoded->pipelines);
+		}else{
+			$pipelines = null;
+		}
 		
 		$errors = $this->getErrors($decoded);
 		
@@ -87,8 +91,12 @@ class ViskoVisualizer{
 		$response = $this->sendByPost($url, $data);
 		$decoded = $jt->decode($response);
 		
-		$pipeStatus = new ViskoPipelineStatus();
-		$status = $pipeStatus->fromJson($decoded->status);
+		if($decoded->status != null){
+			$pipeStatus = new ViskoPipelineStatus();
+			$status = $pipeStatus->fromJson($decoded->status);
+		}else{
+			$pipeStatus = null;
+		}
 		$errors = $this->getErrors($decoded);
 		
 		return array($pipeStatus, $errors);
@@ -100,12 +108,16 @@ class ViskoVisualizer{
 	 * @param object $visResponse a json decoded VisualizatonResponse
 	 */
 	private function getErrors($visResponse){
+		return $visResponse->errors;
+		/*
 		$viskoErrors = [];
 		foreach ($visResponse->errors as $verr){
 			$ve = new ViskoError();
 			$ve->fromJson($verr);
 			$viskoErrors[] = $ve;
 		}
+		return $viskoErrors;
+		*/
 	}
 	
 	/**

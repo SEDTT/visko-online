@@ -20,7 +20,7 @@ require_once 'history/QueryError.php';
 *
 * @return array(Pipeline)
 */
-public function generatePipelines($query){
+function generatePipelines($query){
 	assert ($query->getUserID() > 0);
 	assert($query->getID() == null);
 
@@ -38,7 +38,7 @@ public function generatePipelines($query){
 		foreach($pipes as $pipe){
 			$pm->insertPipeline($pipe);
 		}
-
+		//TODO can update query in database after receiving parsed one from viskobackend.
 		return $pipes;
 	
 	}

@@ -60,7 +60,7 @@
 		}
 
 		
-		/*
+		/**
 		* @deprecated This shouldn't ever be necessary and doesnt update the parameters
 		* Updates a query object that is already in the database (valid id).
 		* 

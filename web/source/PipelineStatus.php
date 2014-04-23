@@ -23,7 +23,7 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 		* @param resultURL String URL of visualization
 		* @param serviceIndex int position of last-attempted service in pipeline
 		* @param dateExecuted Date the date it was executed
-		* @parm id int the database ID of this object.
+		* @param id int the database ID of this object.
 		*/
 		public function __construct($pipelineID, $completedNormally=false, 
 			$resultURL=null, $serviceIndex=null, $dateExecuted = null,
@@ -32,8 +32,12 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 			
 			$this->pipelineID = $pipelineID;
 			$this->id = $id;
-			$this->dateExecuted = $dateExecuted;
-
+			
+			if($dateExecuted == null){
+				$dateExecuted = new DateTime();
+			}else{
+				$this->dateExecuted = $dateExecuted;
+			}
 			$vps = new ViskoPipelineStatus();
 
 			$vps->init($completedNormally, $resultURL, $serviceIndex);
@@ -58,7 +62,7 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 			return $this->dateExecuted;
 		}
 		
-		/*
+		/**
 		* Set the database of this pipelineStatus object.
 		*/
 		public function setID($id){
@@ -71,7 +75,7 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 
 ////////////Forwarded Methods ///////////////////
 
-		/*
+		/**
 		* @return boolean if this pipeline execution reached its final state
 		*	if false the pipeline completed with an error.
 		*/
@@ -79,7 +83,7 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 			return $this->getViskoPipelineStatus()->getCompletedNormally();
 		}
 
-		/*
+		/**
 		* @return String get the URL of the resulting visualization, or null if !hasResult()
 		*/
 		public function getResultURL(){
