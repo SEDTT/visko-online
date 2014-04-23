@@ -2,6 +2,8 @@ package dtt.visualization.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dtt.visualization.IdentifiedPipeline;
 import dtt.visualization.PipelineJobTable;
+import dtt.visualization.errors.InputDataURLError;
 import dtt.visualization.errors.JsonError;
 import dtt.visualization.errors.MissingParameterError;
 import dtt.visualization.errors.PipelineExecutionError;
@@ -95,6 +98,8 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 					presp.addError(new PipelineExecutionError("Input PipelineSet is missing pipelines"));
 				}else if(pset.size() > 1){
 					presp.addError(new PipelineExecutionError("Only single pipeline execution is supported."));
+				}else if(!this.isURLReachable(new URL(pset.getQuery().getArtifactURL()))){
+					presp.addError(new InputDataURLError(pset.getQuery().getArtifactURL()));
 				}
 				else{
 					IdentifiedPipeline pipe = (IdentifiedPipeline)pset.firstElement();
@@ -139,6 +144,28 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 	}
 	
 	/**
+	 * Checks if a url is reachable via a HEAD request
+	 * @param url URL to test.
+	 * @return true if reachable, false otherwise.
+	 */
+	private boolean isURLReachable(URL url){
+		HttpURLConnection connection;
+		try {
+			
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("HEAD");
+			int responseCode = connection.getResponseCode();
+			connection.disconnect();
+			return responseCode == 200;
+			
+		}catch(IOException e1){
+			this.log("Unreachable URL : " + e1.getMessage());
+			return false;
+		}
+		
+	}
+	
+	/**
 	 * Converts nanoseconds to milliseconds
 	 * @param nanos
 	 * @return
@@ -156,6 +183,7 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 		return millis * 1000000;
 	}
 	
+
 	
 	/**
 	 * Execute a pipeline job and monitor how long it takes to run.

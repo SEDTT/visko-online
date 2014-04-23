@@ -48,7 +48,17 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 		$this->assertEquals($viewerSets, $p->getViewerSets());
 		
 	}
-	
+		
+	/**
+	 * @expectedException InputDataURLError
+	 */
+	public function testExecuteInputDataURLError(){
+		$q = $this->getQueryOneBadInput();
+		$p = $this->getPipelineOne(self::QUERY_ONE_ID);
+
+		$ps = $p->execute($q);
+	}
+
 	public function testExecuteSuccessful(){
 		$q = $this->getQueryOne();
 		$p = $this->getPipelineOne(self::QUERY_ONE_ID);
@@ -56,7 +66,7 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 		$ps = $p->execute($q);
 		
 		//TODO add successful url
-		$this->assertEquals('result.com', $ps->getResultURL());
+		//$this->assertEquals('result.com', $ps->getResultURL());
 		$this->markTestIncomplete('Need to run on UTEP network to get actual results');
 	}
 	
@@ -73,14 +83,35 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 	public function testExecuteServiceExecutionError(){
 		$this->markTestIncomplete('Not yet implemented');
 	}
-	
+
 	/**
-	 * @expectedException InputDataURLError
+	 * @return Query a functioning Query object
 	 */
-	public function testExecuteInputDataURLError(){
-		$this->markTestIncomplete('Not yet implemented');
+	public function getQueryOneBadInput(){
+		
+		//NOTE datasetdoesntexist.txt
+		$q = new Query(1, 'PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl#
+			PREFIX formats http://openvisko.org/rdf/pml2/formats/
+			PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#
+			PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#
+			PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#
+			VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt
+			AS views:2D_ContourMap IN visko:web-browser
+			WHERE
+			FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
+			AND TYPE = types:d19',
+				null,
+				null,
+				null,
+				null,
+				"http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/datasetdoesntexist.txt"
+		);
+		
+		$q->setID(self::QUERY_ONE_ID);
+		
+		return $q;
 	}
-	
+
 	/**
 	 * @return Query a functioning Query object
 	 */
@@ -108,6 +139,7 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 		
 		return $q;
 	}
+	
 	
 	/**
 	 * Get the first Pipeline from the pipelineset genereated by QueryOne

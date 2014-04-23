@@ -59,6 +59,7 @@
 		 * @return PipelineStatus the status of the result.
 		 * @throws BackendConnectException (cannot connect to backend, programmer error)
 		 * @throws ServiceTimeoutError if one of the pipeline services times out during execution.
+		 * @throws InputDataURLError if input data is unreachable.
 		 * @throws Exception if pipeline is already executing/other programmer error
 		 */
 		public function execute($generatingQuery){
@@ -101,6 +102,7 @@
 		 * //TODO add support for other errors.
 		 * //TODO refactor this so it doesnt have to know about viskobackend types
 		 * @throws ServiceTimeoutError if query is invalid or unexecutable.
+		 * @throws InputDataURLError if pipeline's input data url is unreachable.
 		 * @throws Exception if Pipeline is already executing/other error
 		 */
 		private function inspectErrors($pipelineErrors){
@@ -109,9 +111,15 @@
 				$etypes[$pe->type] = $pe;
 			}
 			
-			if(array_key_exists('PipelineExecutionTimeoutError', $etypes)){
+			if(array_key_exists('InputDataURLError', $etypes)){
+				$err = $etypes['InputDataURLError'];
+				throw new InputDataURLError($this->getUserID(), $this->getID(),
+					$err->inputDataURL);	
+			}
+
+			else if(array_key_exists('PipelineExecutionTimeoutError', $etypes)){
 				$err = $etypes['PipelineExecutionTimeoutError'];
-				throw new ServiceTimeoutError($this->getUserID(), $this->geID(),
+				throw new ServiceTimeoutError($this->getUserID(), $this->getID(),
 					$err->serviceIdx, $this->getServices()[$err->serviceIdx]);	
 			}
 			
