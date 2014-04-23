@@ -2,6 +2,10 @@ package dtt.visualization.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import dtt.visualization.errors.InvalidQueryException;
 import dtt.visualization.errors.JsonError;
+import dtt.visualization.errors.MalformedURIError;
 import dtt.visualization.errors.MissingParameterError;
 import dtt.visualization.errors.UnexecutableQueryException;
 import dtt.visualization.errors.VisualizationError;
@@ -60,6 +65,16 @@ public class QueryServlet extends VisualizationServlet {
 			Query query;
 			try{
 				query = this.gson.fromJson(rawQuery, Query.class);
+				
+				/* Currently it is infeasible to separate a malformeduri
+				 * from a syntax error due to the way that errors are hidden
+				 * by the query parser
+				Collection<MalformedURIError> uriErrors = this.checkURIs(query);
+				if(uriErrors.size() > 0){
+					qresponse.addErrors(uriErrors);
+				}
+				*/
+				
 				QueryEngine queryEngine = new QueryEngine(query);
 				
 				/* Invalid Queries = error while getting pipelines */
@@ -96,9 +111,58 @@ public class QueryServlet extends VisualizationServlet {
 			
 		}
 		//spit out the response
+		this.log(this.gson.toJson(qresponse));
 		out.print(this.gson.toJson(qresponse));
 		out.flush();
 		
+	}
+	
+	/**
+	 * Checks a query for malformed URIs, returns an appropriate exception if one is found, null otherwise
+	 */
+	private Collection<MalformedURIError> checkURIs(Query query){
+		
+		ArrayList<MalformedURIError> errors = new ArrayList<MalformedURIError>();
+		
+		String viewerSetURI = query.getViewerSetURI();
+		if(viewerSetURI != null && !isURI(viewerSetURI)){
+			errors.add(new MalformedURIError("viewerSetURI", viewerSetURI));
+		}
+		
+		String viewURI = query.getViewURI();
+		if(viewURI != null && !isURI(viewURI)){
+			errors.add(new MalformedURIError("viewURI", viewURI));
+		}
+		
+		String targetFormatURI = query.getTargetFormatURI();
+		if(targetFormatURI != null && !isURI(targetFormatURI)){
+			errors.add(new MalformedURIError("targetFormatURI", targetFormatURI));
+		}
+		
+		String targetTypeURI = query.getTargetTypeURI();
+		if(targetTypeURI != null && !isURI(targetTypeURI)){
+			errors.add(new MalformedURIError("targetTypeURI", targetTypeURI));
+		}
+
+		
+		return errors;
+	}
+	
+	/**
+	 * Stolen from Del Rio in QueryParser... tweaked to be more useful.
+	 */
+	private static boolean isURI(String uri) {
+		boolean isURI;
+		try {
+			URL addr = new URL(uri);
+			addr.toURI();
+			isURI = true;
+			
+		} catch (Exception e) {
+			isURI = false;
+		}
+
+		return isURI;
 	}
 
 }

@@ -1,6 +1,7 @@
 package dtt.visualization.responses;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import dtt.visualization.errors.VisualizationError;
@@ -22,6 +23,14 @@ public abstract class VisualizationResponse {
 	 */
 	public void addError(VisualizationError e){
 		this.errors.add(e);
+	}
+	
+	/**
+	 * Add a collection of errors simultaneously
+	 * @param e
+	 */
+	public void  addErrors(Collection<? extends VisualizationError> e){
+		this.errors.addAll(e);
 	}
 	
 	/**

@@ -54,6 +54,7 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 	 */
 	public function testExecuteInputDataURLError(){
 		$q = $this->getQueryOneBadInput();
+		
 		$p = $this->getPipelineOne(self::QUERY_ONE_ID);
 
 		$ps = $p->execute($q);

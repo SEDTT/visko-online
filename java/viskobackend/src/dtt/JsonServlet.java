@@ -14,7 +14,9 @@ import edu.utep.trustlab.visko.sparql.SPARQL_EndpointFactory;
 public abstract class JsonServlet extends HttpServlet {
 
 
-	public void init(){
+	public void init() throws ServletException{
+		super.init();
+		
 		/* Get the triple store location and set up the Triple Store */
 		String tripleStoreLocation = getServletContext().getInitParameter("visko_location");
 		SPARQL_EndpointFactory.setUpEndpointConnection(tripleStoreLocation);

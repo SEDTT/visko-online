@@ -53,10 +53,15 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 	/* How long to wait after execution *should* have completed */
 	private static final int JOIN_TIMEOUT = 1000;
 	
+	/* Maximum wait time on input data url */
+	private static final int INPUT_TIMEOUT = 3000;
+	
 	/**
 	 * Initialize the PipelineJobTable in the server context.
+	 * @throws ServletException 
 	 */
-	public void init(){
+	public void init() throws ServletException{
+		super.init();
 		ServletContext sc = this.getServletContext();
 		
 		PipelineJobTable jobTable = (PipelineJobTable) sc.getAttribute("visualization.pipeline.jobtable");
@@ -153,6 +158,9 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 		try {
 			
 			connection = (HttpURLConnection) url.openConnection();
+			connection.setReadTimeout(INPUT_TIMEOUT);
+			connection.setConnectTimeout(INPUT_TIMEOUT);
+			
 			connection.setRequestMethod("HEAD");
 			int responseCode = connection.getResponseCode();
 			connection.disconnect();
@@ -161,8 +169,7 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 		}catch(IOException e1){
 			this.log("Unreachable URL : " + e1.getMessage());
 			return false;
-		}
-		
+		}	
 	}
 	
 	/**
