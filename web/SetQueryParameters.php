@@ -12,7 +12,11 @@
 	}
 	
 	$nameOfPerson = $fgmembersite->UserEmail();
-?>
+
+	$image = $_GET['image'];
+	$description = $_GET['desc'];
+	
+	?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <link rel="shortcut icon" href="images/logo.png">
@@ -25,11 +29,164 @@
 		table.bottomBorder { border-collapse:collapse; }
 		table.bottomBorder td, table.bottomBorder th { border-bottom:1px dotted black;padding:5px; }
 		</style>
-		<!--[if IE 6]>
-		<link rel="stylesheet" type="text/css" href="css/iecss.css" />
-		<![endif]-->
+		<script type="text/javascript">
+
+		$('#ddViewerSet').change(function(){
+       writeQuery();
+    });
+var defaultValue = "default";
+var format;
+var type;
+var view;
+var viewerSet;
+var artifactURL;
+var parameter;
+var parameterValue;
+var bindings = new Array();
+
+function parameterBinding(parameter,parameterValue)
+{
+	this.parameter=parameter;
+	this.parameterValue=parameterValue;
+}
+
+function trim(stringToTrim)
+{
+	return stringToTrim.replace(/^\s+|\s+$/g,"");
+}
+
+function reset()
+{
+	format = defaultValue;
+	type = defaultValue;
+	view = defaultValue;
+	viewerSet = defaultValue;
+	artifactURL = defaultValue;
+	
+	document.getElementById("ddInputDataFormat").disabled = true;
+	document.getElementById("paramURIs").disabled = true;
+	document.getElementById("paramValue").disabled = true;
+	document.getElementById("bindButton").disabled = true;
+	document.getElementById("ddInputDataType").disabled = true;
+	document.getElementById("viewURIs").disabled = false;
+	document.getElementById("ddViewerSet").disabled = true;
+	document.getElementById("ddInputDataURL").disabled = true;
+	document.getElementById("queryText").disabled = false;
+	//document.getElementById("submitButton").disabled = true;
+	
+	document.getElementById("ddInputDataFormat").selectedIndex = 0;
+	document.getElementById("ddInputDataType").selectedIndex = 0;
+	document.getElementById("paramURIs").selectedIndex = 0;
+	document.getElementById("paramValue").value = "";
+	document.getElementById("viewURIs").selectedIndex = 0;
+	document.getElementById("ddViewerSet").selectedIndex = 0;
+	document.getElementById("ddInputDataURL").value = "";
+	//document.getElementById("queryText").value = "";
+	
+	bindings = new Array();
+}
+
+function setQueryFields()
+{	
+	document.getElementById("ddInputDataType").disabled = false;
+	document.getElementById("paramURIs").disabled = false;
+	document.getElementById("paramValue").disabled = false;
+	document.getElementById("bindButton").disabled = false;
+	document.getElementById("ddInputDataFormat").disabled = false;
+	document.getElementById("ddViewerSet").disabled = false;
+	document.getElementById("ddInputDataURL").disabled = false;
+	document.getElementById("queryText").disabled = false;
+	document.getElementById("submitButton").disabled = false;
+	
+	format = document.getElementById("ddInputDataFormat").value;
+	type = document.getElementById("ddInputDataType").value;
+	view = document.getElementById("viewURIs").value;
+	viewerSet = document.getElementById("ddViewerSet").value;
+	artifactURL = trim(document.getElementById("ddInputDataURL").value);
+	
+	parameter = document.getElementById("paramURIs").options[document.getElementById("paramURIs").selectedIndex].value;
+	parameterValue = trim(document.getElementById("paramValue").value);
+	
+	if(parameter != defaultValue && parameterValue != "" && parameterValue != null)
+	{
+		var paramExists = false;
+		for(var i = 0; i < bindings.length; i = i + 1)
+		{
+			var binding = bindings[i];
+			if(binding.parameter == parameter)
+			{
+				binding.parameterValue = parameterValue;
+				paramExists = true;
+			}
+		}
+		
+		if(!paramExists)
+		{
+			bindings.push(new parameterBinding(parameter, parameterValue));
+		}
+	}
+}
+	
+function clearParameterValue()
+{
+	document.getElementById("paramValue").value = "";
+	writeQuery();
+}
+
+function writeQuery()
+{	
+	document.write('Hello World!');
+	setQueryFields();
+	var query = "";
+	
+	if(view == defaultValue)
+	{reset();}
+	else
+	{
+		if(artifactURL != null && artifactURL != "")
+		{query = query + "VISUALIZE " + artifactURL + " \n";}
+		else
+		{query = query + "VISUALIZE url \n";}
+	
+		if(view != null && view != defaultValue)
+			query = query + "AS " + view + " \n";
+		else{query = query + "AS view";}
+		
+		if(viewerSet !== null && viewerSet != defaultValue)
+		{query = query + "IN " + viewerSet + " \n";}
+		else
+		{query = query + "IN viewer-set \n";}
+		
+		if(format != null && format != defaultValue)
+		{
+			query = query + "WHERE\n";
+			query = query + "\tFORMAT = " + format + "\n";
+		}
+		else
+		{query = query + "WHERE\n\tFORMAT = format\n";}
+		
+		if(type != null && type != defaultValue)
+		{query = query + "\tAND TYPE = " + type + "\n";}
+		else
+		{query = query + "\tAND TYPE = type\n";}
+		
+		for(var i = 0; i < bindings.length; i = i + 1)
+		{
+			var binding = bindings[i];
+			var parameter = binding.parameter;
+			var parameterValue = binding.parameterValue;
+			
+			query = query + "\tAND " + parameter + " = " + parameterValue + "\n";
+		
+		}
+			
+		document.getElementById("queryText").value = query;
+	}
+}
+</script>
+
 	</head>
-	<body>
+	<body onLoad = "reset()">
 	<div id="main_container">
 		<div class="header">
 			<div id="logo">
@@ -80,6 +237,11 @@
 							
 								});
 							});
+							</script>
+							<script>
+								$('#ddViewerSet').change(function(){
+       writeQuery();
+    });
 						</script>
 						</head> 
 						
@@ -88,13 +250,14 @@
 						<table style="width:100%">
 						<tr>
 							<td>
-								<div style="width:300px;height:150px;overflow:hidden">
-									<img src="images/tmp.jpg"/>
+								<div style="width:250px;height:250px;">
+									<img src="
+										<?php echo $image; ?>" width="250" height="250"/> 
 								</div>
-								<font size="1" color="black">Thumbnail from previous page!</font>
 							</td>
+							<td style="width:30px"></td>
 							<td>
-								<font size="2" color="black">&lt;&lt;Text Corresponding to Visualization Abstraction Description from previous page&gt;&gt;</font>
+								<font size="2" color="black"><?php echo $description; ?></font>
 							</td>
 						</tr>
 						</table>
@@ -106,7 +269,7 @@
 						<tr>
 							<td style = "height:50px">
 								<select id="ddViewerSet" style="width:400px">
-								<option value="" disabled selected style='display:none;'>Viewer Set</option>
+								<option value="" disabled selected style='display:none;' onchange="writeQuery(this)">Viewer Set</option>
 								</select>
 							</td>
 							<td style="width:20px"></td>
@@ -117,7 +280,7 @@
 						<tr>
 							<td style = "height:50px">
 								<select id="ddInputDataFormat" style="width:100%">
-								<option value="" disabled selected style='display:none;'>Input Data Format</option>
+								<option value="" disabled selected style='display:none;' onchange="writeQuery()">Input Data Format</option>
 								</select>
 							</td>
 							<td></td>
@@ -128,7 +291,7 @@
 						<tr>
 							<td style = "height:50px">
 								<select id="ddInputDataType" style="width:100%">
-								<option value="" disabled selected style='display:none;'>Input Data Type</option>
+								<option value="" disabled selected style='display:none;' onchange="writeQuery()">Input Data Type</option>
 								</select>
 							</td>
 							<td></td>
@@ -139,7 +302,7 @@
 						<tr>
 							<td style = "height:50px">
 								<form>
-								Input Data URL: <input type="text" name="inputDataURL" style="width:100%"><br>
+								Input Data URL: <input type="text" name="inputDataURL" style="width:100%" id="ddInputDataURL"><br>
 								</form> 
 							</td>
 							<td></td>
@@ -148,8 +311,16 @@
 							</td>
 						</tr>
 						<tr>
-							<td><center><button type="button" style= "background-color:#d9d9d9; width: 75px">Submit</button></td>
+							<td><center><button type="button" id="submitButton" style= "background-color:#d9d9d9; width: 75px">Submit</button></td>
 						</tr>
+						</table>
+						<form action="ViskoServletManager">
+						<input type="hidden" name="requestType" value="execute-query" /> 	<table style="width: 1023px; ">
+						<tr><td colspan="2"><h2>VisKo  Query</h2></td></tr>
+						<tr>
+							<td style="width: 996px; " colspan="2" align="right"><textarea style="width: 989px; height: 152px; background-color: #AFEEEE" id="queryText" name="query"></textarea></td>
+						</tr>
+						</form>
 						</table>
 						</body>
 					</html>

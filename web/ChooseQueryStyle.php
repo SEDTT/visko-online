@@ -86,31 +86,252 @@
 							<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 							<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 							<link rel="stylesheet" href="/resources/demos/style.css">
-							<script>
+							<style>
+								#accordion-resizer {
+								padding: 10px;
+								width: 350px;
+								height: 200px;
+								}
+								</style>
+								<script>
 								$(function() {
-								$( "#accordion" ).accordion();
+								$( "#accordion" ).accordion({
+								heightStyle: "fill"
 								});
-							
-							</script>
+								});
+								$(function() {
+								$( "#accordion-resizer" ).resizable({
+								minHeight: 100,
+								minWidth: 200,
+								resize: function() {
+								$( "#accordion" ).accordion( "refresh" );
+								}
+								});
+								});
+								</script>
 						</head>
 						<body>
 							<div id="accordion">
 								<h3>1D Abstractions</h3>
 								<div>
 									<p>
-									PIC & Description here
+									<table>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Timeline</b></font>
+										<?php $src = "http://www.stanford.edu/group/spatialhistory/media/images/publication/MSantosAPeers_graphs-05.svg"; ?>
+										<a href='./SetQueryParameters.php?type=1D_Timeline&image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="http://www.stanford.edu/group/spatialhistory/media/images/publication/MSantosAPeers_graphs-05.svg" width="250" height="250">	
+
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									</table>
 									</p>
 								</div>
 								<h3>2D Abstractions</h3>
 								<div>
 									<p>
-									PIC & Description here
+									<table>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Contour Map</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Force Graph</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Point Map</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Raster Map</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Species Distribution Map</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Spherized Raster</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>Time Series Plot</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>VisKo Data Transformations Force Graph </b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>VisKo Instances Bar Chart</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									<tr>
+									<td>
+										<font size="3" color="black"><b>VisKo Operator Paths Force Graph</b></font><br>
+										<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+										<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+									</td>
+									<td>
+										Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+									</td>
+									</tr>
+									</table>
 									</p>
 								</div>
 								<h3>3D Abstractions</h3>
 								<div>
 									<p>
-									PIC & Description here
+									<table>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Bar Chart</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Isosurfaces Rendering</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Mesh Plot</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Molecular Structure</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Molecular Structure Cartoon</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Point Plot</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Raster Cube</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Surface Plot</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+										<tr>
+										<td>
+											<font size="3" color="black"><b>Volume Rendering</b></font><br>
+											<?php $src = "https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"; ?>
+											<a href='./SetQueryParameters.php?image=<?php echo $src ?>&desc=Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.'><img src="https://nanohub.org/infrastructure/rappture/raw-attachment/wiki/rp_xml_ele_field/contour.jpg"  width="250" height="250"></a>
+										</td>
+										<td>
+											Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+										</td>
+										</tr>
+									</table>
 									</p>
 								</div>
 							</div>
