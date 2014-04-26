@@ -8,7 +8,7 @@
 		protected $id;
 		protected $userID;
 		protected $viskoQuery;
-		protected $dateSubmitted; //TODO what type is this?
+		protected $dateSubmitted;
 
 		/** Initialize a Query from input text, 
 		 * or input all of the necessary parameters 
@@ -25,7 +25,13 @@
 			);
 			
 			$this->userID = $userID;
-			$this->dateSubmitted = $dateSubmitted;
+			//assumes submission when you create it
+			if($dateSubmitted){
+				$this->dateSubmitted = $dateSubmitted;
+			}else{
+				$this->dateSubmitted = new DateTime();
+			}
+
 			$this->id = $id;
 		}
 
@@ -193,6 +199,16 @@
 		*/
 		public function getParameterBindings(){
 			return $this->getViskoQuery()->getParameterBindings();
+		}
+
+		/**
+		* Set a parameter binding. 
+		*
+		* @param String $parameter the name of the parameter (URI) to add.
+		* @param String $value the new value of the parameter Binding
+		*/
+		public function setParameterBinding($parameter, $value){
+			$this->getViskoQuery()->setParameterBinding($parameter, $value);
 		}
 	}
 ?>

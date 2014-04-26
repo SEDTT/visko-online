@@ -16,24 +16,26 @@
 		* @return int the query objects new ID
 		*/
 		public function insertQuery($query){
-	
+			assert($query->getDateSubmitted() != null);
+
 			$conn = $this->getConnection();
 
 			if(!($stmt = $conn->prepare("INSERT INTO `Queries` (userID, vsql, 
 				targetFormatURI, targetTypeURI, viewURI, 
 				viewerSetURI, artifactURL, dateSubmitted)
-				VALUES(?, ?, ?, ?, ?, ?, ?, NOW())"))){
+				VALUES(?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(?))"))){
 				$this->handlePrepareError($conn);
 			}else{
 				
-				$stmt->bind_param('issssss',
+				$stmt->bind_param('issssssi',
 					$query->getUserID(),
 					$query->getQueryText(),
 					$query->getTargetFormatURI(),
 					$query->getTargetTypeURI(),
 					$query->getViewURI(),
 					$query->getViewerSetURI(),
-					$query->getArtifactURL()
+					$query->getArtifactURL(),
+					$query->getDateSubmitted()->getTimestamp()
 				);
 				
 				
@@ -61,28 +63,35 @@
 
 		
 		/**
-		* @deprecated This shouldn't ever be necessary and doesnt update the parameters
 		* Updates a query object that is already in the database (valid id).
 		* 
-		* Sets everything except the user_id, id, and datesubmitted.
+		* @param Query $query a query object in the database to update.
+		* 
+		* Sets everything except the id
+		* Drop parameters and then readd any new ones
 		*/
 		public function updateQuery($query){
+			assert($query->getID() > 0); //already in DB
+
 			$conn = $this->getConnection();
 			
 			if(!($stmt = $conn->prepare("
-				UPDATE Queries SET
+				UPDATE `Queries` SET
 					vsql = ?, targetFormatURI = ?, targetTypeURI = ?,
-					viewURI = ?, viewerSetURI = ?, artifactURL = ?
+					viewURI = ?, viewerSetURI = ?, artifactURL = ?,
+					userID = ?, dateSubmitted = FROM_UNIXTIME(?)
 				WHERE id = ?"))){
 				$this->handlePrepareError($conn);
 			}else{
-				$stmt->bind_param('ssssssi',
+				$stmt->bind_param('ssssssiii',
 					$query->getQueryText(),
 					$query->getTargetFormatURI(),
 					$query->getTargetTypeURI(),
 					$query->getViewURI(),
 					$query->getViewerSetURI(),
 					$query->getArtifactURL(),
+					$query->getUserID(),
+					$query->getDateSubmitted()->getTimestamp(),
 					$query->getID()
 
 				);	
@@ -90,10 +99,36 @@
 				if(!$stmt->execute()){
 					$this->handleExecuteError($stmt);
 				}else{
-					//good?
-					return;
+					//update parameters by delete/add
+					$this->deleteQueryParameters($query);
+					$this->insertQueryParameters($query);
 				}
+				$stmt->close();
 			}
+		}
+
+		/**
+		* Delete all query parameters for a given query 
+		*/
+		private function deleteQueryParameters($query){
+			$conn = $this->getConnection();
+			$qid = $query->getID();
+
+			if(!($stmt = $conn->prepare(
+				"DELETE
+				 FROM `QueryParameters`
+				 WHERE queryID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param('i', $qid);
+
+				if(!$stmt->execute()){
+					//TODO this is bad
+					$this->handleExecuteError($stmt);
+				}
+				$stmt->close();
+			}
+			
 		}
 
 		/**

@@ -39,6 +39,7 @@ function generatePipelines($query){
 			$pm->insertPipeline($pipe);
 		}
 		//TODO can update query in database after receiving parsed one from viskobackend.
+		$qm->updateQuery($query);
 		return $pipes;
 	
 	}

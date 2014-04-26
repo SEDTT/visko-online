@@ -12,7 +12,7 @@
 	
 	$viskoQuery = new ViskoQuery();
 	$viskoQuery->fromJson($jt->decode(
-	file_get_contents('../../viskoapi/serialized_query.json')
+	file_get_contents('../../viskoapi/test/serialized_query.json')
 		));
 	
 	/*public function __construct($userID, $queryText, $targetFormatURI = null, 
@@ -31,8 +31,12 @@
 	);
 	
 	$qid = $queryManager->insertQuery($query);
-	
+
+	$query->setParameterBinding("snakes", "are the best");
+	$queryManager->updateQuery($query);
+
 	$newQuery = $queryManager->getQueryById($qid);
 	
+
 	var_dump($newQuery);
 	
