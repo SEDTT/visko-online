@@ -15,6 +15,7 @@
 
 	$image = $_GET['image'];
 	$description = $_GET['desc'];
+	$viewURIs = $_GET['type'];
 	
 	?>
 
@@ -30,160 +31,157 @@
 		table.bottomBorder td, table.bottomBorder th { border-bottom:1px dotted black;padding:5px; }
 		</style>
 		<script type="text/javascript">
+			var defaultValue = "default";
+			var format;
+			var type;
+			var view;
+			var viewerSet;
+			var artifactURL;
+			var parameter;
+			var parameterValue;
+			var bindings = new Array();
 
-		$('#ddViewerSet').change(function(){
-       writeQuery();
-    });
-var defaultValue = "default";
-var format;
-var type;
-var view;
-var viewerSet;
-var artifactURL;
-var parameter;
-var parameterValue;
-var bindings = new Array();
-
-function parameterBinding(parameter,parameterValue)
-{
-	this.parameter=parameter;
-	this.parameterValue=parameterValue;
-}
-
-function trim(stringToTrim)
-{
-	return stringToTrim.replace(/^\s+|\s+$/g,"");
-}
-
-function reset()
-{
-	format = defaultValue;
-	type = defaultValue;
-	view = defaultValue;
-	viewerSet = defaultValue;
-	artifactURL = defaultValue;
-	
-	document.getElementById("ddInputDataFormat").disabled = true;
-	document.getElementById("paramURIs").disabled = true;
-	document.getElementById("paramValue").disabled = true;
-	document.getElementById("bindButton").disabled = true;
-	document.getElementById("ddInputDataType").disabled = true;
-	document.getElementById("viewURIs").disabled = false;
-	document.getElementById("ddViewerSet").disabled = true;
-	document.getElementById("ddInputDataURL").disabled = true;
-	document.getElementById("queryText").disabled = false;
-	//document.getElementById("submitButton").disabled = true;
-	
-	document.getElementById("ddInputDataFormat").selectedIndex = 0;
-	document.getElementById("ddInputDataType").selectedIndex = 0;
-	document.getElementById("paramURIs").selectedIndex = 0;
-	document.getElementById("paramValue").value = "";
-	document.getElementById("viewURIs").selectedIndex = 0;
-	document.getElementById("ddViewerSet").selectedIndex = 0;
-	document.getElementById("ddInputDataURL").value = "";
-	//document.getElementById("queryText").value = "";
-	
-	bindings = new Array();
-}
-
-function setQueryFields()
-{	
-	document.getElementById("ddInputDataType").disabled = false;
-	document.getElementById("paramURIs").disabled = false;
-	document.getElementById("paramValue").disabled = false;
-	document.getElementById("bindButton").disabled = false;
-	document.getElementById("ddInputDataFormat").disabled = false;
-	document.getElementById("ddViewerSet").disabled = false;
-	document.getElementById("ddInputDataURL").disabled = false;
-	document.getElementById("queryText").disabled = false;
-	document.getElementById("submitButton").disabled = false;
-	
-	format = document.getElementById("ddInputDataFormat").value;
-	type = document.getElementById("ddInputDataType").value;
-	view = document.getElementById("viewURIs").value;
-	viewerSet = document.getElementById("ddViewerSet").value;
-	artifactURL = trim(document.getElementById("ddInputDataURL").value);
-	
-	parameter = document.getElementById("paramURIs").options[document.getElementById("paramURIs").selectedIndex].value;
-	parameterValue = trim(document.getElementById("paramValue").value);
-	
-	if(parameter != defaultValue && parameterValue != "" && parameterValue != null)
-	{
-		var paramExists = false;
-		for(var i = 0; i < bindings.length; i = i + 1)
-		{
-			var binding = bindings[i];
-			if(binding.parameter == parameter)
+			function parameterBinding(parameter,parameterValue)
 			{
-				binding.parameterValue = parameterValue;
-				paramExists = true;
+				this.parameter=parameter;
+				this.parameterValue=parameterValue;
 			}
-		}
-		
-		if(!paramExists)
-		{
-			bindings.push(new parameterBinding(parameter, parameterValue));
-		}
-	}
-}
-	
-function clearParameterValue()
-{
-	document.getElementById("paramValue").value = "";
-	writeQuery();
-}
 
-function writeQuery()
-{	
-	document.write('Hello World!');
-	setQueryFields();
-	var query = "";
-	
-	if(view == defaultValue)
-	{reset();}
-	else
-	{
-		if(artifactURL != null && artifactURL != "")
-		{query = query + "VISUALIZE " + artifactURL + " \n";}
-		else
-		{query = query + "VISUALIZE url \n";}
-	
-		if(view != null && view != defaultValue)
-			query = query + "AS " + view + " \n";
-		else{query = query + "AS view";}
-		
-		if(viewerSet !== null && viewerSet != defaultValue)
-		{query = query + "IN " + viewerSet + " \n";}
-		else
-		{query = query + "IN viewer-set \n";}
-		
-		if(format != null && format != defaultValue)
-		{
-			query = query + "WHERE\n";
-			query = query + "\tFORMAT = " + format + "\n";
-		}
-		else
-		{query = query + "WHERE\n\tFORMAT = format\n";}
-		
-		if(type != null && type != defaultValue)
-		{query = query + "\tAND TYPE = " + type + "\n";}
-		else
-		{query = query + "\tAND TYPE = type\n";}
-		
-		for(var i = 0; i < bindings.length; i = i + 1)
-		{
-			var binding = bindings[i];
-			var parameter = binding.parameter;
-			var parameterValue = binding.parameterValue;
-			
-			query = query + "\tAND " + parameter + " = " + parameterValue + "\n";
-		
-		}
-			
-		document.getElementById("queryText").value = query;
-	}
-}
-</script>
+			function trim(stringToTrim)
+			{
+				return stringToTrim.replace(/^\s+|\s+$/g,"");
+			}
+
+			function reset()
+			{
+				format = defaultValue;
+				type = defaultValue;
+				view = defaultValue;
+				viewerSet = defaultValue;
+				artifactURL = defaultValue;
+				
+				document.getElementById("ddInputDataFormat").disabled = false;
+				//document.getElementById("paramURIs").disabled = true;
+				//document.getElementById("paramValue").disabled = true;
+				//document.getElementById("bindButton").disabled = true;
+				document.getElementById("ddInputDataType").disabled = false;
+				document.getElementById("viewURIs").disabled = false;
+				document.getElementById("ddViewerSet").disabled = false;
+				document.getElementById("ddInputDataURL").disabled = false;
+				document.getElementById("queryText").disabled = false;
+				document.getElementById("submitButton").disabled = true;
+				
+				document.getElementById("ddInputDataFormat").selectedIndex = 0;
+				document.getElementById("ddInputDataType").selectedIndex = 0;
+				//document.getElementById("paramURIs").selectedIndex = 0;
+				//document.getElementById("paramValue").value = "";
+				document.getElementById("viewURIs").selectedIndex = 0;
+				document.getElementById("ddViewerSet").selectedIndex = 0;
+				document.getElementById("ddInputDataURL").value = "";
+				document.getElementById("queryText").value = "";
+				
+				//bindings = new Array();
+			}
+
+			function setQueryFields()
+			{	
+				document.getElementById("ddInputDataType").disabled = false;
+				//document.getElementById("paramURIs").disabled = false;
+				//document.getElementById("paramValue").disabled = false;
+				//document.getElementById("bindButton").disabled = false;
+				document.getElementById("ddInputDataFormat").disabled = false;
+				document.getElementById("ddViewerSet").disabled = false;
+				document.getElementById("ddInputDataURL").disabled = false;
+				document.getElementById("queryText").disabled = false;
+				document.getElementById("submitButton").disabled = false;
+				
+				format = document.getElementById("ddInputDataFormat").value;
+				type = document.getElementById("ddInputDataType").value;
+				view = "<?php echo $viewURIs; ?>";
+				//<?php echo $viewURIs; ?>
+				//view = document.getElementById("viewURIs").value;
+				viewerSet = document.getElementById("ddViewerSet").value;
+				artifactURL = trim(document.getElementById("ddInputDataURL").value);
+				
+				/*parameter = document.getElementById("paramURIs").options[document.getElementById("paramURIs").selectedIndex].value;
+				parameterValue = trim(document.getElementById("paramValue").value);
+				
+				if(parameter != defaultValue && parameterValue != "" && parameterValue != null)
+				{
+					var paramExists = false;
+					for(var i = 0; i < bindings.length; i = i + 1)
+					{
+						var binding = bindings[i];
+						if(binding.parameter == parameter)
+						{
+							binding.parameterValue = parameterValue;
+							paramExists = true;
+						}
+					}
+					
+					if(!paramExists)
+					{
+						bindings.push(new parameterBinding(parameter, parameterValue));
+					}
+				}*/
+			}
+				
+			function clearParameterValue()
+			{
+				document.getElementById("paramValue").value = "";
+				writeQuery();
+			}
+
+			function writeQuery()
+			{	
+				setQueryFields();
+				var query = "";
+				//document.write("hello!");
+				if(view == defaultValue)
+				{reset();}
+				else
+				{
+					if(artifactURL != null && artifactURL != "")
+					{query = query + "VISUALIZE " + artifactURL + " \n";}
+					else
+					{query = query + "VISUALIZE url \n";}
+				
+					if(view != null && view != defaultValue)
+						query = query + "AS " + view + " \n";
+					else{query = query + "AS view";}
+					
+					if(viewerSet !== null && viewerSet != defaultValue)
+					{query = query + "IN " + viewerSet + " \n";}
+					else
+					{query = query + "IN viewer-set \n";}
+					
+					if(format != null && format != defaultValue)
+					{
+						query = query + "WHERE\n";
+						query = query + "\tFORMAT = " + format + "\n";
+					}
+					else
+					{query = query + "WHERE\n\tFORMAT = format\n";}
+					
+					if(type != null && type != defaultValue)
+					{query = query + "\tAND TYPE = " + type + "\n";}
+					else
+					{query = query + "\tAND TYPE = type\n";}
+					
+					for(var i = 0; i < bindings.length; i = i + 1)
+					{
+						var binding = bindings[i];
+						var parameter = binding.parameter;
+						var parameterValue = binding.parameterValue;
+						
+						query = query + "\tAND " + parameter + " = " + parameterValue + "\n";
+					
+					}
+						
+					document.getElementById("queryText").value = query;
+				}
+			}
+		</script>
 
 	</head>
 	<body onLoad = "reset()">
@@ -219,33 +217,34 @@ function writeQuery()
 							   {
 									 $.each(obj.viewerSets,function(key,value)
 									 {
-										var option = $('<option />').val(value.viewerSetName).text(value.viewerSetName);
+										var option = $('<option />').val(value.viewerSetURI).text(value.viewerSetName);
 										$("#ddViewerSet").append(option);
 									 });
 									 
 									 $.each(obj.inputFormats,function(key,value)
 									 {
-										var option = $('<option />').val(value.inputFormatName).text(value.inputFormatName);
+										var option = $('<option />').val(value.inputFormatURI).text(value.inputFormatName);
 										$("#ddInputDataFormat").append(option);
 									 });
 									 
 									 $.each(obj.inputDataTypes,function(key,value)
 									 {
-										var option = $('<option />').val(value.inputDataTypeName).text(value.inputDataTypeName);
+										var option = $('<option />').val(value.inputDataTypeURI).text(value.inputDataTypeName);
 										$("#ddInputDataType").append(option);
-									 });
-							
+									 });	
+									
+									$.each(obj.abstractions, function (i, elem) 
+									{
+										//document.write(elem.abstractionName);
+										if (elem.abstractionName === '<?php echo $viewURIs ?>') {
+										 $("#ddviewURI").append(elem.abstractionURI);
+										}
+									});
 								});
 							});
 							</script>
-							<script>
-								$('#ddViewerSet').change(function(){
-       writeQuery();
-    });
-						</script>
 						</head> 
 						
-
 						<!--ends here-->
 						<table style="width:100%">
 						<tr>
@@ -268,8 +267,8 @@ function writeQuery()
 						<table style="width:100%">
 						<tr>
 							<td style = "height:50px">
-								<select id="ddViewerSet" style="width:400px">
-								<option value="" disabled selected style='display:none;' onchange="writeQuery(this)">Viewer Set</option>
+								<select id="ddViewerSet" style="width:400px" onchange="writeQuery()">
+								<option value="" disabled selected style='display:none;'>Viewer Set</option>
 								</select>
 							</td>
 							<td style="width:20px"></td>
@@ -279,8 +278,8 @@ function writeQuery()
 						</tr>
 						<tr>
 							<td style = "height:50px">
-								<select id="ddInputDataFormat" style="width:100%">
-								<option value="" disabled selected style='display:none;' onchange="writeQuery()">Input Data Format</option>
+								<select id="ddInputDataFormat" style="width:100%" onchange="writeQuery()">
+								<option value="" disabled selected style='display:none;'>Input Data Format</option>
 								</select>
 							</td>
 							<td></td>
@@ -290,8 +289,8 @@ function writeQuery()
 						</tr>
 						<tr>
 							<td style = "height:50px">
-								<select id="ddInputDataType" style="width:100%">
-								<option value="" disabled selected style='display:none;' onchange="writeQuery()">Input Data Type</option>
+								<select id="ddInputDataType" style="width:100%" onchange="writeQuery()">
+								<option value="" disabled selected style='display:none;'>Input Data Type</option>
 								</select>
 							</td>
 							<td></td>
