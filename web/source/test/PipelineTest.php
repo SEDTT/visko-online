@@ -55,26 +55,28 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 	public function testExecuteInputDataURLError(){
 		$q = $this->getQueryOneBadInput();
 		
-		$p = $this->getPipelineOne(self::QUERY_ONE_ID);
+		$p = $this->getPipelineOne(1);
 
 		$ps = $p->execute($q);
 	}
 
 	public function testExecuteSuccessful(){
 		$q = $this->getQueryOne();
-		$p = $this->getPipelineOne(self::QUERY_ONE_ID);
+		$p = $this->getPipelineOne(2);
 
 		$ps = $p->execute($q);
 		
-		//TODO add successful url
-		//$this->assertEquals('result.com', $ps->getResultURL());
-		$this->markTestIncomplete('Need to run on UTEP network to get actual results');
+		//cannot easily test specific URL because they are random
+		$this->assertTrue($ps->getResultURL() != null);
+		$this->assertEquals(count($p->getServices()), $ps->getLastServiceIndex());
+		$this->assertTrue($ps->completedNormally());
 	}
 	
 	/**
 	 * @expectedException ServiceTimeoutError
 	 */
 	public function testExecuteServiceTimeoutError(){
+		//how to test this???
 		$this->markTestIncomplete('Not yet implemented');
 	}
 	
@@ -82,6 +84,9 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 	 * @expectedException ServiceExecutionError
 	 */
 	public function testExecuteServiceExecutionError(){
+		//There is a way to test this by sending a query
+		//with missing parameters for a pipeline, but requires work on ViskoQuery
+		// class first (to send parameters)
 		$this->markTestIncomplete('Not yet implemented');
 	}
 
@@ -96,16 +101,11 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 			PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#
 			PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#
 			PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#
-			VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt
+			VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/datasetdoesntexist.txt
 			AS views:2D_ContourMap IN visko:web-browser
 			WHERE
 			FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
-			AND TYPE = types:d19',
-				null,
-				null,
-				null,
-				null,
-				"http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/datasetdoesntexist.txt"
+			AND TYPE = types:d19'
 		);
 		
 		$q->setID(self::QUERY_ONE_ID);
@@ -128,12 +128,7 @@ class PipelineTest extends PHPUnit_Framework_TestCase{
 			AS views:2D_ContourMap IN visko:web-browser
 			WHERE
 			FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
-			AND TYPE = types:d19',
-				null,
-				null,
-				null,
-				null,
-				"http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt"
+			AND TYPE = types:d19'
 		);
 		
 		$q->setID(self::QUERY_ONE_ID);

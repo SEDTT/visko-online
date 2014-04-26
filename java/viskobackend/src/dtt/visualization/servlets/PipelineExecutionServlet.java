@@ -25,6 +25,7 @@ import dtt.visualization.responses.PipelineExecutionResponse;
 import edu.utep.trustlab.visko.execution.PipelineExecutor;
 import edu.utep.trustlab.visko.execution.PipelineExecutorJob;
 import edu.utep.trustlab.visko.execution.PipelineExecutorJobStatus.PipelineState;
+import edu.utep.trustlab.visko.planning.QueryEngine;
 import edu.utep.trustlab.visko.planning.pipelines.PipelineSet;
 
 /**
@@ -107,6 +108,13 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 					presp.addError(new InputDataURLError(pset.getQuery().getArtifactURL()));
 				}
 				else{
+					//TODO this is a hack to get default pipeline parameters for the query
+					//and should be replaced by smarter viskopipeline codes.
+					QueryEngine queryEngine = new QueryEngine(pset.getQuery());
+					queryEngine.getPipelines();
+					pset.setParameterBindings(queryEngine.getQuery().getParameterBindings());
+					System.out.println(pset.getQuery().getArtifactURL());
+					
 					IdentifiedPipeline pipe = (IdentifiedPipeline)pset.firstElement();
 					this.log("Received Pipe with ID " + pipe.getID());
 					
@@ -143,7 +151,8 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 				e1.printStackTrace();
 			}
 		}
-		
+	
+		this.log(gson.toJson(presp));
 		out.println(gson.toJson(presp));
 		out.flush();
 	}

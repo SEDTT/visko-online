@@ -41,16 +41,27 @@ public class PipelineSetAdapter implements JsonSerializer<PipelineSet>, JsonDese
 		Query query = context.deserialize(jquery, Query.class);
 		PipelineSet pipeSet = new PipelineSet(query);
 		
-		//TODO this could not exist/ be null
-		pipeSet.setArtifactURL(jobj.get("artifactURL").getAsString());
+		
+		
+		
 		JsonArray jarray = jobj.get("pipelines").getAsJsonArray();
 		
+		boolean needsInput = false;
 		for (JsonElement jsonPipe : jarray){
 			Pipeline p = context.deserialize(jsonPipe, IdentifiedPipeline.class);
 			
+			needsInput |= p.requiresInputURL();
 			//This depends on a modified visko version
 			p.setParentPipelineSet(pipeSet);
 			pipeSet.add(p);
+		}
+		
+
+		JsonElement pipelineArtifactURL = jobj.get("artifactURL");
+		if(!pipelineArtifactURL.isJsonNull()){
+			pipeSet.setArtifactURL(pipelineArtifactURL.getAsString());
+		}else if (needsInput){
+			pipeSet.setArtifactURL(query.getArtifactURL());
 		}
 		
 		return pipeSet;

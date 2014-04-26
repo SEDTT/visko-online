@@ -133,7 +133,7 @@ class QueryTest extends PHPUnit_Framework_TestCase{
 	}
 	
 	/**
-	 * @expectedException MalformedURIError 
+	 *  
 	 */
 	public function testSubmitBadURIError(){
 		$qid = 17;
@@ -155,7 +155,7 @@ class QueryTest extends PHPUnit_Framework_TestCase{
 		//submit!
 		$pipes = $query->submit();
 		
-		$this->markTestIncomplete('Not yet implemented');
+		$this->markTestIncomplete('backend doesnt yet produce these errors.');
 	}
 
 }

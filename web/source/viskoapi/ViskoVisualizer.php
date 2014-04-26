@@ -1,6 +1,6 @@
 <?php
 
-require_once '../ConfigurationManager.php';
+require_once __DIR__ . '/../ConfigurationManager.php';
 require_once 'JsonTransformer.php';
 require_once 'ViskoPipeline.php';
 require_once 'ViskoError.php';

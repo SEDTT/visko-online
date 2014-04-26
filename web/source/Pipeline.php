@@ -60,6 +60,7 @@
 		 * @return PipelineStatus the status of the result.
 		 * @throws BackendConnectException (cannot connect to backend, programmer error)
 		 * @throws ServiceTimeoutError if one of the pipeline services times out during execution.
+		 * @throws ServiceExecutionError services didn't timeout, but pipeline didnt complete normally.
 		 * @throws InputDataURLError if input data is unreachable.
 		 * @throws Exception if pipeline is already executing/other programmer error
 		 */
@@ -79,7 +80,16 @@
 				
 				if($errors !=null && count($errors) > 0){
 					$this->inspectErrors($generatingQuery->getUserID(), $errors);
-				}else {
+				}else if($vps->getCompletedNormally() == false){
+					//TODO this might be a way to make these errors. Not sure what Del Rio meant
+					//by them
+					throw new ServiceExecutionError(
+						$uid, 
+						$this->getID(),
+						$vps->getServiceIndex(), 
+						$this->getServices()[$vps->getServiceIndex()]
+					);
+				}else{
 					assert($vps != null);
 					
 					//create a pipelinestatus from the response
