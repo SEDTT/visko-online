@@ -53,6 +53,7 @@
 		 * @pre this.getID() > 0 -- already saved in database
 		 * @pre this.getQueryID() == generatingQuery.getQueryID() -- query generated this pipeline.
 		 * @pre this.services->notEmpty() --pipeline has actual services to execute.
+		 * @pre generatingQuery.getUserID() > 0
 		 * @pre informally ('this pipeline is not already executing on backend (unique id)')
 		 * 
 		 * @param Query $generatingQuery the query that generated this pipeline object.
@@ -66,6 +67,7 @@
 			assert($generatingQuery->getID() == $this->getQueryID());
 			assert($this->getID() > 0);
 			assert($this->getServices() != null && count($this->getServices()) > 0);
+			assert($generatingQuery->getUserID() > 0);
 			
 			$vquery = $generatingQuery->getViskoQuery();
 			$vv = new ViskoVisualizer();
@@ -76,7 +78,7 @@
 						 $vquery, $this->getViskoPipeline());
 				
 				if($errors !=null && count($errors) > 0){
-					$this->inspectErrors($errors);
+					$this->inspectErrors($generatingQuery->getUserID(), $errors);
 				}else {
 					assert($vps != null);
 					
@@ -105,7 +107,7 @@
 		 * @throws InputDataURLError if pipeline's input data url is unreachable.
 		 * @throws Exception if Pipeline is already executing/other error
 		 */
-		private function inspectErrors($pipelineErrors){
+		private function inspectErrors($uid, $pipelineErrors){
 			$etypes = [];
 			foreach ($pipelineErrors as $pe){
 				$etypes[$pe->type] = $pe;
@@ -113,13 +115,13 @@
 			
 			if(array_key_exists('InputDataURLError', $etypes)){
 				$err = $etypes['InputDataURLError'];
-				throw new InputDataURLError($this->getUserID(), $this->getID(),
+				throw new InputDataURLError($uid, $this->getID(),
 					$err->inputDataURL);	
 			}
 
 			else if(array_key_exists('PipelineExecutionTimeoutError', $etypes)){
 				$err = $etypes['PipelineExecutionTimeoutError'];
-				throw new ServiceTimeoutError($this->getUserID(), $this->getID(),
+				throw new ServiceTimeoutError($uid, $this->getID(),
 					$err->serviceIdx, $this->getServices()[$err->serviceIdx]);	
 			}
 			
