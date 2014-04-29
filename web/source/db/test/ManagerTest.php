@@ -6,6 +6,8 @@
 * The database should be set up with structure before running any tests, but
 * tables should be empty!
 *
+* To make sample datasets do
+* 	mysqldump --xml --user=visko --password=visko viskotest [tables] > files/[datasetname.xml]
 * @see http://phpunit.de/manual/current/en/database.html
 * @author awknaust
 */

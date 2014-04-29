@@ -134,7 +134,12 @@
 			return $success;
 		}
 
-		/* Retrieve a Pipeline object with the given ID from the database */
+		/** Retrieve a Pipeline object with the given ID from the database 
+		* 
+		* @param int $pid the id of the Pipeline to retrieve
+		* @return Pipeline the Pipeline object with associated $pid
+		* @throws ManagerException if $pid doesn't reference a pipeline in the database.
+		*/
 		public function getPipelineByID($pid){
 			$conn = $this->getConnection();
 
@@ -150,15 +155,16 @@
 				if(!$stmt->execute()){
 					$this->handlePrepareError($stmt);
 				}else{
-					//TODO pipeline doesn't exist?
 					//first get general information
 					$stmt->bind_result($queryID, $viewURI, $viewerURI,
 						$outputFormat, $toolkit, $requiresInputURL);
 					
-					//TODO error?
 					while($stmt->fetch()){
 					};
 
+					if($queryID == null){
+						throw new ManagerException('No Pipeline with id ' . $pid);
+					}
 					//get services and viewersets
 					$services = $this->collectServices($pid);
 					$viewerSets = $this->collectViewerSets($pid);
@@ -168,6 +174,7 @@
 						$services, $viewerSets,
 						$pid);
 				
+					
 					//TODO move this
 					$stmt->close();
 					return $pipe;

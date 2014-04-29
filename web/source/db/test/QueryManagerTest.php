@@ -6,6 +6,8 @@ require_once __DIR__ . '/../../Query.php';
 /**
 * Tests the QueryManager class using DBTest cases.
 *
+* Depends on Query Object constructor (simple).
+* 
 * @author awknaust
 */
 class QueryManagerTest extends ManagerTest{
@@ -58,7 +60,6 @@ class QueryManagerTest extends ManagerTest{
 	/**
 	 * Test whether a query referencing a non-existent user fails to insert.
 	 * 
-	* @depends testInsertQueryNoParameters
 	* @expectedException ManagerException
 	* @group InsertTest
 	*
@@ -90,7 +91,6 @@ class QueryManagerTest extends ManagerTest{
 	/**
 	 * Test whether a query with several parameters successfully inserts.
 	 * 
-	 * @depends testInsertQueryNoParameters
 	 * @group InsertTest
 	 *
 	 */
@@ -125,7 +125,6 @@ class QueryManagerTest extends ManagerTest{
 	/**
 	 * Test whether a query with only query text set successfully inserts.
 	 *
-	 * @depends testInsertQueryWithParameters
 	 * @group InsertTest
 	 *
 	 */
@@ -155,10 +154,110 @@ class QueryManagerTest extends ManagerTest{
 	
 	}
 	
+	/**
+	* Test updating query with invalid ID
+	* @group UpdateTest
+	* @expectedException ManagerException
+	*/
+	public function testUpdateQueryBadID(){
+		$q = new Query(1, 'Fake Query text');
+		$q->setID(99);
+
+		$this->queryManager->updateQuery($q);
+		
+		//no changes should happen
+		$this->compareTable('Queries', 'query_start');
+		$this->compareTable('QueryParameters', 'query_start');
+	}
+
+	/**
+	* Test updating queries
+	*
+	* @group UpdateTest
+	* @dataProvider updateQueryProvider
+	*
+	* @param Query $query Query object with valid id to update
+	* @param string $datasetName name of dataset representing tables after updating.
+	*/
+	public function testUpdateQuery($query, $datasetName){
+		$qid = $query->getID();
+
+		$this->queryManager->updateQuery($query);
+		
+		//query id should be unaltered
+		$this->assertEquals($qid, $query->getID());
+
+		$this->compareTable('Queries', $datasetName);
+		$this->compareTable('QueryParameters', $datasetName);
+
+	}
+
+	/**
+	* Provides test cases for testUpdateQuery
+	* 
+	* Test case #0 update Query #1 (no parameters) with actual fields
+	* Test case #1 update Query #8 (w/parameters) with new parameters and null fields
+	* Test case #2 update Query #8 removing all existing parameters and actual fields.
+	*
+	*/
+	public function updateQueryProvider(){
+		return array(
+			array(new Query(1,
+				'vsql',
+				'http://visko.com#bananas',
+				'http://www.w3.org/2002/07/owl#Thought',
+				'http://openvisko.org/rdf/ontology/visko-view.owl#Rat',
+				'http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbowser.owl#snake',
+				'http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/tiger.txt',
+				[],
+				new DateTime('2014-03-17 17:20:12')
+				,1
 	
+			), 'query_update_one'),
+			array(new Query(1,
+				'',
+				null,
+				null,
+				null,
+				null,
+				null,
+				['http://visko.com#param1' => 'green'],
+				new DateTime('2010-03-17 17:20:12')
+				,8
+			), 'query_update_two'),
+			array(new Query(1,
+				'vsql',
+				'http://visko.com#bananas',
+				'http://www.w3.org/2002/07/owl#Thought',
+				'http://openvisko.org/rdf/ontology/visko-view.owl#Rat',
+				'http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbowser.owl#snake',
+				'http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/tiger.txt',
+				[],
+				new DateTime('2014-03-17 17:20:12')
+				,8
+	
+			), 'query_update_three'),
+		);
+	}
+
+	/**
+	* Test retrieving a non-existent query.
+	*
+	* @group GetTest
+	* @expectedException ManagerException
+	*/
+	public function testGetQueryBadID(){
+		$this->queryManager->getQueryByID(99);
+	
+		//tables should not be altered
+		$this->compareTable('Queries', 'query_start');
+		$this->compareTable('QueryParameters', 'query_start');
+
+	}
+
 	/**
 	 * Test retrieving Query Objects from the database.
-	 * 
+	 * @group GetTest 
 	 * @dataProvider getQueryProvider
 	 */
 	public function testGetQuery($query){
@@ -175,7 +274,12 @@ class QueryManagerTest extends ManagerTest{
 		$this->assertEquals($query->getTargetTypeURI(), $dbQuery->getTargetTypeURI());
 		$this->assertEquals($query->getTargetFormatURI(), $dbQuery->getTargetFormatURI());
 		$this->assertEquals($query->getParameterBindings(), $dbQuery->getParameterBindings());
+	
+		//tables should not be altered
+		$this->compareTable('Queries', 'query_start');
+		$this->compareTable('QueryParameters', 'query_start');
 	}
+
 	
 	/**
 	 * Test case #0 is a query object without parameters (id 1)

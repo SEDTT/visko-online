@@ -65,10 +65,11 @@
 		/**
 		* Updates a query object that is already in the database (valid id).
 		* 
-		* @param Query $query a query object in the database to update.
-		* 
 		* Sets everything except the id
 		* Drop parameters and then readd any new ones
+		*
+		* @param Query $query a query object in the database to update.
+		* @throws ManagerException if $query isn't already in database (bad id)
 		*/
 		public function updateQuery($query){
 			assert($query->getID() > 0); //already in DB
@@ -98,7 +99,10 @@
 
 				if(!$stmt->execute()){
 					$this->handleExecuteError($stmt);
-				}else{
+				}else if($conn->affected_rows <= 0){
+					throw new ManagerException('Failed to update probably due to bad query id '. $query->getID());
+				}
+				else{
 					//update parameters by delete/add
 					$this->deleteQueryParameters($query);
 					$this->insertQueryParameters($query);
@@ -204,7 +208,9 @@
 		/**
 		* Fetch a Query object from the database by its query id
 		*
-		*
+		* @param int $id id of the query to retrieve
+		* @return Query the query object associated with $id
+		* @throws ManagerException if $id doesn't reference a Query in the database.
 		*/
 		public function getQueryByID($id){
 
@@ -232,13 +238,16 @@
 					while($stmt->fetch()){
 						;
 					}
-					
-					$parameterBindings = $this->collectQueryParameters($id);
-						
-					$query = new Query($uid, $vsql, $targetFormatURI, $targetTypeURI,
-						$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
-						new DateTime($dateSubmitted), $id);
-
+				
+					if($uid == null){
+						throw new ManagerException('No Query with id '. $id);
+					}else{
+						$parameterBindings = $this->collectQueryParameters($id);
+							
+						$query = new Query($uid, $vsql, $targetFormatURI, $targetTypeURI,
+							$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
+							new DateTime($dateSubmitted), $id);
+					}
 					return $query;
 				}
 			}
