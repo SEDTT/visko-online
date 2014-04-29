@@ -4,6 +4,15 @@
 	require_once("./source/viskoapi/ViskoVisualizer.php");
 	require_once("./source/viskoapi/ViskoPipeline.php");
 	
+	$format = $_POST['format'];
+	$type = $_POST['type'];
+	$view = "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap"; //$_POST['view'];
+	$viewerSet = $_POST['viewerSet'];
+	$artifactURL = $_POST['artifactURL'];
+
+	if($format == null && $type == null && $viewerSet == null && $artifactURL == null)
+	{
+	
 	$x = $_POST['QueryArea'];
 	$query = new ViskoQuery();
 	$query->init($x,"","","","","");
@@ -19,6 +28,18 @@
 	
 	$pipelineArray = $pipes->groupPipelinesByToolkit();
 	//$visualizer
+	}
+	else
+	{
+		$viskoQuery = new ViskoQuery();
+		$viskoQuery->init(null,$format,$type,$view,$viewerSet,$artifactURL,"");
+		
+		$visualizer = new ViskoVisualizer(); 
+		var_dump($viskoQuery);
+		list($pipes, $errors) = $visualizer->generatePipelines($viskoQuery);
+		
+		//$pipelineArray = $pipes->groupPipelinesByToolkit();
+	}
 	
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
