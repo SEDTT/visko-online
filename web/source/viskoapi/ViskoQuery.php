@@ -14,7 +14,7 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	public function __construct(){
 		
 	}
-
+	
 	public function init($vsql, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL, $parameterBindings){
 		$this->setQueryText($vsql);
 		$this->targetFormatURI = $targetFormatURI;
@@ -58,19 +58,6 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	}
 
 	/**
-	* Set a parameter binding. 
-	*
-	* @param String $parameter the name of the parameter (URI) to add.
-	* @param String $value the new value of the parameter Binding
-	*/	
-	public function setParameterBinding($parameter, $value){
-		if(!$this->getParameterBindings()){
-			$this->parameterBindings = [];
-		}
-		$this->parameterBindings[$parameter] = $value;
-	}
-
-	/**
 	* When convertig to JSON, simply write text version of self?.
 	* TODO change this to work with parameters?
 	*
@@ -78,7 +65,12 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	public function toJson(){
 		$attrs = array(
 			"type" => "Query",
-			"vsql" => $this->vsql
+			"vsql" => $this->vsql,
+			"artifactURL" => $this->artifactURL,
+			"targetTypeURI"=> $this->targetTypeURI,
+			"targetFormatURI"=> $this->targetFormatURI,
+			"viewURI" => $this->viewURI,
+			"viewerSetURI" => $this->viewURI		
 		);
 		return $attrs;
 	}
