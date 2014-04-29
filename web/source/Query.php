@@ -15,7 +15,7 @@
 		**/
 		public function __construct($userID, $queryText, $targetFormatURI = null, 
 			$targetTypeURI = null, $viewURI = null, $viewerSetURI = null, 
-			$artifactURL = null, $parameterBindings = null, $dateSubmitted = null, 	
+			$artifactURL = null, $parameterBindings = [], $dateSubmitted = null, 	
 			$id = null){
 		
 			$this->viskoQuery = new ViskoQuery();

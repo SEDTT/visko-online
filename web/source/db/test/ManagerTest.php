@@ -28,7 +28,6 @@ abstract class ManagerTest extends PHPUnit_Extensions_Database_TestCase
 
         return $this->conn;
     }
-    
     /** Hack to truncate despite foreign keys */
     public function getSetUpOperation()
     {
@@ -38,7 +37,33 @@ abstract class ManagerTest extends PHPUnit_Extensions_Database_TestCase
             new TruncateOperation($cascadeTruncates),
             \PHPUnit_Extensions_Database_Operation_Factory::INSERT()
         ));
-    } 
+    }
+
+	 /**
+	 * Create a dataset from a mysqlfile. 
+	 *
+	 * @param string $filename the name of the dataset as a file
+	 */
+	 protected function dataSetFromFile($filename){
+	 	$path =  __DIR__ . '/files/'. $filename . '.xml'; 
+	 	return $this->createMySQLXMLDataSet($path);
+	 }
+	 
+	 /**
+	  * Compare an actual database table with an expected table from a dataset
+	  *
+	  * @param string $tableName name of table to check.
+	  * @param string $fileName filename of dataset
+	  */
+	 protected function compareTable($tableName, $fileName){
+	 	$queryTable = $this->getConnection()->createQueryTable(
+	 			$tableName, 'SELECT * FROM ' . $tableName
+	 	);
+	 
+	 	$expectedTable = $this->dataSetFromFile($fileName)->getTable($tableName);
+	 
+	 	$this->assertTablesEqual($expectedTable, $queryTable);
+	 }
 }
 
 /**

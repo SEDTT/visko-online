@@ -237,7 +237,7 @@
 						
 					$query = new Query($uid, $vsql, $targetFormatURI, $targetTypeURI,
 						$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
-						$dateSubmitted, $id);
+						new DateTime($dateSubmitted), $id);
 
 					return $query;
 				}
