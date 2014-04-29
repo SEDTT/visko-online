@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpunit>
+    <php>
+        <var name="DB_DSN" value="mysql:dbname=viskotest;host=localhost" />
+        <var name="DB_USER" value="visko" />
+        <var name="DB_HOST" value="localhost" />
+        <var name="DB_PASSWD" value="visko" />
+        <var name="DB_DBNAME" value="viskotest" />
+    </php>
+</phpunit>

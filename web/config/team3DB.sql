@@ -1,5 +1,5 @@
 
---Hopefully this will be the future refactored version of User table
+-- Hopefully this will be the future refactored version of User table
 -- or at least hacked to share ids
 CREATE TABLE IF NOT EXISTS `Users`(
 	id int(11) NOT NULL AUTO_INCREMENT,
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Queries` (
   `artifactURL` varchar(1024) default NULL,
   `dateSubmitted` datetime NOT NULL,
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (`userID`) REFERENCES Users(id)
+  FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `Pipelines` (
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `Pipelines` (
   `outputFormat` varchar(1024) default NULL,
   `requiresInputURL` bool,
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (`queryID`) REFERENCES Queries(id)
+  FOREIGN KEY (`queryID`) REFERENCES Queries(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `Services` (
@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS `Services` (
   `status` bool NOT NULL,
   `lastStatusCheck` datetime NOT NULL,
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (`userID`) REFERENCES Users(id)
+  FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `ViewerSets` (
@@ -69,8 +70,9 @@ CREATE TABLE IF NOT EXISTS `PipelineServices` (
   `serviceID` int(11) NOT NULL,
   `position` int(11) default NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id),
-  FOREIGN KEY (`serviceID`) REFERENCES Services(id)
+  FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id) ON DELETE CASCADE,
+  FOREIGN KEY (`serviceID`) REFERENCES Services(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `PipelineViewerSets` (
@@ -78,8 +80,9 @@ CREATE TABLE IF NOT EXISTS `PipelineViewerSets` (
   `pipelineID` int(11) NOT NULL,
   `viewerSetID` int(11) NOT NULL,
    PRIMARY KEY (`id`),
-   FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id),
-   FOREIGN KEY (`viewerSetID`) REFERENCES ViewerSets(id)
+   FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id)  ON DELETE CASCADE,
+   FOREIGN KEY (`viewerSetID`) REFERENCES ViewerSets(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `QueryParameters` (
@@ -88,7 +91,8 @@ CREATE TABLE IF NOT EXISTS `QueryParameters` (
  `URI` varchar(1024) NOT NULL,
  `value` varchar(1024) NOT NULL,
  PRIMARY KEY (`id`),
- FOREIGN KEY(`queryID`) REFERENCES Queries(id)
+ FOREIGN KEY(`queryID`) REFERENCES Queries(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `PipelineStatuses` (
@@ -99,7 +103,8 @@ CREATE TABLE IF NOT EXISTS `PipelineStatuses` (
   `serviceIndex` INT(11) default NULL,
   `completedNormally` bool,
   PRIMARY KEY  (`id`),
-  FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id)
+  FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id) ON DELETE CASCADE
+
 );
 
 -- Error tables form a hierarchy
@@ -109,7 +114,8 @@ CREATE TABLE IF NOT EXISTS `Errors` (
 	`userID` int(11) NOT NULL,
 	`message` varchar(1024) default NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY (`userID`) REFERENCES Users(id)
+	FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `PipelineErrors` (
@@ -117,8 +123,9 @@ CREATE TABLE IF NOT EXISTS `PipelineErrors` (
 	`parentID` int(11) NOT NULL,
 	`pipelineID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY (`parentID`) REFERENCES Errors(id),
-	FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id)
+	FOREIGN KEY (`parentID`) REFERENCES Errors(id) ON DELETE CASCADE,
+	FOREIGN KEY (`pipelineID`) REFERENCES Pipelines(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS ServiceErrors (
@@ -126,22 +133,25 @@ CREATE TABLE IF NOT EXISTS ServiceErrors (
 	`parentID` int(11) NOT NULL,
 	`pipelineServiceID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id),
-	FOREIGN KEY (`pipelineServiceID`) REFERENCES PipelineServices(id)
+	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id) ON DELETE CASCADE,
+	FOREIGN KEY (`pipelineServiceID`) REFERENCES PipelineServices(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS ServiceTimeoutErrors(
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`parentID`) REFERENCES ServiceErrors(id)
+	FOREIGN KEY (`parentID`) REFERENCES ServiceErrors(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS ServiceExecutionErrors(
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`parentID`) REFERENCES ServiceErrors(id)
+	FOREIGN KEY (`parentID`) REFERENCES ServiceErrors(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS InputDataURLErrors(
@@ -149,7 +159,8 @@ CREATE TABLE IF NOT EXISTS InputDataURLErrors(
 	`parentID` int(11) NOT NULL,
 	`datasetURL` varchar (1024) NOT NULL,
 	PRIMARY KEY (`id`),
-	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id)
+	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id) ON DELETE CASCADE
+
 );
 
 CREATE TABLE IF NOT EXISTS `QueryErrors` (
@@ -157,22 +168,22 @@ CREATE TABLE IF NOT EXISTS `QueryErrors` (
 	`parentID` int(11) NOT NULL,
 	`queryID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY (`parentID`) REFERENCES Errors(id),
-	FOREIGN KEY (`queryID`) REFERENCES Queries(id)
+	FOREIGN KEY (`parentID`) REFERENCES Errors(id) ON DELETE CASCADE,
+	FOREIGN KEY (`queryID`) REFERENCES Queries(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `SyntaxErrors`(
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`parentID`) REFERENCES QueryErrors(id)
+	FOREIGN KEY(`parentID`) REFERENCES QueryErrors(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `NoPipelineResultsErrors`(
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
 	PRIMARY KEY(`id`),
-	FOREIGN KEY(`parentID`) REFERENCES QueryErrors(id)
+	FOREIGN KEY(`parentID`) REFERENCES QueryErrors(id) ON DELETE CASCADE
 );
 
 
@@ -181,8 +192,10 @@ CREATE TABLE IF NOT EXISTS `MalformedURIErrors` (
 	`parentID` int(11) NOT NULL,
 	`uri` varchar(1024),
 	PRIMARY KEY(`id`),
-	FOREIGN KEY (`parentID`) REFERENCES QueryErrors(id)
+	FOREIGN KEY (`parentID`) REFERENCES QueryErrors(id) ON DELETE CASCADE
 );
+
+
 
 
 

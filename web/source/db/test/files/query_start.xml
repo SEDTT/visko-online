@@ -1,0 +1,542 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="visko">
+	<table_data name="Users">
+	<row>
+		<field name="id">1</field>
+	</row>
+	</table_data>
+	<table_data name="Queries">
+	<row>
+		<field name="id">1</field>
+		<field name="userID">1</field>
+		<field name="vsql">PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl# 
+PREFIX formats http://openvisko.org/rdf/pml2/formats/ 
+PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl# 
+PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl# 
+PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl# 
+VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt 
+AS views:2D_ContourMap 
+IN visko:web-browser 
+WHERE
+	FORMAT = http://openvisko.org/rdf/pml2/formats/SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
+	AND TYPE = http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#d19
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#G = lightgray
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#E = 200/30
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#S = 0.2
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#J = x6c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#plotVariable = z
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#colorTable = WhiteBlueGreenYellowRed
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#I = 0.02
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#S = o0.1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#R = -109/-107/33/34/-300/-100
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lbOrientation = vertical
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#W = thinnest
+	AND params:Wc = thinnest,black
+	AND params:Wa = thinnest,black
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLevelSpacingF = 10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#I = 0.02
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#C = 0.1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#font = helvetica
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLinesOn = False
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#font = helvetica
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#T = 0.25
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lonVariable = x
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#plotVariable = z
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnFillOn = True
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#B = 1/1/50
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfZ = -1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfY = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfY = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfX = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfX = 0
+	AND params:S = 5
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfY = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfX = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfZ = 2
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfY = 0
+	AND params:A = 20
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lbOrientation = vertical
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfZ = -1
+	AND params:B = 0.5
+	AND params:C = 10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz.owl#N = 0
+	AND params:J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#B = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#latVariable = y
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#colorTable = WhiteBlueGreenYellowRed
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#T = -200/200/10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz_esri.owl#N = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#G = blue
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfX = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lonVariable = x
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#JZ = 5c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#B = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#C = hot
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#latVariable = y
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#S = c0.04c</field>
+		<field name="targetFormatURI" xsi:nil="true" />
+		<field name="targetTypeURI">http://www.w3.org/2002/07/owl#Thing</field>
+		<field name="viewURI">http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap</field>
+		<field name="viewerSetURI">http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser</field>
+		<field name="artifactURL">http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt</field>
+		<field name="dateSubmitted">2014-04-17 17:20:12</field>
+	</row>
+	<row>
+		<field name="id">8</field>
+		<field name="userID">1</field>
+		<field name="vsql">PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl# 
+PREFIX formats http://openvisko.org/rdf/pml2/formats/ 
+PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl# 
+PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl# 
+PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl# 
+VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt 
+AS views:2D_ContourMap 
+IN visko:web-browser 
+WHERE
+	FORMAT = http://openvisko.org/rdf/pml2/formats/SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES
+	AND TYPE = http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#d19
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#G = lightgray
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#E = 200/30
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#S = 0.2
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#J = x6c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#plotVariable = z
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#colorTable = WhiteBlueGreenYellowRed
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#I = 0.02
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#S = o0.1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#R = -109/-107/33/34/-300/-100
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lbOrientation = vertical
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#W = thinnest
+	AND params:Wc = thinnest,black
+	AND params:Wa = thinnest,black
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLevelSpacingF = 10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#I = 0.02
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#C = 0.1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#font = helvetica
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLinesOn = False
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#font = helvetica
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#T = 0.25
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lonVariable = x
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#plotVariable = z
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnFillOn = True
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#B = 1/1/50
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfZ = -1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfY = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfY = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfX = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfX = 0
+	AND params:S = 5
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfY = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfX = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfZ = 2
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfY = 0
+	AND params:A = 20
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lbOrientation = vertical
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfZ = -1
+	AND params:B = 0.5
+	AND params:C = 10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz.owl#N = 0
+	AND params:J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#B = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#latVariable = y
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#colorTable = WhiteBlueGreenYellowRed
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#T = -200/200/10
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz_esri.owl#N = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#G = blue
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfX = 0
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lonVariable = x
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#JZ = 5c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#R = -109/-107/33/34
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#B = 1
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#C = hot
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#latVariable = y
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#J = x4c
+	AND http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#S = c0.04c</field>
+		<field name="targetFormatURI" xsi:nil="true" />
+		<field name="targetTypeURI">http://www.w3.org/2002/07/owl#Thing</field>
+		<field name="viewURI">http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap</field>
+		<field name="viewerSetURI">http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser</field>
+		<field name="artifactURL">http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt</field>
+		<field name="dateSubmitted">2014-04-28 18:41:14</field>
+	</row>
+	</table_data>
+	<table_data name="QueryParameters">
+	<row>
+		<field name="id">604</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#G</field>
+		<field name="value">lightgray</field>
+	</row>
+	<row>
+		<field name="id">605</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#R</field>
+		<field name="value">-109/-107/33/34</field>
+	</row>
+	<row>
+		<field name="id">606</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#E</field>
+		<field name="value">200/30</field>
+	</row>
+	<row>
+		<field name="id">607</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#S</field>
+		<field name="value">0.2</field>
+	</row>
+	<row>
+		<field name="id">608</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#J</field>
+		<field name="value">x6c</field>
+	</row>
+	<row>
+		<field name="id">609</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#plotVariable</field>
+		<field name="value">z</field>
+	</row>
+	<row>
+		<field name="id">610</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#colorTable</field>
+		<field name="value">WhiteBlueGreenYellowRed</field>
+	</row>
+	<row>
+		<field name="id">611</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/nearneighbor.owl#I</field>
+		<field name="value">0.02</field>
+	</row>
+	<row>
+		<field name="id">612</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#S</field>
+		<field name="value">o0.1</field>
+	</row>
+	<row>
+		<field name="id">613</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#R</field>
+		<field name="value">-109/-107/33/34/-300/-100</field>
+	</row>
+	<row>
+		<field name="id">614</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lbOrientation</field>
+		<field name="value">vertical</field>
+	</row>
+	<row>
+		<field name="id">615</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#W</field>
+		<field name="value">thinnest</field>
+	</row>
+	<row>
+		<field name="id">616</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#Wc</field>
+		<field name="value">thinnest,black</field>
+	</row>
+	<row>
+		<field name="id">617</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#Wa</field>
+		<field name="value">thinnest,black</field>
+	</row>
+	<row>
+		<field name="id">618</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLevelSpacingF</field>
+		<field name="value">10</field>
+	</row>
+	<row>
+		<field name="id">619</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#I</field>
+		<field name="value">0.02</field>
+	</row>
+	<row>
+		<field name="id">620</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#C</field>
+		<field name="value">0.1</field>
+	</row>
+	<row>
+		<field name="id">621</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#font</field>
+		<field name="value">helvetica</field>
+	</row>
+	<row>
+		<field name="id">622</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnLinesOn</field>
+		<field name="value">False</field>
+	</row>
+	<row>
+		<field name="id">623</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#R</field>
+		<field name="value">-109/-107/33/34</field>
+	</row>
+	<row>
+		<field name="id">624</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#font</field>
+		<field name="value">helvetica</field>
+	</row>
+	<row>
+		<field name="id">625</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/surface.owl#T</field>
+		<field name="value">0.25</field>
+	</row>
+	<row>
+		<field name="id">626</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#lonVariable</field>
+		<field name="value">x</field>
+	</row>
+	<row>
+		<field name="id">627</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#plotVariable</field>
+		<field name="value">z</field>
+	</row>
+	<row>
+		<field name="id">628</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#cnFillOn</field>
+		<field name="value">True</field>
+	</row>
+	<row>
+		<field name="id">629</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#B</field>
+		<field name="value">1/1/50</field>
+	</row>
+	<row>
+		<field name="id">630</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfZ</field>
+		<field name="value">-1</field>
+	</row>
+	<row>
+		<field name="id">631</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfY</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">632</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfY</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">633</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#indexOfX</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">634</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#indexOfX</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">635</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#S</field>
+		<field name="value">5</field>
+	</row>
+	<row>
+		<field name="id">636</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfY</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">637</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfX</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">638</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfZ</field>
+		<field name="value">2</field>
+	</row>
+	<row>
+		<field name="id">639</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfY</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">640</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#A</field>
+		<field name="value">20</field>
+	</row>
+	<row>
+		<field name="id">641</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lbOrientation</field>
+		<field name="value">vertical</field>
+	</row>
+	<row>
+		<field name="id">642</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#indexOfZ</field>
+		<field name="value">-1</field>
+	</row>
+	<row>
+		<field name="id">643</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#B</field>
+		<field name="value">0.5</field>
+	</row>
+	<row>
+		<field name="id">644</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#C</field>
+		<field name="value">10</field>
+	</row>
+	<row>
+		<field name="id">645</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz.owl#N</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">646</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl#J</field>
+		<field name="value">x4c</field>
+	</row>
+	<row>
+		<field name="id">647</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#B</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">648</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#R</field>
+		<field name="value">-109/-107/33/34</field>
+	</row>
+	<row>
+		<field name="id">649</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map_raster.owl#latVariable</field>
+		<field name="value">y</field>
+	</row>
+	<row>
+		<field name="id">650</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#colorTable</field>
+		<field name="value">WhiteBlueGreenYellowRed</field>
+	</row>
+	<row>
+		<field name="id">651</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#T</field>
+		<field name="value">-200/200/10</field>
+	</row>
+	<row>
+		<field name="id">652</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grd2xyz_esri.owl#N</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">653</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#J</field>
+		<field name="value">x4c</field>
+	</row>
+	<row>
+		<field name="id">654</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#G</field>
+		<field name="value">blue</field>
+	</row>
+	<row>
+		<field name="id">655</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/XYZDataFieldFilter.owl#indexOfX</field>
+		<field name="value">0</field>
+	</row>
+	<row>
+		<field name="id">656</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#lonVariable</field>
+		<field name="value">x</field>
+	</row>
+	<row>
+		<field name="id">657</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxyz.owl#JZ</field>
+		<field name="value">5c</field>
+	</row>
+	<row>
+		<field name="id">658</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#R</field>
+		<field name="value">-109/-107/33/34</field>
+	</row>
+	<row>
+		<field name="id">659</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#B</field>
+		<field name="value">1</field>
+	</row>
+	<row>
+		<field name="id">660</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#C</field>
+		<field name="value">hot</field>
+	</row>
+	<row>
+		<field name="id">661</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/gsn_csm_contour_map.owl#latVariable</field>
+		<field name="value">y</field>
+	</row>
+	<row>
+		<field name="id">662</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/grdimage.owl#J</field>
+		<field name="value">x4c</field>
+	</row>
+	<row>
+		<field name="id">663</field>
+		<field name="queryID">8</field>
+		<field name="URI">http://visko.cybershare.utep.edu:5080/visko-web/registry/psxy.owl#S</field>
+		<field name="value">c0.04c</field>
+	</row>
+	<row>
+		<field name="id">664</field>
+		<field name="queryID">8</field>
+		<field name="URI">snakes</field>
+		<field name="value">are the best</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>
