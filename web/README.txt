@@ -1,4 +1,5 @@
-$/29/14 Added to ChooseQueryStyle to check syntax of user input
+$/29/14 Janelle Ybarra
+Added to ChooseQueryStyle to check syntax of user input
 
 -----------------------------------------------------------------------------
 
