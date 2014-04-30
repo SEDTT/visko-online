@@ -1,10 +1,12 @@
 
 -- Hopefully this will be the future refactored version of User table
 -- or at least hacked to share ids
-CREATE TABLE IF NOT EXISTS `Users`(
-	id int(11) NOT NULL AUTO_INCREMENT,
-	PRIMARY KEY (`id`)
-);
+-- CREATE TABLE IF NOT EXISTS `Users`(
+--	id int(11) NOT NULL AUTO_INCREMENT,
+--	PRIMARY KEY (`id`)
+-- ) ;
+
+
 
 CREATE TABLE IF NOT EXISTS User(
 	U_id INT NOT NULL AUTO_INCREMENT,
@@ -19,6 +21,8 @@ CREATE TABLE IF NOT EXISTS User(
 	PRIMARY KEY(U_id, U_email)
 );
 
+CREATE VIEW IF NOT EXISTS`Users` AS SELECT U_id AS id FROM `User`;
+
 CREATE TABLE IF NOT EXISTS `Queries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
@@ -31,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `Queries` (
   `viewerSetURI` varchar(1024) default NULL,
   `artifactURL` varchar(1024) default NULL,
   `dateSubmitted` datetime NOT NULL,
-  PRIMARY KEY  (`id`),
-  FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
+  PRIMARY KEY  (`id`)
+  -- FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `Pipelines` (
@@ -54,8 +58,8 @@ CREATE TABLE IF NOT EXISTS `Services` (
   `dateAdded` datetime NOT NULL,
   `status` bool NOT NULL,
   `lastStatusCheck` datetime NOT NULL,
-  PRIMARY KEY  (`id`),
-  FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
+  PRIMARY KEY  (`id`)
+  -- FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
 
 );
 
@@ -115,8 +119,8 @@ CREATE TABLE IF NOT EXISTS `Errors` (
 	`timeOccurred` datetime NOT NULL,
 	`userID` int(11) NOT NULL,
 	`message` varchar(1024) default NULL,
-	PRIMARY KEY(`id`),
-	FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
+	PRIMARY KEY(`id`)
+	-- FOREIGN KEY (`userID`) REFERENCES Users(id) ON DELETE CASCADE
 
 );
 
@@ -199,6 +203,39 @@ CREATE TABLE IF NOT EXISTS `MalformedURIErrors` (
 
 
 
+INSERT INTO ViewerSets (URI)
+ VALUES
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_d3.owl#d3-viewer-set'),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_paraview.owl#paraview'),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl#web-browser');
+
+INSERT INTO Services (URI, userID, dateAdded)
+ VALUES
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_contour_map_raster', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#ps2pdf', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#sPARQLResultsToJSONGraph', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagej.owl#surfacePlotter', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonGraph_OperatorPaths', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grdimage', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagemagick.owl#fits2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#surface', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_contour_map', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grd2xyz_esri', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#nearneighbor', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#pdf2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#csv2tabular', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonGraph_DataTransformations', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonBars_Instances', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_xy2_time_series', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#psxy', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#int2Short', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#psxyz', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagemagick.owl#spherize', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grdcontour', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#XYZDataFieldFilter', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#float2ShortThr', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#ps2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grd2xyz', 1, NOW());
 
 
 
