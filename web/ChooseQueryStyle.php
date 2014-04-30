@@ -63,11 +63,136 @@
 				<div align = "center">
 					Option 1: Submit Visualization Query
 					<br><br>
-					<form action="SelectPipelines.php" method="post">
-					<textarea name = "QueryArea" style="width:100%; height: 100px;"></textarea><br><br>
-					<input type="submit">
-					<br><br>
+					<div id = "test">
+					<form id="syntaxCheck" action = "/" name = "syntaxChecker">
+						<div>
+							<textarea id="QueryArea" style="width:100%; height: 100px;"></textarea>
+							<input type="button" value="submit" onclick="checkSyntax()" />
+							<br />
+							<p id="msg"></p>
+						</div>
 					</form>
+					</div>
+					<script>
+						var errorNum = 0;
+						
+						function checkSyntax() {
+							var c1 = document.getElementById('QueryArea').value;
+							var queryArr = c1.split("\n"); 
+							var d1 = document.getElementById('msg');
+							var keywords = new Array("PREFIX","VISUALIZE", "VISUALIZE NODESET", "AS", "IN", "WHERE", "FORMAT", "AND");
+							
+							
+							//traverse the queryArr array
+							for(var i = 0;i<queryArr.length;i++)
+					
+							{
+								//split line by space
+								
+								var lineArr = queryArr[i].trim().split(" ");
+								var temp = lineArr[0].toUpperCase();
+							
+
+								//check if keyword is correct
+								if(keywords.indexOf(temp)== -1)
+								{
+									error();
+									errorNum ++;
+									
+								}
+								
+								else{			
+									
+									
+									switch(temp)
+									{
+										//PREFIX
+										case "PREFIX":
+										
+											prefixCheck(lineArr[1]);
+										break;
+											
+										case "VISUALIZE":
+										case "VISUALIZE NODESET":
+											visualizeCheck(lineArr[1]);
+										break;
+
+										//AS
+										case "AS":
+											asCheck(lineArr[1]);
+										break;
+									
+										case "FORMAT": 
+											//formatCheck(lineArr[1]);
+											
+										break;
+										
+										case "AND":
+											andCheck(lineArr[1]);
+										break	
+									}
+									
+								}	
+							}
+							
+							countError();
+						}
+							
+					
+								
+						function prefixCheck(word){
+							var d2 = document.getElementById('msg');
+							var prefixType = new Array ('views','formats','types','visko','params');
+							if (prefixType.indexOf(word) == -1)
+								{
+									error();
+								}
+								
+						}
+						
+						function visualizeCheck(uri){
+							if (uri == null)
+							{
+								error();
+							}
+							
+						}
+						
+						function asCheck(abs){
+							if (abs === null)
+							{
+								error();
+							}
+							
+						}
+						
+						function andCheck(){
+						
+						}
+						
+						function error(){
+							var d2 = document.getElementById('msg');
+							var error = "Syntax Error!";
+							var color = error.fontcolor("red");
+							d2.innerHTML = color;
+							document.getElementById("test").reset();
+							errorNum ++;
+						}
+						
+						function countError()
+						{
+							var d2 = document.getElementById('msg');
+							
+						    if (errorNum == 0)
+							{
+							document.getElementById("syntaxCheck").action ="./SelectPipelines.php";
+							 document.getElementById("syntaxCheck").submit();
+							 document.getElementById("syntaxCheck").action ="./SelectPipelines.php";
+							}		
+						}
+						
+					</script>
+					
 					<!--<div style = "float:right;">
 							<a href="./SelectPipelines.php">
 								<button type="button" onclick="getQuery()">Submit</button>
