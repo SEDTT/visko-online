@@ -1,3 +1,8 @@
+$/29/14 Added to ChooseQueryStyle to check syntax of user input
+
+-----------------------------------------------------------------------------
+
+
 3/25/2014 & 3/26/14 Marianna Pena & Janelle Ybarra
 Added new privilege pages and updated navigation in regular user pages.
 
