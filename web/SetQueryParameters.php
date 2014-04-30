@@ -1,5 +1,7 @@
 <?php
 	require_once("./include/membersite_config.php");
+	require_once("./source/viskoapi/ViskoQuery.php");
+	
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
@@ -16,7 +18,6 @@
 	$image = $_GET['image'];
 	$description = $_GET['desc'];
 	$viewURIs = $_GET['type'];
-	
 	?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -65,17 +66,17 @@
 				//document.getElementById("paramValue").disabled = true;
 				//document.getElementById("bindButton").disabled = true;
 				document.getElementById("ddInputDataType").disabled = false;
-				document.getElementById("viewURIs").disabled = false;
+				document.getElementById("ddviewURI").disabled = false;
 				document.getElementById("ddViewerSet").disabled = false;
 				document.getElementById("ddInputDataURL").disabled = false;
 				document.getElementById("queryText").disabled = false;
-				document.getElementById("submitButton").disabled = true;
+				//document.getElementById("submitButton").disabled = true;
 				
 				document.getElementById("ddInputDataFormat").selectedIndex = 0;
 				document.getElementById("ddInputDataType").selectedIndex = 0;
 				//document.getElementById("paramURIs").selectedIndex = 0;
 				//document.getElementById("paramValue").value = "";
-				document.getElementById("viewURIs").selectedIndex = 0;
+				document.getElementById("ddviewURI").selectedIndex = 0;
 				document.getElementById("ddViewerSet").selectedIndex = 0;
 				document.getElementById("ddInputDataURL").value = "";
 				document.getElementById("queryText").value = "";
@@ -93,15 +94,26 @@
 				document.getElementById("ddViewerSet").disabled = false;
 				document.getElementById("ddInputDataURL").disabled = false;
 				document.getElementById("queryText").disabled = false;
-				document.getElementById("submitButton").disabled = false;
+				//document.getElementById("submitButton").disabled = false;
 				
 				format = document.getElementById("ddInputDataFormat").value;
+				var elem = document.getElementById("formatInput");
+				elem.value= format;
 				type = document.getElementById("ddInputDataType").value;
-				view = "<?php echo $viewURIs; ?>";
+				var elem2 = document.getElementById("typeInput");
+				elem2.value= type;
+				view = ddviewURI;
+				var elem3 = document.getElementById("viewInput");
+				elem3.value= view;
+				//view = "<?php echo $viewURIs; ?>";
 				//<?php echo $viewURIs; ?>
 				//view = document.getElementById("viewURIs").value;
 				viewerSet = document.getElementById("ddViewerSet").value;
+				var elem4 = document.getElementById("viewerSetInput");
+				elem4.value= viewerSet;
 				artifactURL = trim(document.getElementById("ddInputDataURL").value);
+				var elem5 = document.getElementById("artifactURLInput");
+				elem5.value= artifactURL;
 				
 				/*parameter = document.getElementById("paramURIs").options[document.getElementById("paramURIs").selectedIndex].value;
 				parameterValue = trim(document.getElementById("paramValue").value);
@@ -176,10 +188,20 @@
 						
 						query = query + "\tAND " + parameter + " = " + parameterValue + "\n";
 					
-					}
-						
+					}		
 					document.getElementById("queryText").value = query;
 				}
+			}
+			
+			
+			function constructQuery(){
+			//var ekis = "<?php echo'ekis'; ?>;"
+			//<?php
+			//	echo "hi";
+			//	$viskoQuery = new ViskoQuery(null, format, type, view, viewerSet, artifactURL, null);
+			//?>;
+			//window.location='<%= ResolveUrl("SelectPipelines.php") %>'
+				//document.write("yay");
 			}
 		</script>
 
@@ -211,6 +233,7 @@
 						<link rel="stylesheet" href="css/styleDrop.css">
 						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 						<script type="text/javascript">
+						var ddviewURI;
 							$(document).ready(function()
 							{
 								$.getJSON("json/dropdownlists.txt",function(obj)
@@ -235,9 +258,9 @@
 									
 									$.each(obj.abstractions, function (i, elem) 
 									{
-										//document.write(elem.abstractionName);
 										if (elem.abstractionName === '<?php echo $viewURIs ?>') {
-										 $("#ddviewURI").append(elem.abstractionURI);
+										 ddviewURI= elem.abstractionURI;
+										 //document.write(ddviewURI);
 										}
 									});
 								});
@@ -310,7 +333,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td><center><button type="button" id="submitButton" style= "background-color:#d9d9d9; width: 75px">Submit</button></td>
+							<td><form name="myform" action= "SelectPipelines.php" method="post">
+								<input type="hidden" name="format" id="formatInput"/> <br />
+								<input type="hidden" name="type" id="typeInput"/> <br />
+								<input type="hidden" name="view" id="viewInput"/> <br />
+								<input type="hidden" name="viewerSet" id="viewerSetInput"/> <br />
+								<input type="hidden" name="artifactURL" id="artifactURLInput"/> <br />
+								<center><input name="Submit" value="submit" type="submit" onClick="writeQuery()" /></center>
+								</form>
+							</td>
 						</tr>
 						</table>
 						<form action="ViskoServletManager">
