@@ -16,26 +16,26 @@
 		* @return int the query objects new ID
 		*/
 		public function insertQuery($query){
-			assert($query->getDateSubmitted() != null);
-
+	
 			$conn = $this->getConnection();
 
-			if(!($stmt = $conn->prepare("INSERT INTO `Queries` (userID, vsql, 
+			if(!($stmt = $conn->prepare("INSERT INTO `Query` (U_id, vsql, formatURI, typeURI,
 				targetFormatURI, targetTypeURI, viewURI, 
 				viewerSetURI, artifactURL, dateSubmitted)
-				VALUES(?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(?))"))){
+				VALUES(?, ?, ?, ?, ?, ?, ?, NOW())"))){
 				$this->handlePrepareError($conn);
 			}else{
 				
-				$stmt->bind_param('issssssi',
+				$stmt->bind_param('issssssss',
 					$query->getUserID(),
 					$query->getQueryText(),
+					$query->getFormatURI(),
+					$query->getTypeURI(),
 					$query->getTargetFormatURI(),
 					$query->getTargetTypeURI(),
 					$query->getViewURI(),
 					$query->getViewerSetURI(),
-					$query->getArtifactURL(),
-					$query->getDateSubmitted()->getTimestamp()
+					$query->getArtifactURL()
 				);
 				
 				
@@ -62,77 +62,42 @@
 		}
 
 		
-		/**
+		/*
+		* @deprecated This shouldn't ever be necessary and doesnt update the parameters
 		* Updates a query object that is already in the database (valid id).
 		* 
-		* Sets everything except the id
-		* Drop parameters and then readd any new ones
-		*
-		* @param Query $query a query object in the database to update.
-		* @throws ManagerException if $query isn't already in database (bad id)
+		* Sets everything except the user_id, id, and datesubmitted.
 		*/
 		public function updateQuery($query){
-			assert($query->getID() > 0); //already in DB
-
 			$conn = $this->getConnection();
 			
 			if(!($stmt = $conn->prepare("
-				UPDATE `Queries` SET
-					vsql = ?, targetFormatURI = ?, targetTypeURI = ?,
-					viewURI = ?, viewerSetURI = ?, artifactURL = ?,
-					userID = ?, dateSubmitted = FROM_UNIXTIME(?)
+				UPDATE Query SET
+					vsql = ?, formatURI = ?, typeURI = ?, targetFormatURI = ?, targetTypeURI = ?,
+					viewURI = ?, viewerSetURI = ?, artifactURL = ?
 				WHERE id = ?"))){
 				$this->handlePrepareError($conn);
 			}else{
-				$stmt->bind_param('ssssssiii',
+				$stmt->bind_param('ssssssssi',
 					$query->getQueryText(),
+					$query->getFormatURI(),
+					$query->getTypeURI(),
 					$query->getTargetFormatURI(),
 					$query->getTargetTypeURI(),
 					$query->getViewURI(),
 					$query->getViewerSetURI(),
 					$query->getArtifactURL(),
-					$query->getUserID(),
-					$query->getDateSubmitted()->getTimestamp(),
 					$query->getID()
 
 				);	
 
 				if(!$stmt->execute()){
 					$this->handleExecuteError($stmt);
-				}else if($conn->affected_rows <= 0){
-					throw new ManagerException('Failed to update probably due to bad query id '. $query->getID());
+				}else{
+					//good?
+					return;
 				}
-				else{
-					//update parameters by delete/add
-					$this->deleteQueryParameters($query);
-					$this->insertQueryParameters($query);
-				}
-				$stmt->close();
 			}
-		}
-
-		/**
-		* Delete all query parameters for a given query 
-		*/
-		private function deleteQueryParameters($query){
-			$conn = $this->getConnection();
-			$qid = $query->getID();
-
-			if(!($stmt = $conn->prepare(
-				"DELETE
-				 FROM `QueryParameters`
-				 WHERE queryID = ?"))){
-				$this->handlePrepareError($conn);
-			}else{
-				$stmt->bind_param('i', $qid);
-
-				if(!$stmt->execute()){
-					//TODO this is bad
-					$this->handleExecuteError($stmt);
-				}
-				$stmt->close();
-			}
-			
 		}
 
 		/**
@@ -208,9 +173,7 @@
 		/**
 		* Fetch a Query object from the database by its query id
 		*
-		* @param int $id id of the query to retrieve
-		* @return Query the query object associated with $id
-		* @throws ManagerException if $id doesn't reference a Query in the database.
+		*
 		*/
 		public function getQueryByID($id){
 
@@ -218,10 +181,10 @@
 
 			if(!($stmt = $conn->prepare("
 			SELECT 
-				userID, vsql, targetFormatURI, targetTypeURI, 
+				U_id, vsql, formatURI, typeURI, targetFormatURI, targetTypeURI, 
 				viewURI, viewerSetURI, artifactURL, dateSubmitted 
-			FROM Queries 
-			WHERE Queries.id = ?"))){
+			FROM Query 
+			WHERE Query.id = ?"))){
 				$this->handlePrepareError($conn);
 			}else{
 				$stmt->bind_param("i", $id);
@@ -230,7 +193,7 @@
 					$this->handleExecuteError();
 				}else{
 					 $stmt->bind_result(
-						$uid, $vsql, $targetFormatURI,
+						$uid, $vsql, $formatURI, $typeURI, $targetFormatURI,
 						$targetTypeURI, $viewURI, $viewerSetURI,
 						$artifactURL, $dateSubmitted
 					);	
@@ -238,16 +201,13 @@
 					while($stmt->fetch()){
 						;
 					}
-				
-					if($uid == null){
-						throw new ManagerException('No Query with id '. $id);
-					}else{
-						$parameterBindings = $this->collectQueryParameters($id);
-							
-						$query = new Query($uid, $vsql, $targetFormatURI, $targetTypeURI,
-							$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
-							new DateTime($dateSubmitted), $id);
-					}
+					
+					$parameterBindings = $this->collectQueryParameters($id);
+						
+					$query = new Query($uid, $vsql, $formatURI, $typeURI, $targetFormatURI, $targetTypeURI,
+						$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
+						$dateSubmitted, $id);
+
 					return $query;
 				}
 			}

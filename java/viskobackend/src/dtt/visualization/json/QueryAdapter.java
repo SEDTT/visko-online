@@ -114,6 +114,7 @@ public class QueryAdapter implements JsonSerializer<Query>, JsonDeserializer<Que
 		JsonObject jobj = new JsonObject();
 		jobj.addProperty("type", Query.class.getSimpleName());
 		jobj.addProperty("formatURI", query.getFormatURI());
+		jobj.addProperty("typeURI", query.getTypeURI());
 		jobj.addProperty("viewerSetURI", query.getViewerSetURI());
 		jobj.addProperty("artifactURL", query.getArtifactURL());
 		jobj.addProperty("targetFormatURI", query.getTargetFormatURI());

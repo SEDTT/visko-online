@@ -31,14 +31,16 @@
 	}
 	else
 	{
+		//$query = "PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl# PREFIX formats http://openvisko.org/rdf/pml2/formats/ PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl# PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl# PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl# VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt AS views:2D_ContourMap IN visko:web-browser WHERE FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES AND TYPE = types:d19";
 		$viskoQuery = new ViskoQuery();
-		$viskoQuery->init(null,$format,$type,$view,$viewerSet,$artifactURL,"");
+		//$viskoQuery->init($query,"","","","","","");
+		$viskoQuery->init(null,$format,$type, null, null, $view,$viewerSet,$artifactURL,"");
 		
 		$visualizer = new ViskoVisualizer(); 
-		var_dump($viskoQuery);
+		//var_dump($viskoQuery);
 		list($pipes, $errors) = $visualizer->generatePipelines($viskoQuery);
 		
-		//$pipelineArray = $pipes->groupPipelinesByToolkit();
+		$pipelineArray = $pipes->groupPipelinesByToolkit();
 	}
 	
 	if(!$fgmembersite->CheckLogin()){
