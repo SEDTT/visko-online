@@ -1,8 +1,10 @@
 <?php
 	require_once("./include/membersite_config.php");
-	require_once("./source/viskoapi/ViskoQuery.php");
-	require_once("./source/viskoapi/ViskoVisualizer.php");
-	require_once("./source/viskoapi/ViskoPipeline.php");
+	//require_once("./source/viskoapi/ViskoQuery.php");
+	//require_once("./source/viskoapi/ViskoVisualizer.php");
+	//require_once("./source/viskoapi/ViskoPipeline.php");
+	require_once("./source/Query.php");
+	require_once("./source/QueryEngine.php");
 	
 	$format = $_POST['format'];
 	$type = $_POST['type'];
@@ -11,7 +13,7 @@
 	$artifactURL = $_POST['artifactURL'];
 
 	if($format == null && $type == null && $viewerSet == null && $artifactURL == null)
-	{
+	{/*
 	
 	$x = $_POST['QueryArea'];
 	$query = new ViskoQuery();
@@ -27,20 +29,26 @@
 	//var_dump($pipes->groupPipelinesByToolkit());
 	
 	$pipelineArray = $pipes->groupPipelinesByToolkit();
-	//$visualizer
+	//$visualizer*/
 	}
 	else
 	{
 		//$query = "PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl# PREFIX formats http://openvisko.org/rdf/pml2/formats/ PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl# PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl# PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl# VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt AS views:2D_ContourMap IN visko:web-browser WHERE FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES AND TYPE = types:d19";
-		$viskoQuery = new ViskoQuery();
+		//TODO non-hardcoded user id
+		$query = new Query(
+			1,$format,$type, null, null, $view,$viewerSet,$artifactURL,[], new DateTime());
+		
+		
+		
 		//$viskoQuery->init($query,"","","","","","");
-		$viskoQuery->init(null,$format,$type, null, null, $view,$viewerSet,$artifactURL,"");
+		//$query->init(null,$format,$type, null, null, $view,$viewerSet,$artifactURL,"");
+		generatePipelines($query);
 		
-		$visualizer = new ViskoVisualizer(); 
+		//$visualizer = new ViskoVisualizer(); 
 		//var_dump($viskoQuery);
-		list($pipes, $errors) = $visualizer->generatePipelines($viskoQuery);
+		//list($pipes, $errors) = $visualizer->generatePipelines($viskoQuery);
 		
-		$pipelineArray = $pipes->groupPipelinesByToolkit();
+		//$pipelineArray = $pipes->groupPipelinesByToolkit();
 	}
 	
 	if(!$fgmembersite->CheckLogin()){
