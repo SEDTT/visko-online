@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS `Queries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userID` int(11) NOT NULL,
   `vsql` text default NULL,
+  `formatURI` varchar(1024) default NULL,
+  `typeURI` varchar(1024) default NULL,
   `targetFormatURI` varchar(1024) default NULL,
   `targetTypeURI` varchar(1024) default NULL,
   `viewURI` varchar(1024) default NULL,
