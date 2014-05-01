@@ -64,9 +64,9 @@
 					Option 1: Submit Visualization Query
 					<br><br>
 					<div id = "test">
-					<form id="syntaxCheck" action = "/" name = "syntaxChecker">
+					<form id="syntaxCheck" action = "/" name = "syntaxChecker" method="post">
 						<div>
-							<textarea id="QueryArea" style="width:100%; height: 100px;"></textarea>
+							<textarea id="QueryArea" name="QueryArea" style="width:100%; height: 100px;"></textarea>
 							<input type="button" value="submit" onclick="checkSyntax()" />
 							<br />
 							<p id="msg"></p>
@@ -188,6 +188,7 @@
 							document.getElementById("syntaxCheck").action ="./SelectPipelines.php";
 							 document.getElementById("syntaxCheck").submit();
 							 document.getElementById("syntaxCheck").action ="./SelectPipelines.php";
+							 document.getElementById("syntaxCheck").method ="post";
 							}		
 						}
 						

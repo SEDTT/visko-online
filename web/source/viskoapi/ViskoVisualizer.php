@@ -35,7 +35,7 @@ class ViskoVisualizer{
 	 * @return array(ViskoPipelineSet, array(ViskoError))
 	 */
 	public function generatePipelines($vquery){
-		assert($vquery->getQueryText() != null && trim($vquery->getQueryText()) != '');
+		//assert($vquery->getQueryText() != null && trim($vquery->getQueryText()) != '');
 
 		$jt = new JsonTransformer();
 		$jsondQuery = $jt->encode($vquery->toJson());

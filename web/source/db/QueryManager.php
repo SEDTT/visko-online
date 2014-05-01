@@ -23,7 +23,7 @@
 			if(!($stmt = $conn->prepare("INSERT INTO `Queries` (userID, vsql, 
 				typeURI, formatURI, targetFormatURI, targetTypeURI, viewURI, 
 				viewerSetURI, artifactURL, dateSubmitted)
-				VALUES(?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(?))"))){
+				VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(?))"))){
 				$this->handlePrepareError($conn);
 			}else{
 				

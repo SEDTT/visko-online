@@ -31,7 +31,7 @@ function generatePipelines($query){
 		$qm->insertQuery($query);
 		
 		//submit
-		$pipes = $qm->submit();
+		$pipes = $query->submit();
 
 		//put each pipeline into the database.
 		$pm = new PipelineManager();

@@ -50,8 +50,8 @@
 		*/
 		public function submit(){
 			/* Some assertions, maybe include syntax error checking */
-			assert($this->getQueryText() != null);
-			assert($this->getUserID() > 0 && $this->getID() > 0);
+			//assert($this->getQueryText() != null);
+			//assert($this->getUserID() > 0 && $this->getID() > 0);
 
 			$vv = new ViskoVisualizer();
 

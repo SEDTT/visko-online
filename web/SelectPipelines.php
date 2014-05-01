@@ -6,49 +6,34 @@
 	require_once("./source/Query.php");
 	require_once("./source/QueryEngine.php");
 	
-	$format = $_POST['format'];
-	$type = $_POST['type'];
-	$view = "http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap"; //$_POST['view'];
-	$viewerSet = $_POST['viewerSet'];
-	$artifactURL = $_POST['artifactURL'];
-
-	if($format == null && $type == null && $viewerSet == null && $artifactURL == null)
-	{/*
-	
-	$x = $_POST['QueryArea'];
-	$query = new ViskoQuery();
-	$query->init($x,"","","","","");
-	$visualizer = new ViskoVisualizer(); 
-	
-	//echo($query->getQueryText()); // Hopefully this shows our query.
-	//$pipelineSet = $visualizer->generatePipelines($query->getQuery);
-	
-	list($pipes, $errors) = $visualizer->generatePipelines($query);
-
-	//var_dump($pipes->getPipelines()[0]);
-	//var_dump($pipes->groupPipelinesByToolkit());
-	
-	$pipelineArray = $pipes->groupPipelinesByToolkit();
-	//$visualizer*/
-	}
-	else
+	if( (isset($_POST['format'], $_POST['type'], $_POST['view'], $_POST['viewerSet'], $_POST['artifactURL'])))
 	{
-		//$query = "PREFIX views http://openvisko.org/rdf/ontology/visko-view.owl# PREFIX formats http://openvisko.org/rdf/pml2/formats/ PREFIX types http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl# PREFIX visko http://visko.cybershare.utep.edu:5080/visko-web/registry/module_webbrowser.owl# PREFIX params http://visko.cybershare.utep.edu:5080/visko-web/registry/grdcontour.owl# VISUALIZE http://visko.cybershare.utep.edu:5080/visko-web/test-data/gravity/gravityDataset.txt AS views:2D_ContourMap IN visko:web-browser WHERE FORMAT = formats:SPACESEPARATEDVALUES.owl#SPACESEPARATEDVALUES AND TYPE = types:d19";
+		$format = $_POST['format'];
+		$type = $_POST['type'];
+		$view = $_POST['view']; //"http://openvisko.org/rdf/ontology/visko-view.owl#2D_ContourMap"; 
+		$viewerSet = $_POST['viewerSet'];
+		$artifactURL = $_POST['artifactURL'];
+		
 		//TODO non-hardcoded user id
 		$query = new Query(
-			1,$format,$type, null, null, $view,$viewerSet,$artifactURL,[], new DateTime());
+			1, null, $format,$type, null, null, $view,$viewerSet,$artifactURL,[], new DateTime());
 		
-		
-		
-		//$viskoQuery->init($query,"","","","","","");
-		//$query->init(null,$format,$type, null, null, $view,$viewerSet,$artifactURL,"");
-		generatePipelines($query);
-		
-		//$visualizer = new ViskoVisualizer(); 
-		//var_dump($viskoQuery);
-		//list($pipes, $errors) = $visualizer->generatePipelines($viskoQuery);
-		
-		//$pipelineArray = $pipes->groupPipelinesByToolkit();
+		$pipes = generatePipelines($query);
+
+		$classname = 'Pipeline';
+		$pipelineArray = $classname::groupPipelinesByToolkit($pipes);
+	}
+	
+	else 
+	{
+		$x = $_POST['QueryArea'];
+		$query = new Query(1,$x, null, null, null, null, null, null, null, null, null);
+
+		$pipes = generatePipelines($query);
+
+		$classname = 'Pipeline';
+		$pipelineArray = $classname::groupPipelinesByToolkit($pipes);
+
 	}
 	
 	if(!$fgmembersite->CheckLogin()){
@@ -132,7 +117,7 @@
 										foreach ($value as $pipe)
 										{
 										
-											$tk = parse_url($pipe->getToolkitThatGeneratesView(), PHP_URL_FRAGMENT);
+											$tk = parse_url($pipe->getToolkitURI(), PHP_URL_FRAGMENT);
 											if (!(in_array($tk,$ToolkitArray)))
 											{
 												array_push($ToolkitArray, $tk);

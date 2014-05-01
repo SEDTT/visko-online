@@ -198,6 +198,24 @@
 		public function getRequiresInputURL(){
 			return $this->getViskoPipeline()->getRequiresInputURL();
 		}
+
+					/**
+		 * Groups pipelines by their toolkit
+		 * 
+		 * @return an associated array of Toolkitname -> pipelines
+		 */
+		public static function groupPipelinesByToolkit($pipes){
+			$grouped = array();
+			foreach($pipes as $pipe){
+				//var_dump($pipes);
+				$tk = parse_url($pipe->getToolkitURI(), PHP_URL_FRAGMENT);
+				if (! array_key_exists($tk, $grouped)){
+					$grouped[$tk] = array();
+				}
+				array_push($grouped[$tk], $pipe);
+			}
+			return $grouped;
+		}
 	}
 	
 ?>
