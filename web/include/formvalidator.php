@@ -1,23 +1,4 @@
 <?PHP
-/*
-  -------------------------------------------------------------------------
-      PHP Form Validator (formvalidator.php)
-              Version 1.1
-    This program is free software published under the
-    terms of the GNU Lesser General Public License.
-
-    This program is distributed in the hope that it will
-    be useful - WITHOUT ANY WARRANTY; without even the
-    implied warranty of MERCHANTABILITY or FITNESS FOR A
-    PARTICULAR PURPOSE.
-		
-	For updates, please visit:
-	http://www.html-form-guide.com/php-form/php-form-validation.html
-	
-	Questions & comments please send to info@html-form-guide.com
-  -------------------------------------------------------------------------  
-*/
-
 /**
 * Carries information about each of the form validations
 */

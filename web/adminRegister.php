@@ -40,7 +40,7 @@
 				<div class="middle">
 						<!-- Form Code Start -->
 						<div id='fg_membersite'>
-							<form id='register' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='post' accept-charset='UTF-8'>
+							<form id='register' action='<?php echo $fgmembersite->GetSelfScript(); ?>' method='POST' accept-charset='UTF-8'>
 								<fieldset id="registerField1">
 									<legend>Register</legend>
 

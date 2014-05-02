@@ -126,8 +126,8 @@ width: 100px;
 -khtml-border-radius: 5px;
 }
 
-button{
-width: 60px;
+button, #button_id2{
+width: 112px;
 -moz-border-radius: 5px;
 -webkit-border-radius: 5px;
 -khtml-border-radius: 5px;

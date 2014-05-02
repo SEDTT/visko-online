@@ -13,7 +13,10 @@
 	<head>
 		<title>Team 3</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="shortcut icon" href="../images/log.ico"/>
+		
+		<!--StyleSheets-->
+		
+		<link rel="shortcut icon" href="./images/log.ico"/>
 		<link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
 		<!--[if IE 6]>
 		<link rel="stylesheet" type="text/css" href="css/iecss.css" />
