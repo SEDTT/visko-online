@@ -13,7 +13,7 @@
 		/** Initialize a Query from input text, 
 		 * or input all of the necessary parameters 
 		**/
-		public function __construct($userID, $queryText, $formatURI, $typeURI, $targetFormatURI = null, 
+		public function __construct($userID, $queryText, $formatURI = null, $typeURI = null, $targetFormatURI = null, 
 			$targetTypeURI = null, $viewURI = null, $viewerSetURI = null, 
 			$artifactURL = null, $parameterBindings = [], $dateSubmitted = null, 	
 			$id = null){

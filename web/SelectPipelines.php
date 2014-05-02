@@ -1,11 +1,18 @@
 <?php
 	require_once("./include/membersite_config.php");
-	//require_once("./source/viskoapi/ViskoQuery.php");
-	//require_once("./source/viskoapi/ViskoVisualizer.php");
-	//require_once("./source/viskoapi/ViskoPipeline.php");
 	require_once("./source/Query.php");
 	require_once("./source/QueryEngine.php");
+	require_once("./source/db/UserManager.php");
 	
+	if(!$fgmembersite->CheckLogin()){
+		$fgmembersite->RedirectToURL("index.php");
+		exit;
+	}
+	
+	$nameOfPerson = $fgmembersite->UserEmail();
+	$userManager = new UserManager();
+	$user = $userManager->getUserByEmail($nameOfPerson);
+		
 	if( (isset($_POST['format'], $_POST['type'], $_POST['view'], $_POST['viewerSet'], $_POST['artifactURL'])))
 	{
 		$format = $_POST['format'];
@@ -16,38 +23,31 @@
 		
 		//TODO non-hardcoded user id
 		$query = new Query(
-			1, null, $format,$type, null, null, $view,$viewerSet,$artifactURL,[], new DateTime());
+			$user->getID(), null, $format,$type, null, null, 
+			$view,$viewerSet,$artifactURL,[], new DateTime());
 		
-		$pipes = generatePipelines($query);
-
-		$classname = 'Pipeline';
-		$pipelineArray = $classname::groupPipelinesByToolkit($pipes);
 	}
 	
 	else 
 	{
-		$x = $_POST['QueryArea'];
-		$query = new Query(1,$x, null, null, null, null, null, null, null, null, null);
+		$queryText = $_POST['QueryArea'];
+		$query = new Query($user->getID(), $queryText);
+
+	}
+	
+	//generate pipeline and store in database
+	//TODO prettier error thing.
+	$pipes = [];
+	try{
 
 		$pipes = generatePipelines($query);
-
-		$classname = 'Pipeline';
-		$pipelineArray = $classname::groupPipelinesByToolkit($pipes);
-
+	}catch(Error $e){
+		echo 'Error encountered <br>';
+		var_dump($e);
 	}
 	
-	if(!$fgmembersite->CheckLogin()){
-		$fgmembersite->RedirectToURL("index.php");
-		exit;
-	}
+	$groupedPipelines = Pipeline::groupPipelinesByToolkit($pipes);
 	
-	if(isset($_POST['submitted'])){
-		/*if($fgmembersite->RegisterUser()){
-			$fgmembersite->RedirectToURL("thank-you.html");
-		}*/
-	}
-	
-	$nameOfPerson = $fgmembersite->UserEmail();
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -64,6 +64,7 @@
 		<!--[if IE 6]>
 		<link rel="stylesheet" type="text/css" href="css/iecss.css" />
 		<![endif]-->
+		<script src="scripts/pipeexecution.js"></script>
 	</head>
 	<body>
 	<div id="main_container">
@@ -108,35 +109,11 @@
 						<td>
 							<div id="accordion">
 								<?php
-									 count($pipelineArray);
-									 $ToolkitArray = array();
-									 $pipelinesAllArray = array(); 
-									 
-									foreach ($pipelineArray as $key => $value)
-									{
-										foreach ($value as $pipe)
-										{
+									
+								foreach ($groupedPipelines as $tool => $pipelines)
+								{
 										
-											$tk = parse_url($pipe->getToolkitURI(), PHP_URL_FRAGMENT);
-											if (!(in_array($tk,$ToolkitArray)))
-											{
-												array_push($ToolkitArray, $tk);
-											}
-											$subArray = array();
-											$abstraction = parse_url($pipe -> getViewURI(), PHP_URL_FRAGMENT);
-											$format = parse_url($pipe->getOutputFormat(), PHP_URL_FRAGMENT);
-											
-											array_push($subArray, $abstraction, $format, $tk);
-											array_push($pipelinesAllArray, $subArray);
-											
-										}
-										
-									}
-										
-										foreach ($ToolkitArray as $tool)
-										{
-										
-									?>
+								?>
 										<h3>Pipelines: <?php echo $tool; ?> </h3>
 										
 								<div>
@@ -154,42 +131,41 @@
 									</tr>
 							
 									<?php
-									$counter = 0;
-									foreach ($pipelinesAllArray as $x => $y)
+				
+									foreach ($pipelines as $pipe)
 									{
-										 $counter ++;
-										 if($y[2] == $tool)
-										  {
+										$abstraction = parse_url($pipe -> getViewURI(), PHP_URL_FRAGMENT);
+										$format = parse_url($pipe->getOutputFormat(), PHP_URL_FRAGMENT);
+										$id = $pipe->getID();
+								
 										?>
 										<tr>
 										<td>
 										
-											<p><center><?php echo "$counter"; ?></p>
+											<p><center><?php echo "$id"; ?></p>
 										</td>
 										<td>
-											<p><center><?php echo "$y[0]" ?></p>
+											<p><center><?php echo "$abstraction" ?></p>
 										</td>
 										<td>
-											<p><center><?php echo "$y[1]" ?></p>
+											<p><center><?php echo "$format" ?></p>
 										</td>
 										<td>
 											<center><button type="button">Edit</button>
 										</td>
 										<td>
-											<center><button type="button">Run</button>
+											<center><button id="<?php echo "runPipe" . "$id" ?>" type="button" onclick="runClicked(<?php echo "$id"?>)">Run</button>
 										</td>
 										</tr>
 										<?php
-								
-										}
-										}
+										} //end foreach($pipelines as $pipe)
 										?>
 									
 									
 									</table>
 								</div>
 								<?php
-								}
+								} //end foreach ($groupedPipelines as $tool => $pipelines)
 								?>
 					
 							

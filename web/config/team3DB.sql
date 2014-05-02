@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS User(
 	PRIMARY KEY(U_id, U_email)
 );
 
-CREATE VIEW IF NOT EXISTS`Users` AS SELECT U_id AS id FROM `User`;
+-- hack to use legacy user code without depending too much on legacy table 
+CREATE VIEW `Users` AS SELECT U_id AS id FROM `User`;
 
 CREATE TABLE IF NOT EXISTS `Queries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -211,31 +212,31 @@ INSERT INTO ViewerSets (URI)
 
 INSERT INTO Services (URI, userID, dateAdded)
  VALUES
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_contour_map_raster', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#ps2pdf', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#sPARQLResultsToJSONGraph', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagej.owl#surfacePlotter', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonGraph_OperatorPaths', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grdimage', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagemagick.owl#fits2png', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#surface', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_contour_map', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grd2xyz_esri', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#nearneighbor', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#pdf2png', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#csv2tabular', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonGraph_DataTransformations', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#jsonBars_Instances', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_ncl.owl#gsn_csm_xy2_time_series', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#psxy', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#int2Short', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#psxyz', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_imagemagick.owl#spherize', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grdcontour', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#XYZDataFieldFilter', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_custom.owl#float2ShortThr', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gs.owl#ps2png', 1, NOW()),
-('http://visko.cybershare.utep.edu:5181/visko-web/registry/module_gmt.owl#grd2xyz', 1, NOW());
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map_raster', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2pdf', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#sPARQLResultsToJSONGraph', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_imagej.owl#surfacePlotter', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#jsonGraph_OperatorPaths', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdimage', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_imagemagick.owl#fits2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#surface', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_contour_map', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grd2xyz_esri', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#nearneighbor', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#pdf2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#csv2tabular', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#jsonGraph_DataTransformations', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#jsonBars_Instances', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_ncl.owl#gsn_csm_xy2_time_series', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#psxy', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#int2Short', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#psxyz', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_imagemagick.owl#spherize', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grdcontour', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#XYZDataFieldFilter', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_custom.owl#float2ShortThr', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gs.owl#ps2png', 1, NOW()),
+('http://visko.cybershare.utep.edu:5080/visko-web/registry/module_gmt.owl#grd2xyz', 1, NOW());
 
 
 

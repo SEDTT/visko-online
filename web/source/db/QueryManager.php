@@ -222,7 +222,7 @@
 
 			if(!($stmt = $conn->prepare("
 			SELECT 
-				userID, vsql, targetFormatURI, targetTypeURI, 
+				userID, vsql, targetFormatURI, targetTypeURI, formatURI, typeURI,
 				viewURI, viewerSetURI, artifactURL, dateSubmitted 
 			FROM Queries 
 			WHERE Queries.id = ?"))){
@@ -231,10 +231,10 @@
 				$stmt->bind_param("i", $id);
 				
 				if(!$stmt->execute()){
-					$this->handleExecuteError();
+					$this->handleExecuteError($stmt);
 				}else{
 					 $stmt->bind_result(
-						$uid, $vsql, $targetFormatURI,
+						$uid, $vsql, $formatURI, $typeURI, $targetFormatURI,
 						$targetTypeURI, $viewURI, $viewerSetURI,
 						$artifactURL, $dateSubmitted
 					);	
@@ -248,7 +248,7 @@
 					}else{
 						$parameterBindings = $this->collectQueryParameters($id);
 							
-						$query = new Query($uid, $vsql, $targetFormatURI, $targetTypeURI,
+						$query = new Query($uid, $vsql, $formatURI, $typeURI, $targetFormatURI, $targetTypeURI,
 							$viewURI, $viewerSetURI, $artifactURL, $parameterBindings,
 							new DateTime($dateSubmitted), $id);
 					}
