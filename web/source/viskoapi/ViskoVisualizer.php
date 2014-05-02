@@ -19,7 +19,8 @@ class ViskoVisualizer{
 	private $backendLocation;
 	private static $queryURL = 'query';
 	private static $executeURL = 'execute';
-	
+	private static $statusURL = 'status';
+
 	function __construct(){
 		$cfgMgr = new ConfigurationManager();
 		$this->backendLocation = $cfgMgr->getBackendLocation();
@@ -119,6 +120,21 @@ class ViskoVisualizer{
 		return $viskoErrors;
 		*/
 	}
+
+	/**
+	* Gets a pipeline status, (forwards raw json)
+	*/
+	public function pollPipelineStatus($id){
+		$data = ['id' => $id];
+		
+		$url = $this->joinURL($this->backendLocation, self::$statusURL);
+		
+		/* Parse response from backend */
+		$response = $this->sendByPost($url, $data);
+		
+		return $response;
+
+	}
 	
 	/**
 	 * Joins a base URL with an extension. I.e. 'http://localhost/' and 'query.php'
@@ -132,7 +148,7 @@ class ViskoVisualizer{
 
 		return rtrim($base, '/') . '/' . ltrim($extra, '/');
 	}
-	
+
 	/**
 	 * POSTs data to a URL and gets response.
 	 * 

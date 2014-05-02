@@ -175,7 +175,7 @@
 						</td>
 						<td></td>
 						<td valign="top">
-							<table border="1" color="black" style="width:100%">
+							<table id="pipeExecTable" border="1" color="black" style="width:100%">
 							<tr>
 								<td bgcolor="#C0C0C0">
 									<p><b><center>Pipeline ID</b></p>
@@ -186,42 +186,7 @@
 								<td>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<p><center>12</p>
-								</td>
-								<td>
-									<center><img src="http://openvisko.org/visualization-examples/gravity-3d-isosurfacesrendering-vtk.png" width="150"/>
-								</td>
-								<td>
-									<center><button type="button">Remove</button>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p><center>13</p>
-								</td>
-								<td>
-									<p><center>Image</p>
-								</td>
-								<td>
-									<center><button type="button">Remove</button>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<p><center>14</p>
-								</td>
-								<td>
-									<p><center>Image</p>
-								</td>
-								<td>
-									<center><button type="button">Remove</button>
-								</td>
-							</tr>
-							</table>
-						</td>
-						</tr>
+							
 						</table>
 						</body>
 					</html>

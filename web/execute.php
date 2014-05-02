@@ -23,6 +23,9 @@ function executePipeline($pid){
 		$generatingQuery = $qm->getQueryByID($pipeline->getQueryID());
 		
 		$status = $pipeline->execute($generatingQuery);
+		
+		$pm->insertPipelineStatus($status);
+
 		return $status;
 	}catch(Error $ee1){
 		$em = new ErrorManager();
