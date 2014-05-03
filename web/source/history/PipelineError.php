@@ -9,8 +9,9 @@ require_once 'Error.php';
 abstract class PipelineError extends Error{
 	protected $pipelineID;
 	
-	public function __construct($userID, $pipelineID, $message=null, $timeOccurred=null, $id=null){
-		parent::__construct($userID, $message, $timeOccurred, $id);
+	public function __construct($userID, $pipelineID, $timeOccurred=null, $id=null){
+		parent::__construct($userID, $timeOccurred, $id);
+		$this->pipelineID = $pipelineID;
 	}
 	
 	/**
@@ -106,8 +107,7 @@ class InputDataURLError extends PipelineError{
 	
 	public function __construct($userID, $pipelineID, $datasetURL, 
 			 $timeOccurred = null, $id = null){
-		parent::__construct($userID, $pipelineID, $datasetURL, 
-				 $timeOccurred, $id);
+		parent::__construct($userID, $pipelineID, $timeOccurred, $id);
 		$this->datasetURL = $datasetURL;
 		
 		$this->setMessage('Bad Input Data URL (' . $this->datasetURL . ')');

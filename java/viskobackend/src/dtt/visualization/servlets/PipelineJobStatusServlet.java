@@ -11,10 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dtt.visualization.PipelineJobTable;
+import dtt.visualization.PipelineJobTable.PipelineJobWrapper;
 import dtt.visualization.errors.MissingParameterError;
 import dtt.visualization.errors.NotInTableError;
 import dtt.visualization.errors.PipelineStatusError;
-import dtt.visualization.responses.PipelineStatusResponse;
+import dtt.visualization.responses.PipelineExecutionResponse;
 import edu.utep.trustlab.visko.execution.PipelineExecutorJob;
 
 @WebServlet("/status")
@@ -42,7 +43,7 @@ public class PipelineJobStatusServlet extends VisualizationServlet {
 		
 		PrintWriter out = response.getWriter();
 		String[] rawIDs = request.getParameterValues("id");
-		PipelineStatusResponse psresp = new PipelineStatusResponse();
+		PipelineExecutionResponse psresp = new PipelineExecutionResponse();
 		
 		this.log("Received Status request for ids : " + Arrays.toString(rawIDs));
 		
@@ -56,8 +57,16 @@ public class PipelineJobStatusServlet extends VisualizationServlet {
 					
 					/* Add status to response for everything that is in the table */
 					if(this.jobTable.containsKey(id)){
-						PipelineExecutorJob job = this.jobTable.get(id);
-						psresp.addStatus(id, job);
+						PipelineJobWrapper pjw = this.jobTable.get(id);
+						PipelineExecutorJob job = pjw.getJob();
+						
+						if(job != null){
+							psresp.setStatus(id, job);
+						}
+						
+						if(pjw.isErrored()){
+							psresp.addError(pjw.getError());
+						}
 						
 					}else{
 						psresp.addError(new NotInTableError(id));

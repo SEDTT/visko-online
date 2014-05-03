@@ -96,16 +96,24 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 			try{
 				
 				PipelineSet pset = gson.fromJson(rawPipelineSet, PipelineSet.class);
-				
+				IdentifiedPipeline pipe = (IdentifiedPipeline)pset.firstElement();
+
 				if(!pset.getQuery().isExecutableQuery()){
 					presp.addError(new UnexecutableQueryException());
+					this.jobTable.put(pipe.getID(), new UnexecutableQueryException());
 				}
 				else if(pset.isEmpty()){
-					presp.addError(new PipelineExecutionError("Input PipelineSet is missing pipelines"));
+					PipelineExecutionError e = new PipelineExecutionError("Input PipelineSet is missing pipelines");
+					presp.addError(e);
+					this.jobTable.put(pipe.getID(), e);
 				}else if(pset.size() > 1){
-					presp.addError(new PipelineExecutionError("Only single pipeline execution is supported."));
+					PipelineExecutionError e = new PipelineExecutionError("Only single pipeline execution is supported.");
+					presp.addError(e);
+					this.jobTable.put(pipe.getID(), e);
 				}else if(!this.isURLReachable(new URL(pset.getQuery().getArtifactURL()))){
-					presp.addError(new InputDataURLError(pset.getQuery().getArtifactURL()));
+					InputDataURLError e = new InputDataURLError(pset.getQuery().getArtifactURL());
+					presp.addError(e);
+					this.jobTable.put(pipe.getID(), e);
 				}
 				else{
 					//TODO this is a hack to get default pipeline parameters for the query
@@ -113,14 +121,14 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 					QueryEngine queryEngine = new QueryEngine(pset.getQuery());
 					queryEngine.getPipelines();
 					pset.setParameterBindings(queryEngine.getQuery().getParameterBindings());
-					System.out.println(pset.getQuery().getArtifactURL());
 					
-					IdentifiedPipeline pipe = (IdentifiedPipeline)pset.firstElement();
 					this.log("Received Pipe with ID " + pipe.getID());
 					
 					/* Put the job into the table so we can fetch its status*/
 					if(this.jobTable.containsKey(pipe.getID())){
-						presp.addError(new PipelineExecutionError("Conflicting pipeline ID in table"));
+						VisualizationError e = new PipelineExecutionError("Conflicting pipeline ID in table");
+						presp.addError(e);
+						this.jobTable.put(pipe.getID(), e);
 					}else{
 						PipelineExecutorJob job = new PipelineExecutorJob(pipe);
 						this.jobTable.put(pipe.getID(), job);
@@ -137,6 +145,7 @@ public class PipelineExecutionServlet extends VisualizationServlet implements Se
 							
 						}else{
 							presp.addError(ve);
+							this.jobTable.get(pipe.getID()).setError(ve);
 							this.log("Interrupted Pipeline Execution");
 						}
 					}

@@ -108,6 +108,9 @@
 			
 		}
 
+		private function parseRespone($vps, $errors){
+			
+		}
 		/**
 		 * Translates viskoapis error types into history style exceptions.
 		 *
@@ -141,6 +144,7 @@
 				throw new Exception($err->message);
 			}
 		}
+		
 		
 		public function setID($id){
 			$this->id = $id;
@@ -215,6 +219,11 @@
 				array_push($grouped[$tk], $pipe);
 			}
 			return $grouped;
+		}
+		
+		
+		public static function checkStatusForPipeline($pid){
+			
 		}
 	}
 	

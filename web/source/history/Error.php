@@ -14,11 +14,13 @@ abstract class Error extends Exception{
 		parent::__construct();
 		
 		$this->userID = $userID;
+		
 		if($timeOccurred == null){
 			$this->timeOccurred = new DateTime();	
 		}else{
 			$this->timeOccured = $timeOccurred;
 		}
+		
 		$this->id = $id;
 		
 	}

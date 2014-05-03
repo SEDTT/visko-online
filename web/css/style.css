@@ -378,6 +378,18 @@ width: 150px;
 padding-left:25px;
 }
 
+.execIDCell{
+	text-align:center;
+}
+
+.execStatusCell{
+	text-align:center;
+}
+
+.execButtonCell{
+	text-align:center;
+}
+
 table
 {
 border-collapse:collapse;

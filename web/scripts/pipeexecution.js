@@ -7,38 +7,61 @@
 
 /* This might in the future update the image */
 function executionComplete(data, textStatus, jqXHR){
-	alert(data);
+	//alert(data);
 }
 
-function updateExecutionTable(pipelineID, pipeStatus, pending){
+function createButtonNode(pipelineID){
+	var button = document.createElement('button');
+	button.innerHTML = 'Remove';
+	button.onclick = function(){removeClicked(pipelineID);};
+	button.type = 'button';
+	
+	return button;
+}
+
+function loadingStatus(){
+	var loadingImg = document.createElement("img");
+	loadingImg.src = "images/loading.gif";
+	return loadingImg;
+}
+
+function updateExecutionTable(pipelineID, pipeStatus, error){
 	var rowName = "pipeExecRow" + pipelineID;
 	var table = document.getElementById("pipeExecTable");
 
 	var row;
-	var idCell;
 	var statusCell;
-	var buttonCell;
 
 	if(document.getElementById(rowName)){
 		//update existing row
 		row = document.getElementById(rowName);
-		idCell = row.cells[0];
 		statusCell = row.cells[1];
-		buttonCell = row.cells[2];
 	}
 	else{ //add new row to table
 		row = table.insertRow(-1);
 		row.id = rowName;
-		idCell = row.insertCell(0);
+		var idCell = row.insertCell(0);
+		idCell.class = 'execIDCell';
 		statusCell = row.insertCell(1);
-		buttonCell = row.insertCell(2);
+		statusCell.class = 'execStatusCell';
+		var buttonCell = row.insertCell(2);
+		buttonCell.class = 'execButtonCell';
+		
+		idCell.innerHTML = pipelineID;
+		buttonCell.appendChild(createButtonNode(pipelineID));
 	}
 
-	idCell.innerHTML = pipelineID;
-	buttonCell.innerHTML = 'hello';
 	
-	if(pending){
-		statusCell.innerHTML = 'Sending...';
+	
+	if(pipeStatus == null){
+		if (error.type == 'NotInTableError'){
+			if(statusCell.firstChild)
+				statusCell.firstChild = loadingStatus();
+			else
+				statusCell.appendChild(loadingStatus());
+		}else{
+			statusCell.innerHTML = error.type;
+		}
 	}
 	else if(pipeStatus.pipelineState == 'RUNNING'){
 		statusCell.innerHTML = 'Running Service #' + pipeStatus.serviceIndex;
@@ -51,18 +74,37 @@ function updateExecutionTable(pipelineID, pipeStatus, pending){
 	}
 }
 
+
 function pollStatus(pipelineID){
 	$.getJSON('forwardstatus.php', {'id' : pipelineID}, 
 		function(data, textStatus, jqXHR){
 		
+			console.log(data);
+			
 			if(data.errors.length > 0){
-				//errors almost always mean we are asking too soon
-				setTimeout(function (){ pollStatus(pipelineID);}, 100);
-				updateExecutionTable(pipelineID, null, true);
+				var deadError = false;
+				var j = 0;
+				//look for InputDataURLError, etc. indicating the pipeline will never be run.
+				for(var i = 0; i < data.errors.length; i++){
+					var err = data.errors[i];
+					if(err.type != 'NotInTableError'){
+						j = i;
+						deadError = true;
+						break;
+					}
+				}
+				
+				//probably just too soon to be in table.
+				if(!deadError){
+					setTimeout(function (){ pollStatus(pipelineID);}, 100);
+					updateExecutionTable(pipelineID, null, data.errors[0]);
+				}else{
+					updateExecutionTable(pipelineID, null, data.errors[j])
+				}
 			}else{
-				var firstStatus = data.statuses[0];
+				var firstStatus = data.status;
 	
-				updateExecutionTable(pipelineID, firstStatus, false);
+				updateExecutionTable(pipelineID, firstStatus, null);
 
 				//continue to poll if pipeline is still running
 				if(((firstStatus.pipelineState == 'NEW') ||
@@ -90,6 +132,13 @@ function startExecution(pipelineID){
 function runClicked(pipelineID){
 	startExecution(pipelineID);
 	document.getElementById("runPipe" + pipelineID).disabled = true;
+	return false;
+}
+
+function removeClicked(pipelineID){
+	var rowName = "pipeExecRow" + pipelineID;
+	var row = document.getElementById(rowName);
+	row.parentNode.removeChild(row);
 	return false;
 }
 

@@ -447,7 +447,7 @@ class InputDataURLErrorHandler extends PipelineErrorHandler{
 
 		$conn = $this->getConnection();
 
-		if(!($stmt = $conn->prepare("INSERT INTO `InputDataURLErrors` (parentID)
+		if(!($stmt = $conn->prepare("INSERT INTO `InputDataURLErrors` (parentID, datasetURL)
 			VALUES(?, ?)"))){
 			$this->handlePrepareError($conn);
 		}else{

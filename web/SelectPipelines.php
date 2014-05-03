@@ -188,19 +188,15 @@
 							</tr>
 							
 						</table>
-						</body>
-					</html>
 			</div>
 		</div> 
 		<br><br><br>
-		<footer>&copy; Developmental Technologies Team. All Rights Reserved</footer>
+		
 	</div>
-	</body>
 	
 	
 <div id="nav_table" style="position: fixed; left:0px; right: 31px; top: 120px; bottom: auto; display: block">
     <ul id="sidebar-nav" class="Menu">
-<body>
 	<br>
 	<table class="bottomBorder">
 		<tr>
@@ -225,4 +221,5 @@
     </ul>
 </div>
 </body>
+
 </html>
