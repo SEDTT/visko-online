@@ -60,7 +60,7 @@
 				<font size="5" color="black"> Search Results Details</font></br></br></br>
 				
 				<div align="center" style="width:500px;height:200px;border:1px solid black;margin:0 auto;">
-				<img style="height:198px" src="<?php echo $pipelineStatus->getResultURL() ?>"/>
+				<a href="<?php echo $pipelineStatus->getResultURL()?>"><img style="height:198px" src="<?php echo $pipelineStatus->getResultURL() ?>"/></a>
 				</div>
 				</br>
 				<hr>
