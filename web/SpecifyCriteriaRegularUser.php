@@ -1,18 +1,58 @@
 <?php
 	require_once("./include/membersite_config.php");
+	require_once 'source/db/UserManager.php';
+	require_once 'source/db/QueryManager.php';
+	
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
 	}
 
+	$nameOfPerson = $fgmembersite->UserEmail();
+	$userManager = new UserManager();
+	$user = $userManager->getUserByEmail($nameOfPerson);
+	
+	$qm = new QueryManager();
+	
+	$abstractions = $qm->getUserAbstractions($user->getID());
+	$inputURLs = $qm->getUserInputURLs($user->getID());
+	$inputTypes = $qm->getUserInputTypes($user->getID());
+	$inputFormats = $qm->getUserInputFormats($user->getID());
+	$viewerSets = $qm->getUserViewerSets($user->getID());
 	
 	if(isset($_POST['submitted'])){
-		/*if($fgmembersite->RegisterUser()){
-			$fgmembersite->RedirectToURL("thank-you.html");
-		}*/
+		$viewURI = ($_POST['viewURI'] == 'any') ? null : $_POST['viewURI'];
+		$viewerSetURI = ($_POST['viewerSetURI'] == 'any') ? null : $_POST['viewerSetURI'];
+		$inputURL = ($_POST['inputURL'] == 'any') ? null : $_POST['inputURL'];
+		$formatURI = ($_POST['formatURI'] == 'any') ? null : $_POST['formatURI'];
+		$typeURI = ($_POST['typeURI'] == 'any') ? null : $_POST['typeURI'];
+		$startDate = parseDate($_POST['startDate']);
+		$endDate = parseDate($_POST['endDate']);
+		
+		//search and get query results!!!
+		$queryResults = $qm->searchUserQueries($user->getID(),
+			$typeURI, $formatURI, $viewURI, $viewerSetURI, $inputURL, 
+			$startDate, $endDate
+		);
+		
+		//var_dump($queryResults);
+		
 	}
 	
-	$nameOfPerson = $fgmembersite->UserEmail();
+	
+	
+	function urltail($url){
+		return parse_url($url, PHP_URL_FRAGMENT);
+	}
+	
+	function parseDate($date){
+		if($date == null || trim($date) == ''){
+				return null;
+		}
+		else{
+			return DateTime::createFromFormat('M/d/Y', trim($date));
+		}
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,6 +69,16 @@
 		<!--[if IE 6]>
 		<link rel="stylesheet" type="text/css" href="css/iecss.css" />
 		<![endif]-->
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+									<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+									<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+									<link rel="stylesheet" href="/resources/demos/style.css">
+									<script>
+									$(function() {
+									$( "#start_datepicker" ).datepicker();
+									$("#end_datepicker").datepicker();
+									});
+									</script>
 	</head>
 	<body>
 
@@ -49,58 +99,31 @@
 		<div id="middle_box">
 			<div class="middle_box_content">
 						<font size="5" color="black"> Visualization Search Criteria</font></br></br></br>		
-							<!--here starts-->
-						<head> 
-						<link rel="stylesheet" href="css/styleDrop.css">
-						<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-						<script type="text/javascript" src="scripts/dropdown.js"></script>
-						<script type="text/javascript">
-							$(document).ready(function()
-							{
-								$.getJSON("json/dropdownlists.txt",function(obj)
-							   {
-									 $.each(obj.abstractions,function(key,value)
-									 {
-										var option = $('<option />').val(value.abstractionName).text(value.abstractionName);
-										$("#ddAbstract").append(option);
-									 });
-								});
-							});
-						</script>
-						</head>
-						<!--ends here-->
-								<body>
+				
+					
+									<form action="SpecifyCriteriaRegularUser.php" method="post">
+										<input type="hidden" name="submitted" value="true">
 								<table>
 									<tr>
 										<td>
-										<select id="ddAbstract" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Abstractions</option>
+										<select name="viewURI" id="ddAbstract" style="width:100%">
+										<option value="any" selected>Any Abstraction</option>
+										<?php foreach($abstractions as $abstraction)
+											echo '<option value="'. $abstraction . '">'. urltail($abstraction) .'</option>';
+										 ?>
+										
 										</select>
 										</td>
 										<td style="width:250px"> </td>
 										<td>
 											<html lang="en">
-								<head>
-									<meta charset="utf-8">
-									<title>jQuery UI Datepicker - Default functionality</title>
-									<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-									<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-									<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-									<link rel="stylesheet" href="/resources/demos/style.css">
-									<script>
-									$(function() {
-									$( "#start_datepicker" ).datepicker();
-									$("#end_datepicker").datepicker();
-									});
-									</script>
-								</head>
-								<body>
+								
+					
 									<p>
-									Start Date: <input type="text" id="start_datepicker"></br></br>
-									End Date: <input type="text" id="end_datepicker">
+									Start Date: <input name="startDate" type="text" id="start_datepicker"></br></br>
+									End Date: <input name="endDate" type="text" id="end_datepicker">
 									</p> 
-								</body>
-							</html>
+							
 							
 							</td>
 							</br></br></br>
@@ -108,51 +131,49 @@
 							<tr style = "height:100px"></tr>
 							<tr>
 								<td>
-									<select id="ddInputURL" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Input URL</option>
+									<select name="inputURL" id="ddInputURL" style="width:100%">
+										<option value="any" selected>Any Input URL</option>
+										<?php foreach($inputURLs as $inputURL)
+											echo '<option value="'. $inputURL . '">'. $inputURL .'</option>';
+										 ?>
 									</select>
 								</td>
 								<td></td>
 								<td>
-									<select id="ddviewSet" style="width:100%">
-										<option value="" disabled selected style='display:none;'>View Set</option>
+									<select name="viewerSetURI" id="ddviewSet" style="width:100%">
+										<option value="any" selected>Any Viewer Set</option>
+										<?php foreach($viewerSets as $viewerSet)
+											echo '<option value="'. $viewerSet . '">'. urltail($viewerSet) .'</option>';
+										 ?>
 									</select>
 								</td>
 							</tr>
 							<tr style = "height:100px"></tr>
 							<tr>	
 								<td>
-									<select id="ddSourceFormat" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Source Format</option>
+									<select name="formatURI" id="ddSourceFormat" style="width:100%">
+										<option value="any" selected>Any Source Format</option>
+										<?php foreach($inputFormats as $inputFormat)
+											echo '<option value="'. $inputFormat . '">'. urltail($inputFormat) .'</option>';
+										 ?>
 									</select>
 								</td>
 								<td style= "width:250px"></td>
 								<td>	
-									<select id="ddSourceType" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Source Type</option>
+									<select name="typeURI" id="ddSourceType" style="width:100%">
+										<option value="any" selected>Any Source Type</option>
+										<?php foreach($inputTypes as $inputType)
+											echo '<option value="'. $inputType . '">'. urltail($inputType) .'</option>';
+										 ?>
 									</select>
 								</td>
 							</tr>		
 								</table>	
-								</body>
-							</html>
+								
 							</br></br>
 							
 							
-				<html>
-					<head>
-					
-						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-						<script>
-						var $jq = jQuery.noConflict();  
-							$jq(document).ready(function() {
-							$jq('#resultsTbl').hide(); //Initially form will be hidden
-							$jq('#button_id').click(function() {
-							$jq('#resultsTbl').show();//Form shows on button click
-							});
-							});
-						</script>
-					</head>
+		
 					<body> 
 						<div style = "float:right;">
 							<button id = "button_id">Search</button>
@@ -167,23 +188,28 @@
 								Click on any visualization to see details.
 				
 								<table  border = "1" style=	"width:600px; height:100px" >
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-								</tr>
+								<?php 
+										if(isset ($queryResults)){
+											$counter = 0;
+											foreach($queryResults as $result){
+												list($pipelineID, $normal, $resultURL) = $result;
+											
+												if($counter % 3 == 0)
+													echo '<tr>';
+												
+												echo '<td><a href="ViewDetailsRegularUser.php?pid=' . $pipelineID .'"><img style="width:50px;height:50px;" src="'. $resultURL .'"/></a></td>';	
+													
+												if($counter % 3 == 0)
+													echo '</tr>';
+													
+												$counter = $counter + 1;
+											}
+										}
+			
+								 ?>
 								</table>
 						</p>
+						</form>
 					</body>	
 				</html>	
 				</div>

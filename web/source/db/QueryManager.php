@@ -63,6 +63,7 @@
 			}
 		}
 
+
 		
 		/**
 		* Updates a query object that is already in the database (valid id).
@@ -257,5 +258,193 @@
 			}
 
 		}
+
+		public function getUserInputURLs($uid){
+			$conn = $this->getConnection();
+
+			if(!($stmt = $conn->prepare("
+			SELECT DISTINCT artifactURL
+			FROM Queries
+			WHERE userID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param("i", $uid);
+				
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					$stmt->bind_result($row);	
+				
+					$data = [];
+					while($stmt->fetch()){
+						if($row != null){
+							$data[] = $row;
+						}
+					}
+					$stmt->close();
+					return $data;
+				}
+			}
+
+		}
+		
+		public function getUserInputTypes($uid){
+			$conn = $this->getConnection();
+
+			if(!($stmt = $conn->prepare("
+			SELECT DISTINCT typeURI
+			FROM Queries
+			WHERE userID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param("i", $uid);
+				
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					$stmt->bind_result($row);	
+				
+					$data = [];
+					while($stmt->fetch()){
+						if($row != null){
+							$data[] = $row;
+						}
+					}
+					$stmt->close();
+					return $data;
+				}
+			}
+
+		}
+
+		public function getUserInputFormats($uid){
+			$conn = $this->getConnection();
+
+			if(!($stmt = $conn->prepare("
+			SELECT DISTINCT formatURI
+			FROM Queries
+			WHERE userID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param("i", $uid);
+				
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					$stmt->bind_result($row);	
+				
+					$data = [];
+					while($stmt->fetch()){
+						if($row != null){
+							$data[] = $row;
+						}
+					}
+					$stmt->close();
+					return $data;
+				}
+			}
+
+		}
+	
+	public function getUserAbstractions($uid){
+			$conn = $this->getConnection();
+
+			if(!($stmt = $conn->prepare("
+			SELECT DISTINCT viewURI
+			FROM Queries
+			WHERE userID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param("i", $uid);
+				
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					$stmt->bind_result($row);	
+				
+					$data = [];
+					while($stmt->fetch()){
+						if($row != null){
+							$data[] = $row;
+						}
+					}
+					$stmt->close();
+					return $data;
+				}
+			}
+
+		}
+	
+	public function getUserViewerSets($uid){
+			$conn = $this->getConnection();
+
+			if(!($stmt = $conn->prepare("
+			SELECT DISTINCT viewerSetURI
+			FROM Queries
+			WHERE userID = ?"))){
+				$this->handlePrepareError($conn);
+			}else{
+				$stmt->bind_param("i", $uid);
+				
+				if(!$stmt->execute()){
+					$this->handleExecuteError($stmt);
+				}else{
+					$stmt->bind_result($row);	
+				
+					$data = [];
+					while($stmt->fetch()){
+						if($row != null){
+							$data[] = $row;
+						}
+					}
+					$stmt->close();
+					return $data;
+				}
+			}
+
+		}
+
+	public function searchUserQueries($uid, $typeURI=null, $formatURI=null, $viewURI=null, $viewerSetURI=null,
+		$inputURL=null, $startDate=null, $endDate=null){
+		$conn = $this->getConnection();
+
+		if(!($stmt = $conn->prepare("
+			SELECT Pipelines.id, PipelineStatuses.completedNormally, PipelineStatuses.resultURL
+			FROM (Queries JOIN Pipelines ON Queries.id = Pipelines.queryID) JOIN
+				PipelineStatuses ON PipelineStatuses.pipelineID = Pipelines.id
+			WHERE Queries.userID = ?
+			AND (? IS NULL OR Queries.typeURI = ?)
+			AND (? IS NULL OR Queries.formatURI = ?)
+			AND (? IS NULL OR Queries.viewURI = ?)
+			AND (? IS NULL OR Queries.viewerSetURI = ?)
+			AND (? IS NULL OR Queries.dateSubmitted > FROM_UNIXTIME(?))
+			AND (? IS NULL OR Queries.dateSubmitted < FROM_UNIXTIME(?))
+			AND (? IS NULL OR Queries.artifactURL = ?)"))){
+				$this->handlePrepareError($conn);
+		}else{
+			$startDate = ($startDate == null) ? null : $startDate->getTimestamp();
+			$endDate = ($endDate == null) ? null : $endDate->getTimestamp();
+
+			$stmt->bind_param("issssssssssssss", 
+				$uid, $typeURI, $typeURI, $formatURI, $formatURI,
+				$viewURI, $viewURI, $viewerSetURI, $viewerSetURI,
+				$startDate, $startDate, $endDate, $endDate, $inputURL,
+				$inputURL);
+			
+			if(!$stmt->execute()){
+				$this->handleExecuteError($stmt);
+			}else{
+				$stmt->bind_result($pipelineID, $completedNormally, $resultURL);	
+			
+				$data = [];
+				while($stmt->fetch()){
+					$data[] = [$pipelineID, $completedNormally, $resultURL];
+				}
+				$stmt->close();
+				return $data;
+			}
+		}
+
 	}
+}
 

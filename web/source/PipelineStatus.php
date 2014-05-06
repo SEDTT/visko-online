@@ -38,6 +38,7 @@ require_once 'viskoapi/ViskoPipelineStatus.php';
 			}else{
 				$this->dateExecuted = $dateExecuted;
 			}
+
 			$vps = new ViskoPipelineStatus();
 
 			$vps->init($completedNormally, $resultURL, $serviceIndex);

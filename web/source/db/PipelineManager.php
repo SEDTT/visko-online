@@ -281,8 +281,8 @@
 				if(!$stmt->execute()){
 					$this->handleExecuteError($stmt);
 				}else{
-					if($stmt->num_rows != 1)
-						return null;
+					//if($stmt->num_rows != 1)
+					//	throw new ManagerException("More than one result");
 
 					$stmt->bind_result(
 						$id, $resultURL, 
@@ -300,8 +300,8 @@
 						$completedNormally,
 					 	$resultURL,
 				 		$serviceIndex,
-						$id,
-						$dateExecuted
+						new DateTime($dateExecuted),
+						$id
 					);
 
 					$stmt->close();

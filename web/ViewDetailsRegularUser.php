@@ -1,19 +1,27 @@
 <?php
-/*	require_once("./include/membersite_config.php");
+	require_once("./include/membersite_config.php");
+	require_once "source/db/QueryManager.php";
+	require_once "source/db/PipelineManager.php";
+	
 	if(!$fgmembersite->CheckLogin()){
 		$fgmembersite->RedirectToURL("index.php");
 		exit;
 	}
-*/	
+
+	$nameOfPerson = $fgmembersite->UserEmail();
+	
+	$qm = new QueryManager();
+	$pm = new PipelineManager();
+
+	$pipeline = $pm->getPipelineByID($_GET['pid']);
+	$pipelineStatus = $pm->getPipelineStatusForPipeline($pipeline);
 
 	
-	if(isset($_POST['submitted'])){
-		/*if($fgmembersite->RegisterUser()){
-			$fgmembersite->RedirectToURL("thank-you.html");
-		}*/
-	}
+	$query = $qm->getQueryByID($pipeline->getQueryID());
 	
-	/*$nameOfPerson = $fgmembersite->UserEmail();*/
+	function urltail($url){
+		return parse_url($url, PHP_URL_FRAGMENT);
+	}
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -52,7 +60,7 @@
 				<font size="5" color="black"> Search Results Details</font></br></br></br>
 				
 				<div align="center" style="width:500px;height:200px;border:1px solid black;margin:0 auto;">
-				TEST
+				<img style="height:198px" src="<?php echo $pipelineStatus->getResultURL() ?>"/>
 				</div>
 				</br>
 				<hr>
@@ -77,34 +85,42 @@
 								</td>
 							</tr>
 							<tr>
-								<td><p><center> 12 </p></td>
-								<td><p><center> Isosurfaces </p></td>
-								<td><p><center> JPEG </p></td>
-								<td><p><center> Date/Time </p></td>
+								<td><p><center> <?php echo $pipeline->getID(); ?></p></td>
+								<td><p><center> <?php echo urltail($pipeline->getViewURI());?> </p></td>
+								<td><p><center> <?php echo urltail($pipeline->getOutputFormat());?></p></td>
+								<td><p><center> <?php echo $pipelineStatus->getDateExecuted()->format('Y-M-d'); ?> </p></td>
 							</tr>
 						</table>
 						</td>
 					</tr>
 					<tr style = "height:200px">	
 						<td>
-						<div>
-							Service 1</br></br>
- 								<p>&emsp;&emsp;<label for="param1">Parameters 1 =</label></p></br>
-								<p>&emsp;&emsp;<label for="param1">Parameters 2 =</label></p></br>
-								<p>&emsp;&emsp;<label for="param1">Parameters 3 =</label></p></br>
-							Service 2</br></br>
- 								<p>&emsp;&emsp;<label for="param1">Parameters 4 =</label></p></br>
-							Service 3</br></br>
- 								<p>&emsp;&emsp;<label for="param1">Parameters 5 =</label></p></br>
-								<p>&emsp;&emsp;<label for="param1">Parameters 6 =</label></p></br>
-						</div>
+							<table align="center">
+								<thead>
+									<tr>
+										<td>Parameter</td>
+										<td>Value</td>
+									</tr>
+								</thead>
+								<tbody>
+								<?php 
+									foreach($query->getParameterBindings() as $param => $value){
+										echo '<tr>';
+										echo '<td>'. urltail($param) .'</td>';
+										echo '<td>' . $value . '</td>';
+										echo '</tr>';
+									}
+								?>
+								</tbody>
+							</table>
+						
 						<td>
 					</tr>
 				</table>			
 				<hr>
 				<font size="4" color="black"> Responsible Query</font></br></br>
 				<div align="center" style="width:500px;height:200px;border:1px solid black;margin:0 auto;">
-				TEST
+				 <textarea style="width:500px;height:200px;"><?php echo $query->getQueryText() ?></textarea>
 				</div>
 				</br></br></br>
 				
