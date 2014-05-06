@@ -6,9 +6,7 @@
 	}
 	
 	if(isset($_POST['submitted'])){
-		/*if($fgmembersite->RegisterUser()){
-			$fgmembersite->RedirectToURL("thank-you.html");
-		}*/
+		$qry = $fgmembersite->searchUser();
 	}
 	
 	$nameOfPerson = $fgmembersite->UserEmail();
@@ -56,83 +54,82 @@
 						</head>
 						<!--ends here-->
 								<body>
-								<table>
-									<tr>
-										<td>
-											User Email<br>
-											<input type="text" id="UserEmail" size="40">
-										</td>
-										<td style="width:100px"> </td>
-										<td>
-											<html lang="en">
-								<head>
-									<meta charset="utf-8">
-									<title>jQuery UI Datepicker - Default functionality</title>
-									<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-									<script src="//code.jquery.com/jquery-1.9.1.js"></script>
-									<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-									<link rel="stylesheet" href="/resources/demos/style.css">
-									<script>
-									$(function() {
-									$( "#start_datepicker" ).datepicker();
-									$("#end_datepicker").datepicker();
-									});
-									</script>
-								</head>
-								<body>
-									<p>
-									Start Date: <input type="text" id="start_datepicker"></br></br>
-									End Date: <input type="text" id="end_datepicker">
-									</p> 
-								</body>
-							</html>
-							
-							</td>
-							</br>
-							</tr>
-							<tr style = "height:25px"></tr>
-							<tr>
-								<td>
-									FirstName<br>
-									<input type="text" id="FirstName" size="40">
-								</td>
-								<td></td>
-								<td>
-									<select id="ddAccountStatus" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Account Status</option>
-									</select>
-								</td>
-							</tr>
-							<tr style = "height:25px"></tr>
-							<tr>	
-								<td>
-									Last Name<br>
-									<input type="text" id="LastName" size="40">
-								</td>
-								<td style= "width:250px"></td>
-								<td>	
-									<select id="ddAffiliation" style="width:100%">
-										<option value="" disabled selected style='display:none;'>Affiliation</option>
-									</select>
-								</td>
-							</tr>		
-								</table>	
+									<form action="./SearchUsers.php" method="POST" accept-charset='UTF-8'>
+										<table>
+												<tr>
+													<td>
+														User Email<br>
+														<input type="text" name="U_email" id="U_email" size="40">
+													</td>
+													<td style="width:100px"> </td>
+													<td>
+												<html lang="en">
+												<head>
+													<meta charset="utf-8">
+													<title>jQuery UI Datepicker - Default functionality</title>
+													<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+													<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+													<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+													<link rel="stylesheet" href="/resources/demos/style.css">
+													<script>
+													$(function() {
+														$( "#start_datepicker" ).datepicker();
+														$("#end_datepicker").datepicker();
+													});
+													</script>
+												</head>
+												<body>
+													<p>
+													Start Date: <input type="text" id="start_datepicker"></br></br>
+													End Date: <input type="text" id="end_datepicker">
+													</p> 
+												</body>
+											</html>
+											
+											</td>
+											</br>
+											</tr>
+											<tr style = "height:25px"></tr>
+											<tr>
+												<td>
+													FirstName<br>
+													<input type="text" name="U_first" id="U_first" size="40">
+												</td>
+												<td></td>
+												<td>
+													<select id="ddAccountStatus" style="width:100%">
+														<option value="" disabled selected style='display:none;'>Account Status</option>
+													</select>
+												</td>
+											</tr>
+											<tr style = "height:25px"></tr>
+											<tr>	
+												<td>
+													Last Name<br>
+													<input type="text" name="U_last" id="U_last" size="40">
+												</td>
+												<td style= "width:250px"></td>
+												<td>	
+													<select id="ddAffiliation" style="width:100%">
+														<option value="" disabled selected style='display:none;'>Affiliation</option>
+													</select>
+												</td>
+											</tr>		
+										</table>
+									</form>
 								</body>
 							</html>
 							</br></br>
-							
-							
 				<html>
 					<head>
-					
 						<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 						<script>
 						var $jq = jQuery.noConflict();  
 							$jq(document).ready(function() {
 							$jq('#resultsTbl').hide(); //Initially form will be hidden
-							$jq('#button_id').click(function() {
-							$jq('#resultsTbl').show();//Form shows on button click
-							});
+								$jq('#button_id').click(function() {
+									$jq('#resultsTbl').show();//Form shows on button click
+								});
 							});
 						</script>
 					</head>
@@ -156,22 +153,23 @@
 									<td align="center">Last Name</td>
 									<td align="center">Affiliation</td>
 								</tr>
+								<?PHP
+									//$qry = $fgmembersite->searchUser();
+									
+									//$qry = "SELECT * FROM cs4311team3sp14.User WHERE U_email = '" . $_REQUEST['U_email'] . "' OR U_first = '" . $_REQUEST['U_first'] . "' OR U_last = '" . $_REQUEST['U_last'] ."'";
+									$qry = "SELECT * FROM cs4311team3sp14.user WHERE U_email = '" . $_POST['U_email']. "';";
+									echo "query: " . $qry;
+									while(!$row = mysql_query($qry, mysql_connect('localhost', 'root', 'sk@t3low1432'))){
+								?>
 								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td><?PHP $row['U_reg_date'] ?></td>
+									<td><?PHP $row['U_confirmed'] ?></td>
+									<td><?PHP $row['U_first'] ?></td>
+									<td><?PHP $row['U_last'] ?></td>
+									<td><?PHP $row['U_affiliation'] ?></td>
 									<td align="center"><button id = "button_id">Toggle</button></td>
 								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
-									<td align="center"><button id = "button_id">Toggle</button></td>
-								</tr>
+								<?PHP }?>
 								</table>
 						</p>
 					</body>	
