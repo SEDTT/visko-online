@@ -3,7 +3,7 @@
 	$emailsent = false;
 	if(isset($_POST['submitted'])){
 		if($fgmembersite->EmailResetPasswordLink()){
-			//$fgmembersite->RedirectToURL("reset-pwd-link-sent.html");
+			$fgmembersite->RedirectToURL("index.php");
 			exit;
 		}
 	}
@@ -59,8 +59,8 @@
 							frmvalidator.EnableOnPageErrorDisplay();
 							frmvalidator.EnableMsgsTogether();
 
-							frmvalidator.addValidation("email", "req",   "Please provide the email address used to sign-up");
-							frmvalidator.addValidation("email", "email", "Please provide the email address used to sign-up");
+							frmvalidator.addValidation("email", "req",   "Please provide the email address used to sign-in");
+							frmvalidator.addValidation("email", "email", "Please provide the email address used to sign-in");
 							// ]]>
 						</script>
 					</div>

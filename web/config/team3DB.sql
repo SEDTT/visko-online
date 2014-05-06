@@ -1,12 +1,9 @@
-
 -- Hopefully this will be the future refactored version of User table
 -- or at least hacked to share ids
 -- CREATE TABLE IF NOT EXISTS `Users`(
 --	id int(11) NOT NULL AUTO_INCREMENT,
 --	PRIMARY KEY (`id`)
 -- ) ;
-
-
 
 CREATE TABLE IF NOT EXISTS User(
 	U_id INT NOT NULL AUTO_INCREMENT,
@@ -20,6 +17,8 @@ CREATE TABLE IF NOT EXISTS User(
 	U_affiliation CHAR(255) DEFAULT 'N/A',
 	PRIMARY KEY(U_id, U_email)
 );
+
+INSERT INTO User(U_email, U_first, U_last, U_pwd, U_reg_user, U_affiliation) VALUES('');
 
 -- hack to use legacy user code without depending too much on legacy table 
 CREATE VIEW `Users` AS SELECT U_id AS id FROM `User`;
@@ -69,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `ViewerSets` (
   `URI` varchar(1024) NOT NULL,
    PRIMARY KEY  (`id`)
 );
-
 
 CREATE TABLE IF NOT EXISTS `PipelineServices` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -167,7 +165,6 @@ CREATE TABLE IF NOT EXISTS InputDataURLErrors(
 	`datasetURL` varchar (1024) NOT NULL,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`parentID`) REFERENCES PipelineErrors(id) ON DELETE CASCADE
-
 );
 
 CREATE TABLE IF NOT EXISTS `QueryErrors` (
@@ -193,7 +190,6 @@ CREATE TABLE IF NOT EXISTS `NoPipelineResultsErrors`(
 	FOREIGN KEY(`parentID`) REFERENCES QueryErrors(id) ON DELETE CASCADE
 );
 
-
 CREATE TABLE IF NOT EXISTS `MalformedURIErrors` (
 	`id` int(11) NOT NULL AUTO_INCREMENT,
 	`parentID` int(11) NOT NULL,
@@ -201,7 +197,6 @@ CREATE TABLE IF NOT EXISTS `MalformedURIErrors` (
 	PRIMARY KEY(`id`),
 	FOREIGN KEY (`parentID`) REFERENCES QueryErrors(id) ON DELETE CASCADE
 );
-
 
 
 INSERT INTO ViewerSets (URI)
