@@ -67,10 +67,19 @@ function updateExecutionTable(pipelineID, pipeStatus, error){
 		statusCell.innerHTML = 'Running Service #' + pipeStatus.serviceIndex;
 	}else if(pipeStatus.pipelineState == 'COMPLETE'){
 		statusCell.innerHTML = '';
+		var visLink = document.createElement("a");
 		var visImg = document.createElement("img");
 		visImg.src = pipeStatus.resultURL;
+		visLink.href = visImg.src;
 		visImg.width = 150;
+		visLink.appendChild(visImg);
+		
+		statusCell.appendChild(visLink);
 		statusCell.appendChild(visImg);
+
+		visImg.onclick = function(){
+			  window.open("ViewResult.php?img="+visImg.src+"&id="+pipelineID);  
+		};
 	}
 }
 

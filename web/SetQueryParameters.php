@@ -69,7 +69,7 @@
 				document.getElementById("ddviewURI").disabled = false;
 				document.getElementById("ddViewerSet").disabled = false;
 				document.getElementById("ddInputDataURL").disabled = false;
-				document.getElementById("queryText").disabled = false;
+				//document.getElementById("queryText").disabled = false;
 				//document.getElementById("submitButton").disabled = true;
 				
 				document.getElementById("ddInputDataFormat").selectedIndex = 0;
@@ -79,7 +79,7 @@
 				document.getElementById("ddviewURI").selectedIndex = 0;
 				document.getElementById("ddViewerSet").selectedIndex = 0;
 				document.getElementById("ddInputDataURL").value = "";
-				document.getElementById("queryText").value = "";
+				//document.getElementById("queryText").value = "";
 				
 				//bindings = new Array();
 			}
@@ -93,7 +93,7 @@
 				document.getElementById("ddInputDataFormat").disabled = false;
 				document.getElementById("ddViewerSet").disabled = false;
 				document.getElementById("ddInputDataURL").disabled = false;
-				document.getElementById("queryText").disabled = false;
+				//document.getElementById("queryText").disabled = false;
 				//document.getElementById("submitButton").disabled = false;
 				
 				format = document.getElementById("ddInputDataFormat").value;
@@ -189,7 +189,7 @@
 						query = query + "\tAND " + parameter + " = " + parameterValue + "\n";
 					
 					}		
-					document.getElementById("queryText").value = query;
+					//document.getElementById("queryText").value = query;
 				}
 			}
 			
@@ -334,24 +334,26 @@
 						</tr>
 						<tr>
 							<td><form name="myform" action= "SelectPipelines.php" method="post">
-								<input type="hidden" name="format" id="formatInput"/> <br />
-								<input type="hidden" name="type" id="typeInput"/> <br />
-								<input type="hidden" name="view" id="viewInput"/> <br />
-								<input type="hidden" name="viewerSet" id="viewerSetInput"/> <br />
-								<input type="hidden" name="artifactURL" id="artifactURLInput"/> <br />
+								<input type="hidden" name="format" id="formatInput"/>
+								<input type="hidden" name="type" id="typeInput"/>
+								<input type="hidden" name="view" id="viewInput"/>
+								<input type="hidden" name="viewerSet" id="viewerSetInput"/>
+								<input type="hidden" name="artifactURL" id="artifactURLInput"/>
 								<center><input name="Submit" value="submit" type="submit" onClick="writeQuery()" /></center>
 								</form>
 							</td>
 						</tr>
-						</table>
-						<form action="ViskoServletManager">
-						<input type="hidden" name="requestType" value="execute-query" /> 	<table style="width: 1023px; ">
+						</table><!--
+						<form action="ViskoServletManager" type="hidden">
+						<input type="hidden" name="requestType" value="execute-query" /> 	
+						<table style="width: 1023px; " type="hidden">
 						<tr><td colspan="2"><h2>VisKo  Query</h2></td></tr>
 						<tr>
-							<td style="width: 996px; " colspan="2" align="right"><textarea style="width: 989px; height: 152px; background-color: #AFEEEE" id="queryText" name="query"></textarea></td>
+							<td style="width: 996px; " type="hidden" colspan="2" align="right">
+							<textarea type="hidden" style="width: 989px; height: 152px; background-color: #AFEEEE" id="queryText" name="query"></textarea></td>
 						</tr>
 						</form>
-						</table>
+						</table>-->
 						</body>
 					</html>
 			</div>

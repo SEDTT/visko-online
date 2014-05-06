@@ -174,9 +174,9 @@
 },
 {
 "inputDataTypeName":
-"d18",
+"d19",
 "inputDataTypeURI":
-"http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#d18"
+"http://rio.cs.utep.edu/ciserver/ciprojects/CrustalModeling/CrustalModeling.owl#d19"
 },
 {
 "inputDataTypeName":

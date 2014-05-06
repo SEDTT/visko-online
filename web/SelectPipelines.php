@@ -38,15 +38,15 @@
 	//generate pipeline and store in database
 	//TODO prettier error thing.
 	$pipes = [];
-	try{
+	/*try{
 
 		$pipes = generatePipelines($query);
 	}catch(Error $e){
-		echo 'Error encountered <br>';
-		var_dump($e);
-	}
+		//echo $e->getMessage();
+		//var_dump($e);
+	}*/
 	
-	$groupedPipelines = Pipeline::groupPipelinesByToolkit($pipes);
+	//$groupedPipelines = Pipeline::groupPipelinesByToolkit($pipes);
 	
 ?>
 
@@ -97,10 +97,24 @@
 								$( "#accordion" ).accordion();
 								});
 							</script>
+
 						</head>
 						<body>
 						<table style="width:100%">	
 						<tr>
+							<?php
+								try{
+
+									$pipes = generatePipelines($query);
+								}catch(Error $e){ ?>
+									<script>
+										alert( "<?php echo $e->getMessage() ?>");
+										window.location.href='ChooseQueryStyle.php';
+									</script>
+									<?php
+								}
+								$groupedPipelines = Pipeline::groupPipelinesByToolkit($pipes);
+							?>
 							<td><h3>Select Pipelines</h3></td>
 							<td>&nbsp;&nbsp;&nbsp;&nbsp;</td>
 							<td><h3>Pipeline Execution Queue</h3></td>
