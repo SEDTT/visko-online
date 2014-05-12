@@ -16,19 +16,18 @@ import dtt.visualization.json.GsonFactory;
  * deserializing objects for the Visualization subsystem.
  * 
  * @author awknaust
- *
+ * 
  */
 @SuppressWarnings("serial")
 public abstract class VisualizationServlet extends JsonServlet {
 
 	protected Gson gson;
-	
-	
-	public VisualizationServlet(){
+
+	public VisualizationServlet() {
 		super();
 		this.gson = new GsonFactory().makeGson();
 	}
-	
+
 	@Override
 	protected abstract void doJson(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException;

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 
  * Name avoids a ridiculous conflict with another class.
@@ -6,11 +7,10 @@
  * @author awknaust
  *
  */
-interface JsonCerializable{
+interface JsonCerializable {
 
 	/**
 	 * Convert this Object to its JSON representation
 	 */
 	public function toJson();
-
 }

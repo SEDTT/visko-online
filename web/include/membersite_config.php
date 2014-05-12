@@ -13,10 +13,10 @@ $fgmembersite->SetAdminEmail('user11@user11.com');
 //hostname, user name, password, database name and table name
 //note that the script will create the table (for example, fgusers in this case)
 //by itself on submitting register.php for the first time
-$fgmembersite->InitDB(/*hostname*/'earth.cs.utep.edu',
-                      /*username*/'cs4311team3sp14',
-                      /*password*/'cs4311!cs4311team3sp14',
-                      /*database name*/'cs4311team3sp14',
+$fgmembersite->InitDB(/*hostname*/'localhost',
+                      /*username*/'visko',
+                      /*password*/'visko',
+                      /*database name*/'visko',
                       /*table name*/'User');
 
 //For better security. Get a random string from this link: http://tinyurl.com/randstr

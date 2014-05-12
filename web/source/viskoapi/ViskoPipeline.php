@@ -1,12 +1,14 @@
 <?php
 /**
+ * A record for the object that is received from ViskoBackend. These
+ * are part of the ViskoPipelineSetObject.
+ * 
  * @author awknaust
  */
-
 require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
-		
-class ViskoPipeline implements JsonDeserializable, JsonCerializable{
+
+class ViskoPipeline implements JsonDeserializable, JsonCerializable {
 	
 	/* Actual fields */
 	protected $viewURI;
@@ -19,12 +21,9 @@ class ViskoPipeline implements JsonDeserializable, JsonCerializable{
 	protected $toolkitThatGeneratesView;
 	protected $outputFormat;
 
-	
-	public function init($viewURI, $viewerURI, $toolkitThatGeneratesView,
-		$requiresInputURL, $outputFormat, $services, $viewerSets){
-		#assert(count($services) > 0);
-		#assert(count($viewerSets) > 0);
-
+	public function init($viewURI, $viewerURI, $toolkitThatGeneratesView, $requiresInputURL, $outputFormat, $services, $viewerSets) {
+		// ssert(count($services) > 0);
+		// ssert(count($viewerSets) > 0);
 		$this->viewURI = $viewURI;
 		$this->viewerURI = $viewerURI;
 		$this->services = $services;
@@ -33,81 +32,84 @@ class ViskoPipeline implements JsonDeserializable, JsonCerializable{
 		$this->requiresInputURL = $requiresInputURL;
 		$this->outputFormat = $outputFormat;
 	}
-	
+
 	/**
 	 * Creates a Pipeline object from JSON
-	 * @param string $json json_decoded object representing a pipeline
+	 * 
+	 * @param string $json
+	 *        	json_decoded object representing a pipeline
 	 */
-	public function fromJson($json){
+	public function fromJson($json) {
 		$this->viewURI = $json->viewURI;
 		$this->viewerURI = $json->viewerURI;
 		$this->requiresInputURL = $json->requiresInputURL;
 		$this->toolkitThatGeneratesView = $json->getToolkitThatGeneratesView;
 		$this->outputFormat = $json->getOutputFormat;
-
-		$this->services = array();
-		foreach($json->services as $service){
-			array_push($this->services, $service);
+		
+		$this->services = array ();
+		foreach ( $json->services as $service ) {
+			array_push ( $this->services, $service );
 		}
-
-		$this->viewerSets = array();
-		foreach($json->viewerSets as $viewerSet){
-			array_push($this->viewerSets, $viewerSet);
+		
+		$this->viewerSets = array ();
+		foreach ( $json->viewerSets as $viewerSet ) {
+			array_push ( $this->viewerSets, $viewerSet );
 		}
-
 	}
-	
-	public function toJson(){
-		$jarr = array(
-			'viewURI' => $this->viewURI,
-			'viewerURI' => $this->viewerURI,
-			'services' => $this->services,
-			'viewerSets' => $this->viewerSets,
+
+	public function toJson() {
+		$jarr = array (
+				'viewURI' => $this->viewURI,
+				'viewerURI' => $this->viewerURI,
+				'services' => $this->services,
+				'viewerSets' => $this->viewerSets 
 		);
 		
 		return $jarr;
 	}
 
-	public function getViewURI(){
+	public function getViewURI() {
 		return $this->viewURI;
 	}
 
-	public function getViewerURI(){
+	public function getViewerURI() {
 		return $this->viewerURI;
 	}
 
 	/**
-	 * Get an array of Services that make up this pipeline. Each service is a URL
+	 * Get an array of Services that make up this pipeline.
+	 * Each service is a URL
 	 *
 	 * @return array of strings:
 	 */
-	public function getServices(){
+	public function getServices() {
 		return $this->services;
 	}
 
 	/**
 	 * Get an array of viewersets for this pipeline
+	 * 
 	 * @return array of strings:
 	 */
-	public function getViewerSets(){
+	public function getViewerSets() {
 		return $this->viewerSets;
 	}
 
 	/**
 	 * Get the Toolkit that generates the view (VTK,Paraview,etc.)
 	 */
-	public function getToolkitThatGeneratesView(){
+	public function getToolkitThatGeneratesView() {
 		return $this->toolkitThatGeneratesView;
 	}
 
-	public function getOutputFormat(){
+	public function getOutputFormat() {
 		return $this->outputFormat;
 	}
 
 	/**
-	* Returns boolean to determine if Pipeline requires a inputURL or not.
-	*/
-	public function getRequiresInputURL(){
+	 * Returns boolean to determine if Pipeline requires a inputURL or not.
+	 */
+	public function getRequiresInputURL() {
 		return $this->requiresInputURL;
 	}
 }

@@ -1,61 +1,58 @@
 <?php
-/**
- * @author awknaust
- */
 require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
 require_once 'ViskoPipeline.php';
 require_once 'ViskoQuery.php';
 
-class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
+/**
+ * A record for an object received by the Viskobackend, it is a set of pipelines + the generating query.
+ * Necessary also in order to send a pipeline execution request. (Has no corresponding object in model)
+ *
+ * @author awknaust
+ */
+class ViskoPipelineSet implements JsonDeserializable, JsonCerializable {
 	private $artifactURL;
 	private $pipelines;
 	private $query;
-
-
-	public function __construct(){
-		$this->pipelines = [];
+	public function __construct() {
+		$this->pipelines = [ ];
 	}
-	
-	public function fromJson($result){
-
+	public function fromJson($result) {
 		$this->artifactURL = $result->artifactURL;
-
-		$this->query = new ViskoQuery();
 		
-		$this->query->fromJson($result->query);
+		$this->query = new ViskoQuery ();
 		
-		$this->pipelines = array();
-		foreach ($result->pipelines as $jsonpipe){
-			$pipe = new ViskoPipeline();
-			$pipe->fromJson($jsonpipe);
-			array_push($this->pipelines, $pipe);
+		$this->query->fromJson ( $result->query );
+		
+		$this->pipelines = array ();
+		foreach ( $result->pipelines as $jsonpipe ) {
+			$pipe = new ViskoPipeline ();
+			$pipe->fromJson ( $jsonpipe );
+			array_push ( $this->pipelines, $pipe );
 		}
 	}
-	
-	public function toJson(){
-		
-		$jpipes = array();
-		foreach ($this->pipelines as $pipe){
-			$jpipes[] = $pipe->toJson();
+	public function toJson() {
+		$jpipes = array ();
+		foreach ( $this->pipelines as $pipe ) {
+			$jpipes [] = $pipe->toJson ();
 		}
 		
-		$jarr = array(
-			'artifactURL' => $this->artifactURL,
-			'query' => $this->query->toJson(),
-			'pipelines' => $jpipes
+		$jarr = array (
+				'artifactURL' => $this->artifactURL,
+				'query' => $this->query->toJson (),
+				'pipelines' => $jpipes 
 		);
 		
 		return $jarr;
 	}
-
+	
 	/**
 	 * Adds a pipeline to this pipelineset.
-	 * 
-	 * @param ViskoPipeline $vpipeline
+	 *
+	 * @param ViskoPipeline $vpipeline        	
 	 */
-	public function addPipeline($vpipeline){
-		$this->pipelines[] = $vpipeline; 	
+	public function addPipeline($vpipeline) {
+		$this->pipelines [] = $vpipeline;
 	}
 	
 	/**
@@ -63,48 +60,33 @@ class ViskoPipelineSet implements JsonDeserializable, JsonCerializable{
 	 *
 	 * @return array of Pipeline objects:
 	 */
-	public function getPipelines(){
+	public function getPipelines() {
 		return $this->pipelines;
 	}
 	
 	/**
 	 * Set the pipelineset's generating query.
-	 * @param ViskoQuery $vquery
+	 * 
+	 * @param ViskoQuery $vquery        	
 	 */
-	public function setQuery($vquery){
-		$this->artifactURL = $vquery->getArtifactURL();
+	public function setQuery($vquery) {
+		$this->artifactURL = $vquery->getArtifactURL ();
 		$this->query = $vquery;
-	}
-
-	/**
-	 * Get the pipelineset's generating query
-	 * @return ViskoQuery
-	 */
-	public function getQuery(){
-		return $this->query;
-	}
-
-	/**
-	 * Gets the URL of the input data from the pipelineset
-	 */
-	public function getArtifactURL(){
-		return $this->artifactURL;
 	}
 	
 	/**
-	 * Groups pipelines by their toolkit
+	 * Get the pipelineset's generating query
 	 * 
-	 * @return an associated array of Toolkitname -> pipelines
+	 * @return ViskoQuery
 	 */
-	public function groupPipelinesByToolkit(){
-		$grouped = array();
-		foreach($this->pipelines as $pipe){
-			$tk = parse_url($pipe->getToolkitThatGeneratesView(), PHP_URL_FRAGMENT);
-			if (! array_key_exists($tk, $grouped)){
-				$grouped[$tk] = array();
-			}
-			array_push($grouped[$tk], $pipe);
-		}
-		return $grouped;
+	public function getQuery() {
+		return $this->query;
+	}
+	
+	/**
+	 * Gets the URL of the input data from the pipelineset
+	 */
+	public function getArtifactURL() {
+		return $this->artifactURL;
 	}
 }

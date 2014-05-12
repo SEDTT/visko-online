@@ -12,32 +12,35 @@ public abstract class VisualizationResponse {
 	private String type;
 	protected List<VisualizationError> errors;
 
-	public VisualizationResponse(){
+	public VisualizationResponse() {
 		this.type = this.getClass().getSimpleName();
 		this.errors = new ArrayList<VisualizationError>();
-	}	
-	
+	}
+
 	/**
 	 * Add an error to this response's list of errors.
+	 * 
 	 * @param e
 	 */
-	public void addError(VisualizationError e){
+	public void addError(VisualizationError e) {
 		this.errors.add(e);
 	}
-	
+
 	/**
 	 * Add a collection of errors simultaneously
+	 * 
 	 * @param e
 	 */
-	public void  addErrors(Collection<? extends VisualizationError> e){
+	public void addErrors(Collection<? extends VisualizationError> e) {
 		this.errors.addAll(e);
 	}
-	
+
 	/**
 	 * Get this responses list of errors.
+	 * 
 	 * @return
 	 */
-	public List<VisualizationError> getErrors(){
+	public List<VisualizationError> getErrors() {
 		return this.errors;
 	}
 }

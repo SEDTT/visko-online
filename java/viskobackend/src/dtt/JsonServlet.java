@@ -9,20 +9,25 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.utep.trustlab.visko.sparql.SPARQL_EndpointFactory;
 
-
+/**
+ * Forward requests to JSON and setup the VisKo connection.
+ * @author awknaust
+ *
+ */
 @SuppressWarnings("serial")
 public abstract class JsonServlet extends HttpServlet {
 
-
-	public void init() throws ServletException{
+	public void init() throws ServletException {
 		super.init();
-		
+
 		/* Get the triple store location and set up the Triple Store */
-		String tripleStoreLocation = getServletContext().getInitParameter("visko_location");
+		String tripleStoreLocation = getServletContext().getInitParameter(
+				"visko_location");
 		SPARQL_EndpointFactory.setUpEndpointConnection(tripleStoreLocation);
 	}
-	
-	protected final void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected final void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
@@ -30,14 +35,17 @@ public abstract class JsonServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected final void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected final void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		this.doJson(request, response);
 	}
-	
-	protected abstract void doJson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+
+	protected abstract void doJson(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException;
 }

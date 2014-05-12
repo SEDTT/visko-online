@@ -3,18 +3,18 @@
 /**
 * Partially wrap legacy User code to resemble something object oriented...
 */
-class User{
+class User {
 	protected $id;
 
-	public function __construct($id){
+	public function __construct($id) {
 		$this->id = $id;
 	}
 
-	public function getID(){
+	public function getID() {
 		return $this->id;
 	}
 
-	public function setID($id){
+	public function setID($id) {
 		$this->id = $id;
 	}
 }

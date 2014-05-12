@@ -2,7 +2,15 @@
 require_once 'JsonCerializable.php';
 require_once 'JsonDeserializable.php';
 
-class ViskoQuery implements JsonCerializable, JsonDeserializable{
+/**
+ * A record for the query objects received from ViskoBackend.
+ * Has text (vsql) or alternatively
+ * several fields.
+ * 
+ * @author awknaust
+ *        
+ */
+class ViskoQuery implements JsonCerializable, JsonDeserializable {
 	private $vsql;
 	private $targetFormatURI;
 	private $targetTypeURI;
@@ -12,13 +20,12 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 	private $parameterBindings;
 	private $formatURI;
 	private $typeURI;
-	
-	public function __construct(){
-		
+
+	public function __construct() {
 	}
-	
-	public function init($vsql, $formatURI, $typeURI, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL, $parameterBindings){
-		$this->setQueryText($vsql);
+
+	public function init($vsql, $formatURI, $typeURI, $targetFormatURI, $targetTypeURI, $viewURI, $viewerSetURI, $artifactURL, $parameterBindings) {
+		$this->setQueryText ( $vsql );
 		$this->formatURI = $formatURI;
 		$this->typeURI = $typeURI;
 		$this->targetFormatURI = $targetFormatURI;
@@ -28,86 +35,82 @@ class ViskoQuery implements JsonCerializable, JsonDeserializable{
 		$this->artifactURL = $artifactURL;
 		$this->parameterBindings = $parameterBindings;
 	}
-	
-	public function getQueryText(){
+
+	public function getQueryText() {
 		return $this->vsql;
 	}
-	
-	public function getFormatURI(){
+
+	public function getFormatURI() {
 		return $this->formatURI;
 	}
-	
-	public function getTypeURI(){
+
+	public function getTypeURI() {
 		return $this->typeURI;
 	}
-	
-	public function getArtifactURL(){
+
+	public function getArtifactURL() {
 		return $this->artifactURL;
 	}
-	
-	public function getTargetFormatURI(){
+
+	public function getTargetFormatURI() {
 		return $this->targetFormatURI;
 	}
-	
-	public function getTargetTypeURI(){
+
+	public function getTargetTypeURI() {
 		return $this->targetTypeURI;
 	}
-	
-	public function getViewURI(){
+
+	public function getViewURI() {
 		return $this->viewURI;
 	}
-	
-	public function getViewerSetURI(){
+
+	public function getViewerSetURI() {
 		return $this->viewerSetURI;
 	}
-	
-	public function setQueryText($queryText){
-		$this->vsql = trim($queryText);
+
+	public function setQueryText($queryText) {
+		$this->vsql = trim ( $queryText );
 	}
-	
-	public function getParameterBindings(){
+
+	public function getParameterBindings() {
 		return $this->parameterBindings;
 	}
 
 	/**
-	* When convertig to JSON, simply write text version of self?.
-	* TODO change this to work with parameters?
-	*
-	*/
-	public function toJson(){
-		if($this->vsql != null)
-		{
-		$attrs = array(
-			"type" => "Query",
-			"vsql" => $this->vsql);
-		}
-		else
-		{		
-		$attrs = array(
-			"type" => "Query",
-			"formatURI" => $this->formatURI,
-			"typeURI" => $this ->typeURI,
-			"artifactURL" => $this->artifactURL,
-			"targetTypeURI"=> $this->targetTypeURI,
-			"targetFormatURI"=> $this->targetFormatURI,
-			"viewURI" => $this->viewURI,
-			"viewerSetURI" => $this->viewerSetURI	
-		);
+	 * Convert to JSON using either the query text or the parameters.
+	 */
+	public function toJson() {
+		if ($this->vsql != null) {
+			$attrs = array (
+					"type" => "Query",
+					"vsql" => $this->vsql 
+			);
+		} else {
+			$attrs = array (
+					"type" => "Query",
+					"formatURI" => $this->formatURI,
+					"typeURI" => $this->typeURI,
+					"artifactURL" => $this->artifactURL,
+					"targetTypeURI" => $this->targetTypeURI,
+					"targetFormatURI" => $this->targetFormatURI,
+					"viewURI" => $this->viewURI,
+					"viewerSetURI" => $this->viewerSetURI 
+			);
 		}
 		return $attrs;
 	}
-	
-	public function fromJson($json){
+
+	public function fromJson($json) {
 		$this->vsql = $json->vsql;
 		$this->formatURI = $json->formatURI;
-		$this->typeURI = $json->typeURI;	
+		$this->typeURI = $json->typeURI;
 		$this->targetFormatURI = $json->targetFormatURI;
 		$this->targetTypeURI = $json->targetTypeURI;
 		$this->viewURI = $json->viewURI;
 		$this->viewerSetURI = $json->viewerSetURI;
 		$this->artifactURL = $json->artifactURL;
-
-		//weird php hack to get object fields as assoc array
-		$this->parameterBindings = get_object_vars($json->parameterBindings);	
+		
+		// weird php hack to get object fields as assoc array
+		$this->parameterBindings = get_object_vars ( $json->parameterBindings );
 	}
 }
