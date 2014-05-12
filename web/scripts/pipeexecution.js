@@ -10,6 +10,12 @@ function executionComplete(data, textStatus, jqXHR){
 	//alert(data);
 }
 
+/**
+ * Create a remove button in the execution table.
+ * 
+ * @param pipelineID
+ * @returns {___anonymous357_362}
+ */
 function createButtonNode(pipelineID){
 	var button = document.createElement('button');
 	button.innerHTML = 'Remove';
@@ -19,12 +25,23 @@ function createButtonNode(pipelineID){
 	return button;
 }
 
+/**
+ * Get a node for the loading status image.
+ * @returns {___anonymous566_575}
+ */
 function loadingStatus(){
 	var loadingImg = document.createElement("img");
 	loadingImg.src = "images/loading.gif";
 	return loadingImg;
 }
 
+/**
+ * Update the execution table with new information.
+ * 
+ * @param pipelineID
+ * @param pipeStatus
+ * @param error
+ */
 function updateExecutionTable(pipelineID, pipeStatus, error){
 	var rowName = "pipeExecRow" + pipelineID;
 	var table = document.getElementById("pipeExecTable");
@@ -83,7 +100,12 @@ function updateExecutionTable(pipelineID, pipeStatus, error){
 	}
 }
 
-
+/**
+ * Poll the Pipeline's status by forwarding a request through the php backend.
+ * 
+ * @param pipelineID
+ * @returns {Boolean}
+ */
 function pollStatus(pipelineID){
 	$.getJSON('forwardstatus.php', {'id' : pipelineID}, 
 		function(data, textStatus, jqXHR){
@@ -126,6 +148,10 @@ function pollStatus(pipelineID){
 	return false;
 }
 
+/**
+ * Start Executing a pipeline.
+ * @param pipelineID
+ */
 function startExecution(pipelineID){
 	//use jQuery to tell visko to start execution.
 	$.get('execute.php',
@@ -144,6 +170,13 @@ function runClicked(pipelineID){
 	return false;
 }
 
+/**
+ * Called when user clicks on the remove button for a row in the execution table.
+ * We just remove it from the table and let it keep running.
+ * 
+ * @param pipelineID
+ * @returns {Boolean}
+ */
 function removeClicked(pipelineID){
 	var rowName = "pipeExecRow" + pipelineID;
 	var row = document.getElementById(rowName);
